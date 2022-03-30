@@ -1,10 +1,6 @@
 { config, pkgs, ... }:
 let
-  unstable = import <nixos-unstable> {
-    config = {
-      allowUnfree = true;
-    };
-  };
+  unstable = import <nixos-unstable> {};
 in {
   home = {
     username = "sarvesh";
@@ -70,13 +66,4 @@ in {
       }
     )
   ];
-
-  services = {
-    redshift = {
-      enable = true;
-      provider = "manual";
-      latitude = "19.076090";
-      longitude = "72.877426";
-    };
-  };
 }

@@ -1,4 +1,7 @@
-{ config, lib, pkgs, modulesPath, ... }: {
+{ config, lib, pkgs, modulesPath, ... }:
+let
+  unstable = import <nixos-unstable> {};
+in {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
   fileSystems= {
@@ -23,9 +26,13 @@
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
-    kernelPackages = pkgs.linuxPackages_testing;
+    kernel.sysctl = {
+      "vm.dirty_ratio" = 6;
+      "vm.dirty_background_ratio" = 3;
+      "vm.vfs_cache_pressure" = 50;
+    };
+    kernelPackages = unstable.linuxPackages_zen;
     kernelModules = [ "kvm-amd" ];
-    kernelParams = [ "quiet" "nowatchdog" ];
     initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
   };
 
@@ -122,6 +129,20 @@
     thermald.enable = true;
     fwupd.enable = true;
     auto-cpufreq.enable = true;
+    irqbalance.enable = true;
+    earlyoom.enable = true;
+    ananicy = {
+      enable = true;
+      package = pkgs.ananicy-cpp;
+    };
+    chrony.enable = true;
+  };
+
+  zramSwap = {
+    enable = true;
+    algorithm = "lz4";
+    numDevices = 8;
+    swapDevices = 8;
   };
 
   security = {
