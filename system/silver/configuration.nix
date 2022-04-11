@@ -31,7 +31,7 @@ in {
       "vm.dirty_background_ratio" = 3;
       "vm.vfs_cache_pressure" = 50;
     };
-    kernelPackages = unstable.linuxPackages_zen;
+    kernelPackages = pkgs.linuxPackages_xanmod;
     kernelModules = [ "kvm-amd" ];
     initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
   };
@@ -39,8 +39,8 @@ in {
   hardware = {
     cpu.amd.updateMicrocode = true;
     enableRedistributableFirmware = true;
-    bluetooth.enable = true;
     acpilight.enable = true;
+    bluetooth.enable = true;
     opengl = {
       enable = true;
       driSupport = true;
@@ -57,13 +57,15 @@ in {
       ];
     };
   };
-  
+
   networking = {
     hostName = "silver";
     wireless.iwd.enable = true;
     useDHCP = false;
     interfaces.wlan0.useDHCP = true;
-    nameservers = [ "45.90.28.135" "45.90.30.135" "1.1.1.1" "8.8.8.8" "1.0.0.1" "8.8.4.4" ];
+    dhcpcd.extraConfig = "nohook resolv.conf";
+    resolvconf.enable = lib.mkForce false;
+    nameservers = [ "127.0.0.1" "::1" ];
   };
 
   i18n.defaultLocale = "en_US.UTF-8";
@@ -80,13 +82,13 @@ in {
   users = {
     mutableUsers = false;
     users = {
+      root.hashedPassword = "$6$VQp0iZV1/rrLMDS8$x83C0JxkQ8WedG0pKUrGHxSW4LDWJUTLhb7V.AGZRO2LL3yvN8ATDRGZyiAhQRFtkvNkAybfLydG9a7Gmo40p0";
       sarvesh = {
         isNormalUser = true;
         extraGroups = [ "wheel" "video" ];
         shell = pkgs.fish;
         hashedPassword = "$6$Zwt2/p7axZKbTrAS$TLnZdKjq8D712/Ps1bs2QU2VKVESksTc7cg4t6QDbXKTaA7i5NMJNjcRnwKg6vFVk5qVPO//p8PFniEVfRo8R/";
       };
-      root.hashedPassword = "$6$VQp0iZV1/rrLMDS8$x83C0JxkQ8WedG0pKUrGHxSW4LDWJUTLhb7V.AGZRO2LL3yvN8ATDRGZyiAhQRFtkvNkAybfLydG9a7Gmo40p0";
     };
   };
 
@@ -94,34 +96,13 @@ in {
     neovim = {
       enable = true;
       vimAlias = true;
-      configure.customRC = ''
-        set number
-      '';
+      defaultEditor = true;
     };
     fish.enable = true;
+    dconf.enable = true;
   };
 
   services = {
-    xserver = {
-      enable = true;
-      videoDrivers = [ "amdgpu" ];
-      deviceSection = ''
-        Option "TearFree" "true"
-      '';
-      displayManager.startx.enable = true;
-      desktopManager.xterm.enable = false;
-      windowManager.bspwm.enable = true;
-      libinput = {
-        enable = true;
-        touchpad = {
-          tapping = true;
-          naturalScrolling = true;
-	  disableWhileTyping = true;
-	  accelProfile = "adaptive";
-	  accelSpeed = "0.1";
-        };
-      };
-    };
     pipewire = {
       enable = true;
       pulse.enable = true;
@@ -136,6 +117,9 @@ in {
       package = pkgs.ananicy-cpp;
     };
     chrony.enable = true;
+    gvfs.enable = true;
+    resolved.enable = false;
+    stubby.enable = true;
   };
 
   zramSwap = {
@@ -160,10 +144,11 @@ in {
     noto-fonts-cjk
     noto-fonts-emoji
     font-awesome
+    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
   ];
 
   system = {
-    stateVersion = "21.11"; 
+    stateVersion = "21.11";
     autoUpgrade.enable = true;
   };
 
