@@ -1,10 +1,11 @@
 { config, lib, pkgs, modulesPath, ... }:
 let
-  unstable = import <nixos-unstable> {};
-in {
+  unstable = import <nixos-unstable> { };
+in
+{
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  fileSystems= {
+  fileSystems = {
     "/" = {
       device = "/dev/disk/by-label/nixos";
       fsType = "f2fs";
@@ -19,7 +20,7 @@ in {
     };
   };
 
-  swapDevices = [ { device = "/dev/disk/by-label/swap"; } ];
+  swapDevices = [{ device = "/dev/disk/by-label/swap"; }];
 
   boot = {
     loader = {
@@ -92,7 +93,7 @@ in {
     };
   };
 
-  programs= {
+  programs = {
     neovim = {
       enable = true;
       vimAlias = true;
