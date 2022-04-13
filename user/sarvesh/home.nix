@@ -131,12 +131,12 @@ in
       enable = true;
       loginShellInit = ''
         if test -z "$DISPLAY" -a $XDG_VTNR -eq 1
-        exec sway
+          exec sway
         end
       '';
       shellInit = ''
         set fish_greeting
-        ~/.bin/fetch -c ~/.config/fetch/conf
+        ~/.bin/fetch
       '';
       shellAliases = {
         nixupdate = "sudo nix-channel --update && sudo nixos-rebuild switch";
@@ -169,9 +169,9 @@ in
           pad = "12x12";
         };
         colors = {
-          background = "101010";
+          background = "0a0a0a";
           foreground = "d0d0d0";
-          regular0 = "101010";
+          regular0 = "0a0a0a";
           regular1 = "ac4142";
           regular2 = "90a959";
           regular3 = "f4bf75";
@@ -179,7 +179,7 @@ in
           regular5 = "aa759f";
           regular6 = "75b5aa";
           regular7 = "d0d0d0";
-          bright0 = "505050";
+          bright0 = "1a1a1a";
           bright1 = "ac4142";
           bright2 = "90a959";
           bright3 = "f4bf75";

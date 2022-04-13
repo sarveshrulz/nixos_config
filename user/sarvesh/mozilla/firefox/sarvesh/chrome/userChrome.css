@@ -53,9 +53,9 @@
   
     /* Theme Colour Suggestions
      *                              Dark        Light   */
-    --window-colour:               #1E2021; /* #FAFAFC; */
-    --secondary-colour:            #191B1C; /* #EAEAEC; */
-    --inverted-colour:             #FAFAFC; /* #1E2021; */
+    --window-colour:                #0A0A0A; /* #1E2021; /* #FAFAFC; */
+    --secondary-colour:            #1A1A1A; /* #191B1C; /* #EAEAEC; */
+    --inverted-colour:               #D0D0D0; /* #FAFAFC; /* #1E2021; */
 
      
     /* Containter Tab Colours */
