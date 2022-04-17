@@ -1,0 +1,47 @@
+configuration {
+	font: "Noto Sans Medium 12";
+	me-select-entry: "MouseSecondary";
+	me-accept-entry: "MousePrimary";
+}
+
+window {
+  width: 280;
+}
+
+* {
+  background: #0a0a0a;
+  foreground: #d0d0d0;
+  selected: #a0a0a0;
+}
+
+entry {
+  padding: 12px 12px 0px 12px;
+}
+
+prompt, textbox-prompt-colon, case-indicator {
+  enabled: false;
+}
+
+mainbox, entry, listview, element {
+  background-color: @background;
+  text-color: @foreground;
+}
+
+listview {
+  lines: 4;
+  padding: 12px;
+  spacing: 4px;
+  cycle: false;
+}
+
+element-text selected {
+  background-color: @selected;
+  text-color: @background;
+  border-radius: 4px;
+}
+
+element-text {
+  padding: 6px;
+  background-color: inherit;
+  text-color: inherit;
+}

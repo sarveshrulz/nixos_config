@@ -4,6 +4,7 @@ let
 in
 {
   imports = [
+    ./pkgConfs/dunst.nix
     ./pkgConfs/fish.nix
     ./pkgConfs/firefox.nix
     ./pkgConfs/foot.nix
@@ -18,10 +19,11 @@ in
     stateVersion = "21.11";
     packages = with pkgs; [
       bpytop
+      nixpkgs-fmt
       onlyoffice-bin
       pamixer
+      rofi
       xfce.thunar
-      nixpkgs-fmt
     ];
     file = {
       ".mozilla/firefox/sarvesh/chrome/userChrome.css".source = ./files/mozilla/firefox/sarvesh/chrome/userChrome.css;
@@ -43,6 +45,7 @@ in
     };
     "fish/functions/fish_prompt.fish".source = ./files/config/fish/functions/fish_prompt.fish;
     "fetch/conf".source = ./files/config/fetch/conf;
+    "rofi/apps.rasi".source = ./files/rofi/apps.rasi;
   };
 
   programs = {

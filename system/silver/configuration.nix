@@ -32,7 +32,7 @@ in
       "vm.dirty_background_ratio" = 3;
       "vm.vfs_cache_pressure" = 50;
     };
-    kernelPackages = pkgs.linuxPackages_xanmod;
+    kernelPackages = unstable.linuxPackages_zen;
     kernelModules = [ "kvm-amd" ];
     initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
   };
@@ -45,16 +45,12 @@ in
     opengl = {
       enable = true;
       driSupport = true;
-      driSupport32Bit = true;
       extraPackages = with pkgs; [
         vaapiVdpau
         libvdpau-va-gl
         rocm-opencl-icd
         rocm-opencl-runtime
         amdvlk
-      ];
-      extraPackages32 = with pkgs; [
-        driversi686Linux.amdvlk
       ];
     };
   };
@@ -75,10 +71,7 @@ in
 
   time.timeZone = "Asia/Kolkata";
 
-  environment = {
-    systemPackages = with pkgs; [ dash ];
-    binsh = "${pkgs.dash}/bin/dash";
-  };
+  environment.binsh = "${pkgs.dash}/bin/dash";
 
   users = {
     mutableUsers = false;
@@ -132,9 +125,7 @@ in
     };
   };
 
-  systemd.services.dnscrypt-proxy2.serviceConfig = {
-    StateDirectory = lib.mkForce "dnscrypt-proxy2";
-  };
+  systemd.services.dnscrypt-proxy2.serviceConfig.StateDirectory = lib.mkForce "dnscrypt-proxy2";
 
   zramSwap = {
     enable = true;

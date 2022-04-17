@@ -15,7 +15,7 @@
       }];
       keybindings = {
         "Mod4+Return" = "exec foot";
-        "Mod4+space" = "exec ${pkgs.rofi}/bin/rofi -modi drun -show drun";
+        "Mod4+space" = "exec rofi -no-lazy-grab -show drun -modi drun -theme ~/.config/rofi/apps.rasi";
         "Mod4+q" = "kill";
         "Mod4+Left" = "focus left";
         "Mod4+Down" = "focus down";
@@ -57,7 +57,9 @@
         "Mod4+r" = "mode resize";
         "Mod4+Shift+r" = "restart";
         "Mod4+Shift+q" = "exit";
+        "Mod4+Print" = "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot save screen ~/Pictures/Screenshots/\"screenshot-\$(date +%Y-%m-%d-%s).png\"";
       };
+      focus.followMouse = "always";
       modes = {
         resize = {
           Left = "resize shrink width";
@@ -70,11 +72,14 @@
       };
       floating = {
         modifier = "Mod4";
-        border = 4;
+        border = 0;
       };
       defaultWorkspace = "workspace number 1";
       output."*".background = "/home/sarvesh/Pictures/Wallpapers/default fill";
-      window.border = 4;
+      window.border = 0;
+      startup = [
+        { command = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"; }
+      ];
     };
   };
 }
