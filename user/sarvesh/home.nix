@@ -26,7 +26,6 @@ in
       xfce.thunar
     ];
     file = {
-      ".mozilla/firefox/sarvesh/chrome/userChrome.css".source = ./files/mozilla/firefox/sarvesh/chrome/userChrome.css;
       ".bin/fetch" = {
         executable = true;
         source = ./files/bin/fetch;
