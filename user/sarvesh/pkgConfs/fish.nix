@@ -8,7 +8,7 @@
     '';
     shellInit = ''
       set fish_greeting
-      ~/.bin/fetch
+      sh ${builtins.fetchurl https://raw.githubusercontent.com/Manas140/fetch/main/fetch} -c ${builtins.fetchurl https://raw.githubusercontent.com/Manas140/fetch/main/conf/left} | sed 's||->|g'
     '';
     shellAliases = {
       nixupdate = "sudo nix-channel --update && sudo nixos-rebuild switch";

@@ -11,7 +11,7 @@
         };
       };
       bars = [{
-        command = "${pkgs.waybar}/bin/waybar";
+        command = "waybar";
       }];
       keybindings = {
         "Mod4+Return" = "exec foot";
@@ -54,14 +54,14 @@
         "Mod4+m" = "fullscreen toggle";
         "Mod4+h" = "split h";
         "Mod4+v" = "split v";
-        "Mod4+r" = "mode resize";
+        "Mod4+r" = "mode Resize";
         "Mod4+Shift+r" = "restart";
         "Mod4+Shift+q" = "exit";
         "Mod4+Print" = "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot save screen ~/Pictures/Screenshots/\"screenshot-\$(date +%Y-%m-%d-%s).png\"";
       };
       focus.followMouse = "always";
       modes = {
-        resize = {
+        Resize = {
           Left = "resize shrink width";
           Right = "resize grow width";
           Down = "resize shrink height";

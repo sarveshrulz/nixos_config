@@ -116,9 +116,7 @@ in
     dnscrypt-proxy2 = {
       enable = true;
       settings = {
-        ipv6_servers = true;
         require_dnssec = true;
-        listen_addresses = [ "127.0.0.1:53" "[::1]:53" ];
         server_names = [ "NextDNS-4392bf" ];
         static."NextDNS-4392bf".stamp = "sdns://AgEAAAAAAAAAAAAOZG5zLm5leHRkbnMuaW8HLzQzOTJiZg";
       };
