@@ -63,6 +63,7 @@ in
     dhcpcd.extraConfig = "nohook resolv.conf";
     resolvconf.enable = lib.mkForce false;
     nameservers = [ "127.0.0.1" "::1" ];
+    extraHosts = builtins.readFile (builtins.fetchurl https://hosts.oisd.nl/);
   };
 
   i18n.defaultLocale = "en_US.UTF-8";
@@ -117,8 +118,14 @@ in
       enable = true;
       settings = {
         require_dnssec = true;
-        server_names = [ "NextDNS-4392bf" ];
-        static."NextDNS-4392bf".stamp = "sdns://AgEAAAAAAAAAAAAOZG5zLm5leHRkbnMuaW8HLzQzOTJiZg";
+        sources.public-resolvers = {
+          urls = [
+            "https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/public-resolvers.md"
+            "https://download.dnscrypt.info/resolvers-list/v3/public-resolvers.md"
+          ];
+          cache_file = "/var/lib/dnscrypt-proxy2/public-resolvers.md";
+          minisign_key = "RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3";
+        };
       };
     };
   };

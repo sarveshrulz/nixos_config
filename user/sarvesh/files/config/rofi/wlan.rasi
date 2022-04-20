@@ -16,7 +16,7 @@ window {
 * {
   background: #0a0a0a;
   foreground: #d0d0d0;
-  selected-bg: #1a1a1a;
+  selected-bg: #2a2a2a;
 }
 
 entry {

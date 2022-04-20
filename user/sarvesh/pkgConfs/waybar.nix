@@ -93,7 +93,7 @@
         padding: 0 8px;
       }
       #clock.time {
-        padding-left: 2px;
+        padding-left: 4px;
       }
       #network, #clock {
         border-radius: 4px 0 0 4px;
@@ -109,7 +109,7 @@
         color: #d0d0d0;
       }
       #workspaces button.focused, #workspaces button.focused:hover, #clock.time {
-        background: #1a1a1a;
+        background: #2a2a2a;
       }
       #mode {
         background: #a0a0a0;

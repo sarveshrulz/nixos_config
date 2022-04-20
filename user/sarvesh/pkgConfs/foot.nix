@@ -17,7 +17,7 @@
         regular5 = "aa759f";
         regular6 = "75b5aa";
         regular7 = "d0d0d0";
-        bright0 = "1a1a1a"; #a0a0a0
+        bright0 = "2a2a2a";
         bright1 = "ac4142";
         bright2 = "90a959";
         bright3 = "f4bf75";
