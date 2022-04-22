@@ -1,5 +1,5 @@
 configuration {
-	font: "Noto Sans Medium 12";
+	font: "Noto Sans Semi-bold 11";
 	me-select-entry: "MouseSecondary";
 	me-accept-entry: "MousePrimary";
 	location: 3;
@@ -8,15 +8,14 @@ configuration {
 }
 
 window {
-  width: 300;
+  width: 300px;
   x-offset: -12px;
   y-offset: 58px;
 }
 
 * {
   background: #0a0a0a;
-  foreground: #d0d0d0;
-  selected-bg: #2a2a2a;
+  foreground: #b0b0b0;
 }
 
 entry {
@@ -40,8 +39,8 @@ listview {
 }
 
 element-text selected {
-  background-color: @selected-bg;
-  text-color: @foreground;
+  background-color: @foreground;
+  text-color: @background;
   border-radius: 4px;
 }
 

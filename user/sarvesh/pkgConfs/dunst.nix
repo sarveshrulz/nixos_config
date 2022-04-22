@@ -15,13 +15,13 @@
         separator_color = "#4a4a4a";
       };
       urgency_low = {
-        background = "#2a2a2a";
-        foreground = "#d0d0d0";
+        background = "#0a0a0a";
+        foreground = "#b0b0b0";
         timeout = 3;
       };
       urgency_normal = {
-        background = "#2a2a2a";
-        foreground = "#d0d0d0";
+        background = "#0a0a0a";
+        foreground = "#b0b0b0";
         timeout = 5;
       };
       urgency_critical = {

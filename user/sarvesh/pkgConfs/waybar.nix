@@ -80,7 +80,7 @@
         font-family: "NotoSans", "FontAwesome5Free";
         font-weight: bolder;
         background: transparent;
-        color: #d0d0d0;
+        color: #b0b0b0;
       }
       #workspaces {
         margin-right: 4px;
@@ -92,27 +92,28 @@
       #workspaces button, #custom-power, #network, #pulseaudio, #battery, #clock, #mode, #clock.time, custom-bluetooth {
         padding: 0 8px;
       }
-      #clock.time {
-        padding-left: 4px;
-      }
       #network, #clock {
         border-radius: 4px 0 0 4px;
       }
       #custom-power, #clock.time {
         border-radius: 0 4px 4px 0;
       }
+      #clock.time {
+        padding-left: 4px;
+      }
       #workspaces, #mode {
         border-radius: 4px;
       }
       #workspaces button {
         margin: 4px 0;
-        color: #d0d0d0;
+        color: #b0b0b0;
       }
       #workspaces button.focused, #workspaces button.focused:hover, #clock.time {
-        background: #2a2a2a;
+        background: #b0b0b0;
+        color: #0a0a0a;
       }
       #mode {
-        background: #a0a0a0;
+        background: #b0b0b0;
         color: #0a0a0a;
       }
       #workspaces button:hover, #workspaces button.focused:hover {
