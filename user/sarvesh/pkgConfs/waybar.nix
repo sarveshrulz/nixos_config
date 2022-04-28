@@ -104,9 +104,14 @@
       #workspaces, #mode {
         border-radius: 4px;
       }
-      #workspaces button {
-        margin: 4px 0;
+      #workspaces button, #workspaces button.focused {
+        border-radius: inherit;
         color: #b0b0b0;
+        font-family: inherit;
+        font-weight: inherit;
+        margin: 4px 0;
+        padding: 0;
+        transition: none;
       }
       #workspaces button.focused, #workspaces button.focused:hover, #clock.time {
         background: #b0b0b0;
@@ -115,13 +120,6 @@
       #mode {
         background: #b0b0b0;
         color: #0a0a0a;
-      }
-      #workspaces button:hover, #workspaces button.focused:hover {
-        box-shadow: inherit;
-        text-shadow: inherit;
-        transition: none;
-        border: 0;
-        padding: 0 9px;
       }
       #network.disconnected, #workspaces button.persistent  {
         color: #4a4a4a;

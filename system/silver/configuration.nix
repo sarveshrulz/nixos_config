@@ -102,7 +102,6 @@ in
       enable = true;
       pulse.enable = true;
     };
-    thermald.enable = true;
     fwupd.enable = true;
     auto-cpufreq.enable = true;
     irqbalance.enable = true;

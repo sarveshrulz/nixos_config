@@ -9,6 +9,7 @@ in
     ./pkgConfs/firefox.nix
     ./pkgConfs/foot.nix
     ./pkgConfs/git.nix
+    ./pkgConfs/mpv.nix
     ./pkgConfs/sway.nix
     ./pkgConfs/vscode.nix
     ./pkgConfs/waybar.nix
@@ -19,13 +20,14 @@ in
     homeDirectory = "/home/sarvesh";
     stateVersion = "21.11";
     packages = with pkgs; [
+      bc
       bpytop
+      capitaine-cursors
       nixpkgs-fmt
       onlyoffice-bin
       pamixer
       rofi
       xfce.thunar
-      bc
     ];
   };
 
@@ -58,6 +60,31 @@ in
     "dunst/icons/brightness.png".source = ./files/config/dunst/icons/brightness.png;
     "dunst/icons/muted.png".source = ./files/config/dunst/icons/muted.png;
     "dunst/icons/volume.png".source = ./files/config/dunst/icons/volume.png;
+  };
+
+  dconf.settings."org/gnome/desktop/interface".cursor-theme = "capitaine-cursors-white";
+
+  gtk = {
+    enable = true;
+    font = {
+      name = "Noto Sans";
+      size = 11;
+    };
+    theme = {
+      package = pkgs.materia-theme;
+      name = "Materia-dark-compact";
+    };
+    iconTheme = {
+      package = pkgs.tela-icon-theme;
+      name = "Tela-blue-dark";
+    };
+    gtk3.extraConfig = {
+      gtk-application-prefer-dark-theme = 1;
+      gtk-xft-antialias = 1;
+      gtk-xft-hinting = 1;
+      gtk-xft-hintstyle = "hintslight";
+      gtk-xft-rgba = "rgb";
+    };
   };
 
   programs = {

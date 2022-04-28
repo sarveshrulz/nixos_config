@@ -74,11 +74,14 @@
         modifier = "Mod4";
         border = 0;
       };
+      window.border = 0;
       defaultWorkspace = "workspace number 1";
       output."*".background = "/home/sarvesh/Pictures/Wallpapers/default fill";
-      window.border = 0;
+      seat.seat0.xcursor_theme = "capitaine-cursors-white";
       startup = [
-        { command = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"; }
+        { command = "${pkgs.mate.mate-polkit}/libexec/polkit-mate-authentication-agent-1"; }
+        { command = "${pkgs.wl-clipboard}/bin/wl-paste -t text --watch ${pkgs.clipman}/bin/clipman store"; }
+        { command = "${pkgs.gammastep}/bin/gammastep -l 19:72"; }
       ];
     };
   };
