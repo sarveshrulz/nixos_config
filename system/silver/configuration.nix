@@ -32,7 +32,21 @@ in
       "vm.dirty_background_ratio" = 3;
       "vm.vfs_cache_pressure" = 50;
     };
-    kernelPackages = unstable.linuxPackages_zen;
+    kernelPackages =
+      let
+        linux_clear_pkg = { fetchurl, buildLinux, ... } @ args:
+          buildLinux (args // rec {
+            version = "5.17.5";
+            modDirVersion = version;
+            src = fetchurl {
+              url = "https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.17.5.tar.gz";
+              sha256 = "1snv9xk26xl9zav6drligdg41c2nyxknkr3gf1k67dgchmwv1hj0";
+            };
+            kernelPatches = [ ];
+          } // (args.argsOverride or { }));
+        linux_clear = pkgs.callPackage linux_clear_pkg { };
+      in
+      pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor linux_clear);
     kernelModules = [ "kvm-amd" ];
     initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
   };
@@ -63,7 +77,6 @@ in
     dhcpcd.extraConfig = "nohook resolv.conf";
     resolvconf.enable = lib.mkForce false;
     nameservers = [ "127.0.0.1" "::1" ];
-    extraHosts = builtins.readFile (builtins.fetchurl https://hosts.oisd.nl/);
   };
 
   i18n.defaultLocale = "en_US.UTF-8";
@@ -146,6 +159,7 @@ in
   powerManagement = {
     enable = true;
     powertop.enable = true;
+    cpuFreqGovernor = lib.mkForce "powersave";
   };
 
   fonts.fonts = with pkgs; [

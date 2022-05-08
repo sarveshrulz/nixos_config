@@ -2,14 +2,16 @@
   programs.mpv = {
     enable = true;
     config = {
+      cscale = "ewa_lanczossharp";
+      gpu-context = "wayland";
+      hwdec = "auto";
+      interpolation = true;
       profile = "gpu-hq";
-      vo = "gpu";
-      gpu-api = "vulkan";
-      hwdec = "auto-copy";
-      force-window = true;
-      ytdl-format = "bestvideo+bestaudio";
-      cache-default = 4000000;
       save-position-on-quit = true;
+      scale = "ewa_lanczossharp";
+      tscale = "oversample";
+      video-sync = "display-resample";
+      vo = "gpu";
     };
   };
 }
