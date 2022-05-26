@@ -36,11 +36,12 @@ in
       let
         linux_clear_pkg = { fetchurl, buildLinux, ... } @ args:
           buildLinux (args // rec {
-            version = "5.17.5";
+            stdenv = unstable.clangStdenv;
+            version = "5.17.9";
             modDirVersion = version;
             src = fetchurl {
-              url = "https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.17.5.tar.gz";
-              sha256 = "1snv9xk26xl9zav6drligdg41c2nyxknkr3gf1k67dgchmwv1hj0";
+              url = "https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.17.9.tar.gz";
+              sha256 = "0gyz40c1blphv9lfml7jkq3hiyjicybw8mf5rp71bn9np8qsjidi";
             };
             kernelPatches = [ ];
           } // (args.argsOverride or { }));
