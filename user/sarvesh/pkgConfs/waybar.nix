@@ -7,77 +7,75 @@
       modules-left = [ "sway/workspaces" "sway/mode" ];
       modules-center = [ "clock" "clock#time" ];
       modules-right = [ "network" "pulseaudio" "custom/bluetooth" "battery" "custom/power" ];
-      modules = {
-        "sway/workspaces" = {
-          disable-scroll = true;
-          format = "{icon}";
-          format-icons = {
-            "1" = "I";
-            "2" = "II";
-            "3" = "III";
-            "4" = "IV";
-            "5" = "V";
-            "6" = "VI";
-            "7" = "VII";
-            "8" = "VIII";
-            "9" = "IX";
-            "10" = "X";
-          };
-          persistent_workspaces = {
-            "1" = [ ];
-            "2" = [ ];
-            "3" = [ ];
-            "4" = [ ];
-            "5" = [ ];
-            "6" = [ ];
-            "7" = [ ];
-            "8" = [ ];
-            "9" = [ ];
-            "10" = [ ];
-          };
+      "sway/workspaces" = {
+        disable-scroll = true;
+        format = "{icon}";
+        format-icons = {
+          "1" = "I";
+          "2" = "II";
+          "3" = "III";
+          "4" = "IV";
+          "5" = "V";
+          "6" = "VI";
+          "7" = "VII";
+          "8" = "VIII";
+          "9" = "IX";
+          "10" = "X";
         };
-        "clock" = {
-          format = "{:%a, %d %b %Y}";
-          interval = 3600;
+        persistent_workspaces = {
+          "1" = [ ];
+          "2" = [ ];
+          "3" = [ ];
+          "4" = [ ];
+          "5" = [ ];
+          "6" = [ ];
+          "7" = [ ];
+          "8" = [ ];
+          "9" = [ ];
+          "10" = [ ];
         };
-        "clock#time" = {
-          format = "{:%l:%M %p}";
-          interval = 60;
-        };
-        "network" = {
-          format = " ";
-          on-click = "~/.config/rofi/scripts/rofi-wifi-menu";
-          tooltip = false;
-        };
-        "pulseaudio" = {
-          format = "{icon}";
-          format-muted = "<span color=\"#4a4a4a\"> </span>";
-          format-icons = [ " " " " " " ];
-          on-click = "pamixer -t";
-          tooltip = false;
-        };
-        "battery" = {
-          format = "{icon} {capacity}%";
-          format-charging = " {capacity}%";
-          format-icons = [ "" "" "" "" "" ];
-          tooltip = false;
-        };
-        "custom/power" = {
-          format = "";
-          on-click = "rofi -show power-menu -modi power-menu:~/.config/rofi/scripts/rofi-power-menu -theme ~/.config/rofi/powermenu.rasi";
-          tooltip = false;
-        };
-        "custom/bluetooth" = {
-          exec = "~/.config/rofi/scripts/rofi-bluetooth --status";
-          interval = 1;
-          on-click = "~/.config/rofi/scripts/rofi-bluetooth";
-          tooltip = false;
-        };
+      };
+      "clock" = {
+        format = "{:%a, %d %b %Y}";
+        interval = 3600;
+      };
+      "clock#time" = {
+        format = "{:%l:%M %p}";
+        interval = 60;
+      };
+      "network" = {
+        format = " ";
+        on-click = "~/.config/rofi/scripts/rofi-wifi-menu";
+        tooltip = false;
+      };
+      "pulseaudio" = {
+        format = "{icon}";
+        format-muted = "<span color=\"#4a4a4a\"> </span>";
+        format-icons = [ " " " " " " ];
+        on-click = "pamixer -t";
+        tooltip = false;
+      };
+      "battery" = {
+        format = "{icon} {capacity}%";
+        format-charging = " {capacity}%";
+        format-icons = [ "" "" "" "" "" ];
+        tooltip = false;
+      };
+      "custom/power" = {
+        format = "";
+        on-click = "rofi -show power-menu -modi power-menu:~/.config/rofi/scripts/rofi-power-menu -theme ~/.config/rofi/powermenu.rasi";
+        tooltip = false;
+      };
+      "custom/bluetooth" = {
+        exec = "~/.config/rofi/scripts/rofi-bluetooth --status";
+        interval = 1;
+        on-click = "~/.config/rofi/scripts/rofi-bluetooth";
+        tooltip = false;
       };
     }];
     style = ''
       #waybar {
-        font-family: "NotoSans", "FontAwesome5Free";
+        font-family: "NotoSans", "FontAwesome6Free";
         font-weight: bolder;
         background: transparent;
         color: #b0b0b0;

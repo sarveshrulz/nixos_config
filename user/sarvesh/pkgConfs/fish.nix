@@ -3,7 +3,7 @@
     enable = true;
     loginShellInit = ''
       if test -z "$DISPLAY" -a $XDG_VTNR -eq 1
-      exec sway
+        exec sway
       end
     '';
     shellInit = ''
@@ -14,6 +14,7 @@
       nixupdate = "sudo nix-channel --update && sudo nixos-rebuild switch";
       homeupdate = "nix-channel --update && home-manager switch && nix-collect-garbage -d";
       allupdate = "nixupdate && homeupdate";
+      ani-cli = "sh ${builtins.fetchurl https://raw.githubusercontent.com/pystardust/ani-cli/master/ani-cli} -q best";
     };
   };
 }

@@ -18,6 +18,17 @@ in
       device = "/dev/disk/by-label/boot";
       fsType = "vfat";
     };
+    "/home/sarvesh/.cache/BraveSoftware" = {
+      device = "tmpfs";
+      fsType = "tmpfs";
+      noCheck = true;
+      options = [
+        "noatime"
+        "nodev"
+        "nosuid"
+        "size=128M"
+      ];
+    };
   };
 
   swapDevices = [{ device = "/dev/disk/by-label/swap"; }];
@@ -32,22 +43,7 @@ in
       "vm.dirty_background_ratio" = 3;
       "vm.vfs_cache_pressure" = 50;
     };
-    kernelPackages =
-      let
-        linux_clear_pkg = { fetchurl, buildLinux, ... } @ args:
-          buildLinux (args // rec {
-            stdenv = unstable.clangStdenv;
-            version = "5.17.9";
-            modDirVersion = version;
-            src = fetchurl {
-              url = "https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.17.9.tar.gz";
-              sha256 = "0gyz40c1blphv9lfml7jkq3hiyjicybw8mf5rp71bn9np8qsjidi";
-            };
-            kernelPatches = [ ];
-          } // (args.argsOverride or { }));
-        linux_clear = pkgs.callPackage linux_clear_pkg { };
-      in
-      pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor linux_clear);
+    kernelPackages = pkgs.linuxPackages_xanmod_latest;
     kernelModules = [ "kvm-amd" ];
     initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
   };
@@ -93,6 +89,7 @@ in
     users = {
       root.hashedPassword = "$6$VQp0iZV1/rrLMDS8$x83C0JxkQ8WedG0pKUrGHxSW4LDWJUTLhb7V.AGZRO2LL3yvN8ATDRGZyiAhQRFtkvNkAybfLydG9a7Gmo40p0";
       sarvesh = {
+        description = "Sarvesh Kardekar";
         isNormalUser = true;
         extraGroups = [ "wheel" "video" ];
         shell = pkgs.fish;
@@ -109,6 +106,7 @@ in
     };
     fish.enable = true;
     dconf.enable = true;
+    kdeconnect.enable = true;
   };
 
   services = {
@@ -160,7 +158,7 @@ in
   powerManagement = {
     enable = true;
     powertop.enable = true;
-    cpuFreqGovernor = lib.mkForce "powersave";
+    cpuFreqGovernor = lib.mkDefault "powersave";
   };
 
   fonts.fonts = with pkgs; [
@@ -172,7 +170,7 @@ in
   ];
 
   system = {
-    stateVersion = "21.11";
+    stateVersion = "22.05";
     autoUpgrade.enable = true;
   };
 

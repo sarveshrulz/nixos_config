@@ -6,10 +6,8 @@ in
   imports = [
     ./pkgConfs/dunst.nix
     ./pkgConfs/fish.nix
-    ./pkgConfs/firefox.nix
     ./pkgConfs/foot.nix
     ./pkgConfs/git.nix
-    ./pkgConfs/mpv.nix
     ./pkgConfs/sway.nix
     ./pkgConfs/vscode.nix
     ./pkgConfs/waybar.nix
@@ -18,14 +16,17 @@ in
   home = {
     username = "sarvesh";
     homeDirectory = "/home/sarvesh";
-    stateVersion = "21.11";
+    stateVersion = "22.05";
     packages = with pkgs; [
       bc
       bpytop
       capitaine-cursors
+      mpv
       nixpkgs-fmt
       onlyoffice-bin
+      openssl
       pamixer
+      brave
       rofi
       xfce.thunar
     ];
