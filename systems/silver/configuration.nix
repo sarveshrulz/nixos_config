@@ -1,8 +1,4 @@
-{ config, lib, pkgs, modulesPath, ... }:
-let
-  unstable = import <nixos-unstable> { };
-in
-{
+{ config, lib, pkgs, modulesPath, ... }: {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
   fileSystems = {
@@ -18,7 +14,7 @@ in
       device = "/dev/disk/by-label/boot";
       fsType = "vfat";
     };
-    "/home/sarvesh/.cache/BraveSoftware" = {
+    "/home/sarvesh/.cache/mozilla/firefox" = {
       device = "tmpfs";
       fsType = "tmpfs";
       noCheck = true;
@@ -38,27 +34,26 @@ in
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
-    kernel.sysctl = {
-      "vm.dirty_ratio" = 6;
-      "vm.dirty_background_ratio" = 3;
-      "vm.vfs_cache_pressure" = 50;
-    };
     kernelPackages = pkgs.linuxPackages_xanmod_latest;
-    kernelModules = [ "kvm-amd" ];
+    kernelModules = [ "kvm-amd" "amdgpu" ];
     initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
+    kernelParams = [ "nowatchdog" "cgroup_no_v1=all" "systemd.unified_cgroup_hierarchy=yes" ];
+    kernel.sysctl = {
+      "vm.swappiness" = 90;
+      "vm.vfs_cache_pressure" = 50;
+      "vm.dirty_background_ratio" = 20;
+      "vm.dirty_ratio" = 50;
+    };
   };
 
   hardware = {
     cpu.amd.updateMicrocode = true;
     enableRedistributableFirmware = true;
-    acpilight.enable = true;
-    bluetooth.enable = true;
+    pulseaudio.enable = false;
     opengl = {
       enable = true;
       driSupport = true;
       extraPackages = with pkgs; [
-        vaapiVdpau
-        libvdpau-va-gl
         rocm-opencl-icd
         rocm-opencl-runtime
         amdvlk
@@ -68,12 +63,18 @@ in
 
   networking = {
     hostName = "silver";
-    wireless.iwd.enable = true;
-    useDHCP = false;
-    interfaces.wlan0.useDHCP = true;
-    dhcpcd.extraConfig = "nohook resolv.conf";
-    resolvconf.enable = lib.mkForce false;
+    networkmanager.dns = "none";
     nameservers = [ "127.0.0.1" "::1" ];
+    firewall = {
+      allowedUDPPortRanges = [{
+        from = 1714;
+        to = 1764;
+      }];
+      allowedTCPPortRanges = [{
+        from = 1714;
+        to = 1764;
+      }];
+    };
   };
 
   i18n.defaultLocale = "en_US.UTF-8";
@@ -91,8 +92,8 @@ in
       sarvesh = {
         description = "Sarvesh Kardekar";
         isNormalUser = true;
-        extraGroups = [ "wheel" "video" ];
-        shell = pkgs.fish;
+        shell = pkgs.zsh;
+        extraGroups = [ "wheel" "networkmanager" ];
         hashedPassword = "$6$Zwt2/p7axZKbTrAS$TLnZdKjq8D712/Ps1bs2QU2VKVESksTc7cg4t6QDbXKTaA7i5NMJNjcRnwKg6vFVk5qVPO//p8PFniEVfRo8R/";
       };
     };
@@ -104,30 +105,52 @@ in
       vimAlias = true;
       defaultEditor = true;
     };
-    fish.enable = true;
-    dconf.enable = true;
-    kdeconnect.enable = true;
+    zsh.enable = true;
   };
 
+  environment.gnome.excludePackages = (with pkgs; [
+    gnome-text-editor
+    baobab
+    gnome-usage
+    gnome-connections
+    evince
+    epiphany
+    xterm
+  ]) ++ (with pkgs.gnome; [
+    gnome-contacts
+    gnome-clocks
+    gnome-calculator
+    gnome-maps
+    gnome-calendar
+    gnome-disk-utility
+    gnome-music
+    gnome-logs
+    eog
+    geary
+    simple-scan
+    totem
+    yelp
+    cheese
+  ]);
+
   services = {
+    xserver = {
+      enable = true;
+      videoDrivers = [ "amdgpu" ];
+      displayManager.gdm.enable = true;
+      desktopManager.gnome.enable = true;
+    };
     pipewire = {
       enable = true;
+      alsa.enable = true;
       pulse.enable = true;
     };
-    fwupd.enable = true;
     auto-cpufreq.enable = true;
-    irqbalance.enable = true;
-    earlyoom.enable = true;
-    ananicy = {
-      enable = true;
-      package = pkgs.ananicy-cpp;
-    };
-    chrony.enable = true;
-    gvfs.enable = true;
     resolved.enable = false;
     dnscrypt-proxy2 = {
       enable = true;
       settings = {
+        ipv6_servers = true;
         require_dnssec = true;
         sources.public-resolvers = {
           urls = [
@@ -143,29 +166,14 @@ in
 
   systemd.services.dnscrypt-proxy2.serviceConfig.StateDirectory = lib.mkForce "dnscrypt-proxy2";
 
-  zramSwap = {
-    enable = true;
-    algorithm = "lz4";
-    numDevices = 8;
-    swapDevices = 8;
-  };
+  security.rtkit.enable = true;
 
-  security = {
-    apparmor.enable = true;
-    rtkit.enable = true;
-  };
-
-  powerManagement = {
-    enable = true;
-    powertop.enable = true;
-    cpuFreqGovernor = lib.mkDefault "powersave";
-  };
+  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 
   fonts.fonts = with pkgs; [
     noto-fonts
     noto-fonts-cjk
     noto-fonts-emoji
-    font-awesome
     (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
   ];
 
