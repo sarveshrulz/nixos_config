@@ -1,6 +1,6 @@
 { config, pkgs, ... }: {
   home.packages = with pkgs; [
-    mpv
+    openssl
     onlyoffice-bin
     firefox-wayland
     gnome.gnome-tweaks

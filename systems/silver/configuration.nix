@@ -120,6 +120,7 @@
     gnome-contacts
     gnome-clocks
     gnome-calculator
+    gnome-weather
     gnome-maps
     gnome-calendar
     gnome-disk-utility

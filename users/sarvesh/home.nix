@@ -5,6 +5,7 @@
     ./pkgConfs/zsh.nix
     ./pkgConfs/packages.nix
     ./pkgConfs/file.nix
+    ./pkgConfs/mpv.nix
   ];
 
   home = {
