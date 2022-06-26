@@ -1,5 +1,14 @@
-{ config, lib, pkgs, modulesPath, ... }: {
-  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
+{ config, lib, pkgs, modulesPath, ... }:
+let
+  unstable = import <nixos-unstable> { };
+in
+{
+  disabledModules = [ "virtualisation/waydroid.nix" ];
+
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+    <nixos-unstable/nixos/modules/virtualisation/waydroid.nix>
+  ];
 
   fileSystems = {
     "/" = {
@@ -99,6 +108,12 @@
     };
   };
 
+  nixpkgs.config = {
+    packageOverrides = pkgs: {
+      waydroid = unstable.waydroid;
+    }; 
+  };
+
   programs = {
     neovim = {
       enable = true;
@@ -115,7 +130,6 @@
     gnome-connections
     evince
     epiphany
-    xterm
   ]) ++ (with pkgs.gnome; [
     gnome-contacts
     gnome-clocks
@@ -158,14 +172,12 @@
             "https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/public-resolvers.md"
             "https://download.dnscrypt.info/resolvers-list/v3/public-resolvers.md"
           ];
-          cache_file = "/var/lib/dnscrypt-proxy2/public-resolvers.md";
+          cache_file = "/var/lib/dnscrypt-proxy/public-resolvers.md";
           minisign_key = "RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3";
         };
       };
     };
   };
-
-  systemd.services.dnscrypt-proxy2.serviceConfig.StateDirectory = lib.mkForce "dnscrypt-proxy2";
 
   security.rtkit.enable = true;
 
@@ -177,6 +189,11 @@
     noto-fonts-emoji
     (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
   ];
+
+  virtualisation = {
+    waydroid. enable = true;
+    lxd.enable = true;
+  };
 
   system = {
     stateVersion = "22.05";
