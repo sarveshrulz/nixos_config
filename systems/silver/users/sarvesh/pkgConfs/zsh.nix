@@ -12,7 +12,7 @@
       homeupdate = "nix-channel --update && home-manager switch && nix-collect-garbage -d";
       allupdate = "nixupdate && homeupdate";
       ani-cli = "sh ~/.local/ani-cli/bin/ani-cli -f 6";
-      silver-oracle = "ssh sarvesh@152.67.0.95";
+      silver-oracle = "ssh sarvesh@152.67.4.198";
     };
     oh-my-zsh = {
       enable = true;
