@@ -1,5 +1,4 @@
-{ modulesPath, pkgs, ... }: {
-
+{ config, lib, pkgs, modulesPath, ... }: {
   imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
 
   boot = {
@@ -9,19 +8,28 @@
       efiInstallAsRemovable = true;
       device = "nodev";
     };
-    initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "xen_blkfront" ];
-    initrd.kernelModules = [ "nvme" ];
+    initrd = {
+      availableKernelModules = [ "xhci_pci" "virtio_pci" "usbhid" ];
+    };
   };
 
   fileSystems = {
-    "/boot" = { device = "/dev/disk/by-uuid/3B6B-75CB"; fsType = "vfat"; };
-    "/" = { device = "/dev/sda1"; fsType = "ext4"; };
+    "/" = {
+      device = "/dev/disk/by-label/nixos";
+      fsType = "ext4";
+    };
+    "/boot" = {
+      device = "/dev/disk/by-label/boot";
+      fsType = "vfat";
+    };
   };
 
+  swapDevices = [ ];
+
   networking = {
+    useDHCP = lib.mkDefault true;
     nameservers = [ "127.0.0.1" "::1" ];
     dhcpcd.extraConfig = "nohook resolv.conf";
-    networkmanager.dns = "none";
     hostName = "silver-oracle";
   };
 
