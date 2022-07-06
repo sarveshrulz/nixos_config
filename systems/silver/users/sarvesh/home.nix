@@ -1,11 +1,15 @@
-{ config, pkgs, ... }: {
+{ ... }: {
   imports = [
-    ./pkgConfs/git.nix
-    ./pkgConfs/vscode.nix
-    ./pkgConfs/zsh.nix
-    ./pkgConfs/packages.nix
-    ./pkgConfs/file.nix
-    ./pkgConfs/mpv.nix
+    modules/dunst.nix
+    modules/gtk.nix
+    modules/fish.nix
+    modules/packages.nix
+    modules/foot.nix
+    modules/git.nix
+    modules/vscode.nix
+    modules/files.nix
+    modules/waybar.nix
+    modules/mpv.nix
   ];
 
   home = {

@@ -1,11 +1,14 @@
-{ config, pkgs, ... }: {
-  programs.zsh = {
+{ ... }: {
+  programs.fish = {
     enable = true;
-    enableAutosuggestions = true;
-    enableCompletion = true;
-    enableSyntaxHighlighting = true;
-    initExtra = ''
-      sh ${pkgs.neofetch}/bin/neofetch
+    loginShellInit = ''
+      if test -z "$DISPLAY" -a $XDG_VTNR -eq 1
+        exec Hyprland
+      end
+    '';
+    shellInit = ''
+      set fish_greeting
+      sh ${builtins.fetchurl https://raw.githubusercontent.com/Manas140/fetch/main/fetch} -c ${builtins.fetchurl https://raw.githubusercontent.com/Manas140/fetch/main/conf/left} | sed 's||->|g'
     '';
     shellAliases = {
       nixupdate = "sudo nix-channel --update && sudo nixos-rebuild switch";
@@ -13,10 +16,6 @@
       allupdate = "nixupdate && homeupdate";
       ani-cli = "sh ~/.local/ani-cli/bin/ani-cli -f 6";
       silver-oracle = "ssh sarvesh@140.238.254.235";
-    };
-    oh-my-zsh = {
-      enable = true;
-      theme = "bira";
     };
   };
 }

@@ -1,0 +1,8 @@
+#!/bin/sh
+dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY &
+swaybg -i ~/Pictures/Wallpapers/default &
+killall .waybar-wrapped; waybar &
+dunst &
+wl-paste -t text --watch clipman store &
+gammastep -l 19:72 &
+~/.nix-profile/libexec/polkit-gnome-authentication-agent-1 &
