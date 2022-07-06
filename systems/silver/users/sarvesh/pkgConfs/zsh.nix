@@ -5,14 +5,14 @@
     enableCompletion = true;
     enableSyntaxHighlighting = true;
     initExtra = ''
-      sh ${pkgs.pfetch}/bin/pfetch
+      sh ${pkgs.neofetch}/bin/neofetch
     '';
     shellAliases = {
       nixupdate = "sudo nix-channel --update && sudo nixos-rebuild switch";
       homeupdate = "nix-channel --update && home-manager switch && nix-collect-garbage -d";
       allupdate = "nixupdate && homeupdate";
       ani-cli = "sh ~/.local/ani-cli/bin/ani-cli -f 6";
-      silver-oracle = "ssh sarvesh@152.67.4.198";
+      silver-oracle = "ssh sarvesh@140.238.254.235";
     };
     oh-my-zsh = {
       enable = true;

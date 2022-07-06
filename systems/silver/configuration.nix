@@ -43,7 +43,7 @@ in
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
-    kernelPackages = pkgs.linuxPackages_xanmod_latest;
+    kernelPackages = pkgs.linuxPackages_latest;
     kernelModules = [ "kvm-amd" "amdgpu" ];
     initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
     kernelParams = [ "nowatchdog" "cgroup_no_v1=all" "systemd.unified_cgroup_hierarchy=yes" ];
@@ -92,8 +92,6 @@ in
 
   time.timeZone = "Asia/Kolkata";
 
-  environment.binsh = "${pkgs.dash}/bin/dash";
-
   users = {
     mutableUsers = false;
     users = {
@@ -123,30 +121,33 @@ in
     zsh.enable = true;
   };
 
-  environment.gnome.excludePackages = (with pkgs; [
-    gnome-text-editor
-    baobab
-    gnome-usage
-    gnome-connections
-    evince
-    epiphany
-  ]) ++ (with pkgs.gnome; [
-    gnome-contacts
-    gnome-clocks
-    gnome-calculator
-    gnome-weather
-    gnome-maps
-    gnome-calendar
-    gnome-disk-utility
-    gnome-music
-    gnome-logs
-    eog
-    geary
-    simple-scan
-    totem
-    yelp
-    cheese
-  ]);
+  environment = {
+    binsh = "${pkgs.dash}/bin/dash";
+    gnome.excludePackages = (with pkgs; [
+      gnome-text-editor
+      baobab
+      gnome-usage
+      gnome-connections
+      evince
+      epiphany
+    ]) ++ (with pkgs.gnome; [
+      gnome-contacts
+      gnome-clocks
+      gnome-calculator
+      gnome-weather
+      gnome-maps
+      gnome-calendar
+      gnome-disk-utility
+      gnome-music
+      gnome-logs
+      eog
+      geary
+      simple-scan
+      totem
+      yelp
+      cheese
+    ]);
+  };
 
   services = {
     xserver = {
@@ -191,7 +192,7 @@ in
   ];
 
   virtualisation = {
-    waydroid. enable = true;
+    waydroid.enable = true;
     lxd.enable = true;
   };
 
