@@ -1,27 +1,32 @@
-{ ... }: {
+{ ... }:
+let
+  f2fsOpts = [
+    "compress_algorithm=lz4:6"
+    "compress_chksum"
+    "atgc"
+    "gc_merge"
+    "lazytime"
+  ];
+in {
   fileSystems = {
-    "/" = {
-      device = "/dev/disk/by-label/nixos";
-      fsType = "f2fs";
-    };
-    "/home" = {
-      device = "/dev/disk/by-label/home";
-      fsType = "ext4";
-    };
     "/boot" = {
       device = "/dev/disk/by-label/boot";
       fsType = "vfat";
     };
+    "/" = {
+      device = "/dev/disk/by-label/nixos";
+      fsType = "f2fs";
+      options = f2fsOpts;
+    };
+    "/home" = {
+      device = "/dev/disk/by-label/home";
+      fsType = "f2fs";
+      options = f2fsOpts;
+    };
     "/ssd-storage" = {
       device = "/dev/disk/by-label/ssd-storage";
       fsType = "f2fs";
-      options = [
-        "compress_algorithm=zstd:6"
-        "compress_chksum"
-        "atgc"
-        "gc_merge"
-        "lazytime"
-      ];
+      options = f2fsOpts;
     };
     "/home/sarvesh/.cache/mozilla/firefox" = {
       device = "tmpfs";
