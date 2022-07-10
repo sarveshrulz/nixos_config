@@ -35,4 +35,6 @@ in
     font-awesome
     (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
   ];
+
+  virtualisation.libvirtd.enable = true;
 }

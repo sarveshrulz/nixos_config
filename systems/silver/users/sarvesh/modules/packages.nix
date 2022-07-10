@@ -2,7 +2,9 @@
   home.packages = with pkgs; [
     bc
     bpytop
+    rclone
     firefox-wayland
+    pdfsam-basic
     capitaine-cursors
     swaybg
     killall
@@ -13,6 +15,7 @@
     openssl
     clipman
     wl-clipboard
+    virt-manager
     polkit_gnome
     pamixer
     rofi

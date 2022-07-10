@@ -12,6 +12,17 @@
       device = "/dev/disk/by-label/boot";
       fsType = "vfat";
     };
+    "/ssd-storage" = {
+      device = "/dev/disk/by-label/ssd-storage";
+      fsType = "f2fs";
+      options = [
+        "compress_algorithm=zstd:6"
+        "compress_chksum"
+        "atgc"
+        "gc_merge"
+        "lazytime"
+      ];
+    };
     "/home/sarvesh/.cache/mozilla/firefox" = {
       device = "tmpfs";
       fsType = "tmpfs";
