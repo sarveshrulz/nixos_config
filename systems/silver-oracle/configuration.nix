@@ -41,12 +41,12 @@
   users = {
     mutableUsers = false;
     users = {
-      root.openssh.authorizedKeys.keys = [ "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCsJIXI87XJaQQ/3R+xRU94RMXi5h0h/EX7N60I9hR3q22+/GF9v/GlijbeEfk0Y3UhXRr/RVUMocJw6YCQf4hUuIt4k4TV7I27myxSIXpxQ3wUf6z7i/HssVXnwnYPVZWQj62OJxVXQQYIKPItTzSpoO7WrYfE/60KOwFD8K61AKM0Jq9+eh5YmOpEGz9CXhdKGtFnpEBnqF8H2TJ1mn1BpnRv9HZDex1KKtJq3NqD+CIAAMgEfCLiYJzfHcYV5cT+NxHLmimdgUcep2f18h6dl1XGCxiiLmf+zQhxWfdqN9W6QefGqIGI+m0xxHFwdz9lbkhJkz2if5venhJPJMQGiwt64Ajw15pVD9LTjW+FUF4DEdY9SUCzYR0rz0h6bP2FWV73b8uNGGmuIWHT5uWtjEBIy2YOsAxRMiyDj8HsZ+pOg20ix0v8opZl5E3W+g2o+7bnFmU86hf6+n4TFg0WpN4FYkeUS7QgCzdZL6usrohgwPK6JfmVP6C7hhRLLHU= sarvesh@silver" ];
+      root.openssh.authorizedKeys.keys = [ "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC/3PYG9zW9VUt+r+xIoDUfpOBxQDCxyL1uvBSO0gBmp6yfCQL9co280avOXQn4ZnjOgWRR1gjHfz2+T3ejX0KegWLKXi/RdUKHdWQqLhxnL+a22hDn9p61cj/MfD6VWa0sw78brKcJo9jm7t21BtpSxTO5/d+Dk7/ma92YC4/5xa5ERD5152lJNsgM3EXWfQzsZOLPx19VAuy/+pWN+Uw954CmF+7lMW83ZyPIL6XDVUy4J4W3D8XL3Va3nPRBP8LpeP6oO9RitQr6LxbUzN6bAd+3XJc9byNy1+vkbhOn+IYIx4VjgI9e0Gz05/Cm6B3QE/2rrfMpRoMmJV5Fufe69HFGOajtl5wDvODNg1f4e+Rr2C1yzDw7weCwvf87JhPA8zLPHAfldMyw25p8APoi1CxqpvtaTqTSkBP9qCsktkOeM9CofLnyqE/PQCj8+YCB65HJfd4nWtGAJUs3Dp8PaSCcUJ5NhGuC0nBsVIRsBOuM5x3NnZ3Ce/wzc4wrxHs= sarvesh@silver" ];
       sarvesh = {
         isNormalUser = true;
         shell = pkgs.zsh;
         extraGroups = [ "wheel" "docker" ];
-        openssh.authorizedKeys.keys = [ "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCsJIXI87XJaQQ/3R+xRU94RMXi5h0h/EX7N60I9hR3q22+/GF9v/GlijbeEfk0Y3UhXRr/RVUMocJw6YCQf4hUuIt4k4TV7I27myxSIXpxQ3wUf6z7i/HssVXnwnYPVZWQj62OJxVXQQYIKPItTzSpoO7WrYfE/60KOwFD8K61AKM0Jq9+eh5YmOpEGz9CXhdKGtFnpEBnqF8H2TJ1mn1BpnRv9HZDex1KKtJq3NqD+CIAAMgEfCLiYJzfHcYV5cT+NxHLmimdgUcep2f18h6dl1XGCxiiLmf+zQhxWfdqN9W6QefGqIGI+m0xxHFwdz9lbkhJkz2if5venhJPJMQGiwt64Ajw15pVD9LTjW+FUF4DEdY9SUCzYR0rz0h6bP2FWV73b8uNGGmuIWHT5uWtjEBIy2YOsAxRMiyDj8HsZ+pOg20ix0v8opZl5E3W+g2o+7bnFmU86hf6+n4TFg0WpN4FYkeUS7QgCzdZL6usrohgwPK6JfmVP6C7hhRLLHU= sarvesh@silver" ];
+        openssh.authorizedKeys.keys = [ "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC/3PYG9zW9VUt+r+xIoDUfpOBxQDCxyL1uvBSO0gBmp6yfCQL9co280avOXQn4ZnjOgWRR1gjHfz2+T3ejX0KegWLKXi/RdUKHdWQqLhxnL+a22hDn9p61cj/MfD6VWa0sw78brKcJo9jm7t21BtpSxTO5/d+Dk7/ma92YC4/5xa5ERD5152lJNsgM3EXWfQzsZOLPx19VAuy/+pWN+Uw954CmF+7lMW83ZyPIL6XDVUy4J4W3D8XL3Va3nPRBP8LpeP6oO9RitQr6LxbUzN6bAd+3XJc9byNy1+vkbhOn+IYIx4VjgI9e0Gz05/Cm6B3QE/2rrfMpRoMmJV5Fufe69HFGOajtl5wDvODNg1f4e+Rr2C1yzDw7weCwvf87JhPA8zLPHAfldMyw25p8APoi1CxqpvtaTqTSkBP9qCsktkOeM9CofLnyqE/PQCj8+YCB65HJfd4nWtGAJUs3Dp8PaSCcUJ5NhGuC0nBsVIRsBOuM5x3NnZ3Ce/wzc4wrxHs= sarvesh@silver" ];
         hashedPassword = "$6$dPWjZ4YJQxL2Koqj$7N2EVHyqhlEHI805Obb6Hm56e0s7QAZT31HFyKVl2otgU.4KAzb2mHPVwzvG/E.tsY9LxtSX8boafESUXWn.m0";
       };
     };
