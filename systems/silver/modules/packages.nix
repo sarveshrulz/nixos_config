@@ -36,5 +36,9 @@ in
     (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
   ];
 
-  virtualisation.libvirtd.enable = true;
+  virtualisation = {
+    libvirtd.enable = true;
+    waydroid. enable = true;
+    lxd.enable = true;
+  };
 }
