@@ -1,4 +1,4 @@
-{ ... }: {
+{ pkgs, ... }: {
   programs.fish = {
     enable = true;
     loginShellInit = ''
@@ -16,6 +16,7 @@
       allupdate = "nixupdate && homeupdate";
       ani-cli = "sh ~/.local/ani-cli/bin/ani-cli -f 6";
       silver-oracle = "ssh sarvesh@140.238.254.235";
+      rm = "${pkgs.rmtrash}/bin/rmtrash";
     };
   };
 }

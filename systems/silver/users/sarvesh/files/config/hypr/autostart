@@ -7,3 +7,4 @@ wl-paste -t text --watch clipman store &
 gammastep -l 19:72 &
 ~/.nix-profile/libexec/polkit-gnome-authentication-agent-1 &
 rclone mount --daemon gdrive: ~/Storage/gdrive &
+foot -s &
