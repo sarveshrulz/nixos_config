@@ -1,5 +1,5 @@
 configuration {
-	font: "Noto Sans Semi-bold 11";
+	font: "Noto Sans Mono Semi-bold 11";
 	me-select-entry: "MouseSecondary";
 	me-accept-entry: "MousePrimary";
 	location: 3;
@@ -8,7 +8,7 @@ configuration {
 }
 
 window {
-  width: 300px;
+  width: 400px;
   x-offset: -12px;
   y-offset: 58px;
 }
@@ -32,7 +32,6 @@ mainbox, entry, listview, element {
 }
 
 listview {
-  lines: 4;
   padding: 12px;
   spacing: 4px;
   cycle: false;

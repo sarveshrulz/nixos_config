@@ -11,6 +11,7 @@
     nixpkgs-fmt
     gammastep
     onlyoffice-bin
+    wirelesstools
     grim
     openssl
     clipman

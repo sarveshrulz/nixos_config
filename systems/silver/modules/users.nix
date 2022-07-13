@@ -6,7 +6,7 @@
       sarvesh = {
         description = "Sarvesh Kardekar";
         isNormalUser = true;
-        extraGroups = [ "wheel" "video" "libvirtd" ];
+        extraGroups = [ "wheel" "networkmanager" "video" "libvirtd" ];
         shell = pkgs.fish;
         hashedPassword = "$6$Zwt2/p7axZKbTrAS$TLnZdKjq8D712/Ps1bs2QU2VKVESksTc7cg4t6QDbXKTaA7i5NMJNjcRnwKg6vFVk5qVPO//p8PFniEVfRo8R/";
       };
