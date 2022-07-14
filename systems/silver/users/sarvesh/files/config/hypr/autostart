@@ -1,10 +1,11 @@
 #!/bin/sh
-dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY &
+dbus-update-activation-environment --all &
 swaybg -i ~/Pictures/Wallpapers/default &
-killall .waybar-wrapped; waybar &
+waybar &
 dunst &
 wl-paste -t text --watch clipman store &
 gammastep -l 19:72 &
 ~/.nix-profile/libexec/polkit-gnome-authentication-agent-1 &
 rclone mount --daemon gdrive: ~/Storage/gdrive &
 foot -s &
+thunar --daemon &

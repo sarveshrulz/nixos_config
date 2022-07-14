@@ -3,7 +3,7 @@
     enable = true;
     loginShellInit = ''
       if test -z "$DISPLAY" -a $XDG_VTNR -eq 1
-        exec Hyprland
+        exec dbus-run-session Hyprland
       end
     '';
     shellInit = ''

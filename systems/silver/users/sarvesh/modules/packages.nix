@@ -4,7 +4,6 @@
     bpytop
     rclone
     firefox-wayland
-    pdfsam-basic
     tldr
     capitaine-cursors
     swaybg
