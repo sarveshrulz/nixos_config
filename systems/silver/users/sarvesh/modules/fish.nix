@@ -3,6 +3,7 @@
     enable = true;
     loginShellInit = ''
       if test -z "$DISPLAY" -a $XDG_VTNR -eq 1
+        export WLR_RENDERER=vulkan
         exec dbus-run-session Hyprland
       end
     '';

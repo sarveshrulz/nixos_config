@@ -1,4 +1,4 @@
-{ lib, ... }: {
+{ ... }: {
   networking = {
     hostName = "silver";
     networkmanager = {
@@ -7,5 +7,6 @@
     };
     dhcpcd.extraConfig = "nohook resolv.conf";
     nameservers = [ "127.0.0.1" "::1" ];
+    resolvconf.enable = false;
   };
 }

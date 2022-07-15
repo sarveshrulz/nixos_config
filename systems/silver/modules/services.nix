@@ -25,6 +25,13 @@
     };
   };
 
+  zramSwap = {
+    enable = true;
+    algorithm = "lz4";
+    numDevices = 8;
+    swapDevices = 8;
+  };
+
   security.rtkit.enable = true;
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
