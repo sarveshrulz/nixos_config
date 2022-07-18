@@ -11,12 +11,10 @@
     nixpkgs-fmt
     gammastep
     onlyoffice-bin
-    wirelesstools
     grim
     openssl
     clipman
     wl-clipboard
-    virt-manager
     polkit_gnome
     pamixer
     rofi

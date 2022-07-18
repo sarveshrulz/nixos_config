@@ -1,6 +1,6 @@
 #!/bin/sh
 dbus-update-activation-environment --all &
-swaybg -i ~/Pictures/Wallpapers/default &
+swaybg -m fill -i ~/Pictures/Wallpapers/default &
 waybar &
 dunst &
 wl-paste -t text --watch clipman store &

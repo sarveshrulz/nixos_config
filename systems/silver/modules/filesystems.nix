@@ -23,11 +23,6 @@ in {
       fsType = "f2fs";
       options = f2fsOpts;
     };
-    "/ssd-storage" = {
-      device = "/dev/disk/by-label/ssd-storage";
-      fsType = "f2fs";
-      options = f2fsOpts;
-    };
     "/home/sarvesh/.cache/mozilla/firefox" = {
       device = "tmpfs";
       fsType = "tmpfs";
