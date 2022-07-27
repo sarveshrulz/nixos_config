@@ -3,7 +3,6 @@
     bc
     bpytop
     rclone
-    firefox-wayland
     tldr
     capitaine-cursors
     swaybg
@@ -12,12 +11,13 @@
     gammastep
     onlyoffice-bin
     grim
-    openssl
     clipman
     wl-clipboard
+    mate.eom
     polkit_gnome
     pamixer
     rofi
     xfce.thunar
+    swaylock-effects
   ];
 }

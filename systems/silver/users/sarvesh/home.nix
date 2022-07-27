@@ -1,5 +1,6 @@
 { ... }: {
   imports = [
+    modules/chromium.nix
     modules/dunst.nix
     modules/gtk.nix
     modules/fish.nix

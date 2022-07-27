@@ -5,8 +5,8 @@
       alsa.enable = true;
       pulse.enable = true;
     };
-    auto-cpufreq.enable = true;
     gvfs.enable = true;
+    tumbler.enable = true;
     resolved.enable = false;
     dnscrypt-proxy2 = {
       enable = true;
@@ -23,6 +23,7 @@
         };
       };
     };
+    getty.autologinUser = "sarvesh";
   };
 
   zramSwap = {
@@ -32,7 +33,10 @@
     swapDevices = 8;
   };
 
-  security.rtkit.enable = true;
+  security = {
+    rtkit.enable = true;
+    pam.services.swaylock = {};
+  };
 
-  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+  powerManagement.cpuFreqGovernor = lib.mkDefault "schedutil";
 }

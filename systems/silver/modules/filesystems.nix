@@ -23,7 +23,7 @@ in {
       fsType = "f2fs";
       options = f2fsOpts;
     };
-    "/home/sarvesh/.cache/mozilla/firefox" = {
+    "/home/sarvesh/.cache/chromium" = {
       device = "tmpfs";
       fsType = "tmpfs";
       noCheck = true;

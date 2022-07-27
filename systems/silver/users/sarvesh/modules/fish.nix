@@ -3,7 +3,6 @@
     enable = true;
     loginShellInit = ''
       if test -z "$DISPLAY" -a $XDG_VTNR -eq 1
-        export WLR_RENDERER=vulkan
         exec dbus-run-session Hyprland
       end
     '';
@@ -15,8 +14,7 @@
       nixupdate = "sudo nix-channel --update && sudo nixos-rebuild switch";
       homeupdate = "nix-channel --update && home-manager switch && nix-collect-garbage -d";
       allupdate = "nixupdate && homeupdate";
-      ani-cli = "sh ~/.local/ani-cli/bin/ani-cli -f 6";
-      silver-oracle = "ssh sarvesh@140.238.254.235";
+      silver-oracle = "ssh sarvesh@140.238.250.26";
       rm = "${pkgs.rmtrash}/bin/rmtrash";
     };
   };
