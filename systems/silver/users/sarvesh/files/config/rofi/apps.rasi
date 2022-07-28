@@ -2,10 +2,11 @@ configuration {
 	font: "Noto Sans Semi-bold 11";
 	me-select-entry: "MouseSecondary";
 	me-accept-entry: "MousePrimary";
+  drun-display-format: "{name}";
 }
 
 window {
-  width: 280px;
+  width: 224px;
 }
 
 * {

@@ -2,10 +2,9 @@
   home.packages = [
     (pkgs.ungoogled-chromium.override {
       commandLineArgs = [
-        "--ignore-gpu-blocklist"
-        "--process-per-site"
         "--force-dark-mode"
         "--enable-features=WebUIDarkMode"
+        "--ignore-gpu-blocklist"
         "--enable-gpu-rasterization"
         "--enable-zero-copy"
         "--enable-features=VaapiVideoDecoder"

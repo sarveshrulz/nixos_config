@@ -1,18 +1,6 @@
 #!/bin/sh
-swaylock \
-  --image ~/Pictures/Wallpapers/default \
-  --effect-scale 0.1 \
-  --clock \
-  --timestr "%l:%M %p" \
-  --datestr "%a, %d %b %Y" \
-  --indicator \
-  --indicator-radius 100 \
-  --indicator-thickness 12 \
-  --ring-color 0a0a0a \
-  --key-hl-color b0b0b0 \
-  --effect-blur 6x6 \
-  --effect-vignette 0.6:0.6 &
-dbus-update-activation-environment --all &
+swaylock --image ~/Pictures/Wallpapers/default --effect-scale 0.1 --clock --timestr "%l:%M %p" --datestr "%a, %d %b %Y" --indicator --indicator-radius 100 --indicator-thickness 12 --ring-color 0a0a0a --key-hl-color b0b0b0 --effect-blur 12x12 --effect-vignette 0.6:0.6 &
+dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY HYPRLAND_INSTANCE_SIGNATURE XDG_CURRENT_DESKTOP &
 swaybg -m fill -i ~/Pictures/Wallpapers/default &
 waybar &
 dunst &
