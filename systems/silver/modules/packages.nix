@@ -8,6 +8,11 @@ in
 {
   imports = [ hyprland.nixosModules.default ];
 
+  nix.settings = {
+    substituters = [ "https://hyprland.cachix.org" ];
+    trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
+  };
+
   nixpkgs.overlays = [ hyprland.overlays.default ];
 
   environment.binsh = "${pkgs.dash}/bin/dash";
@@ -24,7 +29,6 @@ in
     hyprland = {
       enable = true;
       package = pkgs.hyprland;
-      extraPackages = [ ];
     };
   };
 
@@ -36,8 +40,5 @@ in
     (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
   ];
 
-  virtualisation = {
-    waydroid. enable = true;
-    lxd.enable = true;
-  };
+  virtualisation.waydroid.enable = true;
 }

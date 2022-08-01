@@ -35,8 +35,8 @@
 
   security = {
     rtkit.enable = true;
-    pam.services.swaylock = {};
+    pam.services.swaylock = { };
   };
 
-  powerManagement.cpuFreqGovernor = lib.mkDefault "schedutil";
+  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 }

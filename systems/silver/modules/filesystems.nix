@@ -7,7 +7,8 @@ let
     "gc_merge"
     "lazytime"
   ];
-in {
+in
+{
   fileSystems = {
     "/boot" = {
       device = "/dev/disk/by-label/boot";

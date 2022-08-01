@@ -1,4 +1,4 @@
-{ ... }:{
+{ ... }: {
   xdg.configFile = {
     "hypr/scripts/brightness.sh" = {
       executable = true;
@@ -33,10 +33,5 @@
     "dunst/icons/brightness.png".source = ../files/config/dunst/icons/brightness.png;
     "dunst/icons/muted.png".source = ../files/config/dunst/icons/muted.png;
     "dunst/icons/volume.png".source = ../files/config/dunst/icons/volume.png;
-  };
-
-  home.file = {
-    ".ssh/id_rsa".source = /home/sarvesh/Storage/gdrive/SSH/id_rsa;
-    ".ssh/id_rsa.pub".source = /home/sarvesh/Storage/gdrive/SSH/id_rsa.pub;
   };
 }
