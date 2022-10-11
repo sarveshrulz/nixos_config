@@ -60,6 +60,8 @@ in
     };
   };
 
+  security.rtkit.enable = true;
+
   powerManagement = {
     powertop.enable = true;
     cpuFreqGovernor = lib.mkForce "powersave";

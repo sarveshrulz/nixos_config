@@ -41,8 +41,6 @@
 
   time.timeZone = "Asia/Kolkata";
 
-  security.rtkit.enable = true;
-
   users = {
     mutableUsers = false;
     users.root.hashedPassword = "$6$VQp0iZV1/rrLMDS8$x83C0JxkQ8WedG0pKUrGHxSW4LDWJUTLhb7V.AGZRO2LL3yvN8ATDRGZyiAhQRFtkvNkAybfLydG9a7Gmo40p0";
