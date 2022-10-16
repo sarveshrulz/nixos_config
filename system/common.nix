@@ -2,8 +2,10 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking = {
-    wireless.iwd.enable = true;
-    dhcpcd.extraConfig = "nohook resolv.conf";
+    networkmanager = {
+      enable = true;
+      dns = "none";
+    };
     nameservers = [ "127.0.0.1" "::1" ];
   };
 

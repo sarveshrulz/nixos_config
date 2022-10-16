@@ -317,86 +317,92 @@
             ${pkgs.swaybg}/bin/swaybg -o \* -i ~/Pictures/Wallpapers/default -m fill
           '';
         };
-        "hypr/hyprland.conf".text = ''
-          monitor=,1920x1080@60,0x0,1
-          input {
-              follow_mouse=1
+        "hypr/hyprland.conf".text =
+          let
+            swaylock = "${pkgs.swaylock-effects}/bin/swaylock";
+          in
+          ''
+            input {
+              sensitivity = 0.5
               touchpad {
-                natural_scroll=1
+                natural_scroll = true
               }
-          }
-          gestures {
-              workspace_swipe=1
-          }
-          misc {
-              disable_hyprland_logo=1
-              disable_splash_rendering=1
-              disable_autoreload=1
-          }
-          general {
-              sensitivity=1.0
-              gaps_in=6
-              gaps_out=12
-              border_size=0
-              damage_tracking=full
-          }
-          decoration {
-              rounding=12
-              drop_shadow=0
-              blur=0
-              multisample_edges=0
-          }
-          animations {
-              enabled=1
-              animation=windows,1,7,default
-              animation=fade,1,10,default
-              animation=workspaces,1,6,default
-          }
-          workspace=,1
-          windowrule=float,^(Rofi)$
-          windowrule=float,^(Dunst)$
-          bind=SUPER,RETURN,exec,footclient
-          bind=SUPER,SPACE,exec,rofi -no-lazy-grab -show drun -modi drun -theme ~/.config/rofi/apps.rasi
-          bind=SUPER,Q,killactive,
-          bind=SUPER,left,movefocus,l
-          bind=SUPER,right,movefocus,r
-          bind=SUPER,up,movefocus,u
-          bind=SUPER,down,movefocus,d
-          bind=SUPER_SHIFT,left,movewindow,l
-          bind=SUPER_SHIFT,right,movewindow,r
-          bind=SUPER_SHIFT,up,movewindow,u
-          bind=SUPER_SHIFT,down,movewindow,d
-          bind=SUPER,1,workspace,1
-          bind=SUPER,2,workspace,2
-          bind=SUPER,3,workspace,3
-          bind=SUPER,4,workspace,4
-          bind=SUPER,5,workspace,5
-          bind=SUPER,6,workspace,6
-          bind=SUPER,7,workspace,7
-          bind=SUPER,8,workspace,8
-          bind=SUPER,9,workspace,9
-          bind=SUPER,0,workspace,10
-          bind=SUPER_SHIFT,1,movetoworkspacesilent,1
-          bind=SUPER_SHIFT,2,movetoworkspacesilent,2
-          bind=SUPER_SHIFT,3,movetoworkspacesilent,3
-          bind=SUPER_SHIFT,4,movetoworkspacesilent,4
-          bind=SUPER_SHIFT,5,movetoworkspacesilent,5
-          bind=SUPER_SHIFT,6,movetoworkspacesilent,6
-          bind=SUPER_SHIFT,7,movetoworkspacesilent,7
-          bind=SUPER_SHIFT,8,movetoworkspacesilent,8
-          bind=SUPER_SHIFT,9,movetoworkspacesilent,9
-          bind=SUPER_SHIFT,0,movetoworkspacesilent,10
-          bind=SUPER_SHIFT,Q,exit,
-          bind=SUPER,F,togglefloating,
-          bind=SUPER,M,fullscreen,
-          bind=SUPER,PRINT,exec,${pkgs.grim}/bin/grim ~/Pictures/Screenshots/$(date +'%s_grim.png') && dunstify "Screenshot saved!"
-          bind=,XF86MonBrightnessUp,exec,~/.config/hypr/scripts/brightness.sh -inc 2
-          bind=,XF86MonBrightnessDown,exec,~/.config/hypr/scripts/brightness.sh -dec 2
-          bind=,XF86AudioMute,exec,~/.config/hypr/scripts/volume.sh -t
-          bind=,XF86AudioRaiseVolume,exec,~/.config/hypr/scripts/volume.sh -i 5
-          bind=,XF86AudioLowerVolume,exec,~/.config/hypr/scripts/volume.sh -d 5
-          exec-once=/home/sarvesh/.config/hypr/autostart
-        '';
+            }
+            gestures {
+              workspace_swipe = true
+            }
+            misc {
+              disable_hyprland_logo = true
+              disable_splash_rendering = true
+              disable_autoreload = true
+            }
+            general {
+              gaps_in = 6
+              gaps_out = 12
+              border_size = 0
+            }
+            decoration {
+              rounding = 12
+              blur = false
+              drop_shadow = false
+              dim_inactive = true
+            }
+            monitor = ,1920x1080@60,0x0,1
+            workspace = ,1
+            windowrule = float,^(Rofi)$
+            windowrule = float,^(nm-connection-editor)$
+            windowrulev2 = float,class:^(telegramdesktop)$,title:^(Media viewer)$
+            bind = SUPER,RETURN,exec,footclient
+            bind = SUPER,SPACE,exec,rofi -no-lazy-grab -show drun -modi drun -theme ~/.config/rofi/apps.rasi
+            bind = SUPER,Q,killactive,
+            bind = SUPER,left,movefocus,l
+            bind = SUPER,right,movefocus,r
+            bind = SUPER,up,movefocus,u
+            bind = SUPER,down,movefocus,d
+            bind = SUPER_SHIFT,left,movewindow,l
+            bind = SUPER_SHIFT,right,movewindow,r
+            bind = SUPER_SHIFT,up,movewindow,u
+            bind = SUPER_SHIFT,down,movewindow,d
+            bind = SUPER,1,workspace,1
+            bind = SUPER,2,workspace,2
+            bind = SUPER,3,workspace,3
+            bind = SUPER,4,workspace,4
+            bind = SUPER,5,workspace,5
+            bind = SUPER,6,workspace,6
+            bind = SUPER,7,workspace,7
+            bind = SUPER,8,workspace,8
+            bind = SUPER,9,workspace,9
+            bind = SUPER,0,workspace,10
+            bind = SUPER_SHIFT,1,movetoworkspacesilent,1
+            bind = SUPER_SHIFT,2,movetoworkspacesilent,2
+            bind = SUPER_SHIFT,3,movetoworkspacesilent,3
+            bind = SUPER_SHIFT,4,movetoworkspacesilent,4
+            bind = SUPER_SHIFT,5,movetoworkspacesilent,5
+            bind = SUPER_SHIFT,6,movetoworkspacesilent,6
+            bind = SUPER_SHIFT,7,movetoworkspacesilent,7
+            bind = SUPER_SHIFT,8,movetoworkspacesilent,8
+            bind = SUPER_SHIFT,9,movetoworkspacesilent,9
+            bind = SUPER_SHIFT,0,movetoworkspacesilent,10
+            binde = SUPER_ALT,right,resizeactive,10 0
+            binde = SUPER_ALT,left,resizeactive,-10 0
+            binde = SUPER_ALT,up,resizeactive,0 -10
+            binde = SUPER_ALT,down,resizeactive,0 10
+            bind = SUPER_SHIFT,Q,exit,
+            bind = SUPER_SHIFT,R,forcerendererreload,
+            bind = SUPER,F,togglefloating,
+            bind = SUPER,M,fullscreen,
+            bind = SUPER,PRINT,exec,${pkgs.grim}/bin/grim ~/Pictures/Screenshots/$(date +'%s_grim.png') && dunstify "Screenshot saved!"
+            bind = SUPER,L,exec,${swaylock} --screenshots --effect-scale 0.3 --clock --timestr "%l:%M %p" --datestr "%a, %d %b %Y" --indicator --indicator-radius 100 --indicator-thickness 12 --ring-color 0a0a0a --key-hl-color b0b0b0 --effect-blur 12x12 --effect-vignette 0.6:0.6
+            bind = ,XF86MonBrightnessUp,exec,~/.config/hypr/scripts/brightness.sh -inc 2
+            bind = ,XF86MonBrightnessDown,exec,~/.config/hypr/scripts/brightness.sh -dec 2
+            bind = ,XF86AudioMute,exec,~/.config/hypr/scripts/volume.sh -t
+            bind = ,XF86AudioRaiseVolume,exec,~/.config/hypr/scripts/volume.sh -i 5
+            bind = ,XF86AudioLowerVolume,exec,~/.config/hypr/scripts/volume.sh -d 5
+            bindl = ,switch:Lid Switch,exec,${swaylock} --image ~/Pictures/Wallpapers/default --effect-scale 0.1 --clock --timestr "%l:%M %p" --datestr "%a, %d %b %Y" --indicator --indicator-radius 100 --indicator-thickness 12 --ring-color 0a0a0a --key-hl-color b0b0b0 --effect-blur 12x12 --effect-vignette 0.6:0.6
+            bindm = SUPER,mouse:272,movewindow
+            bindm = SUPER,mouse:273,resizewindow
+            exec-once = ~/.config/hypr/autostart
+          '';
         "rofi/apps.rasi".text = ''
           ${rofi-theme}
           configuration {
@@ -436,9 +442,6 @@
           ${rofi-theme}
           configuration {
             font: "Noto Sans Mono Semi-bold 11";
-          }
-          window {
-            width: 400px;
           }
         '';
         "rofi/scripts/rofi-bluetooth" = {
@@ -860,62 +863,214 @@
           executable = true;
           text = ''
             #!/usr/bin/env bash
-            # Source: https://github.com/TimTinkers/rofi-iwd-menu
-            THEME="~/.config/rofi/wlan.rasi"
-            DEVICE=$(eval "echo "$\{1:-wlan0}"")
-            iwctl station $DEVICE scan
-            CURR_SSID=$(iwctl station wlan0 show | grep "Connected" | awk '{print $3}')
-            IW_NETWORKS+=$(iwctl station $DEVICE get-networks | sed '/^--/d')
-            IW_NETWORKS=$(echo "$IW_NETWORKS" | sed 1,4d)
-            IW_NETWORKS=$(echo "$IW_NETWORKS" | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g")
-            IFS=$'\n'
-            NETWORK_LIST=""
-            while IFS= read -r line; do
-            	line=$(eval "echo "$\{line:4}"")
-            	SSID_NAME=$(echo "$line" | sed 's/\(\s*psk.*\)//')
-            	printf -v pad %34s
-            	line=$SSID_NAME$pad
-            	line=$(eval "echo "$\{line:0:34}"")
-            	line+=$'PSK'
-            	printf -v pad %45s
-            	line=$line$pad
-            	line=$(eval "echo "$\{line:0:45}"")
-            	line+=$'\n'
-            	if ! [ "$SSID_NAME" = "$CURR_SSID" ]; then
-            		NETWORK_LIST+=$line
-            	fi
-            done <<<"$IW_NETWORKS"
-            IW_NETWORKS=$(echo "$NETWORK_LIST" | sed '$d')
-            if [[ ! -z $CURR_SSID ]]; then
-            	HIGHLINE=$(echo "$(echo "$IW_NETWORKS" | awk -F "[  ]{2,}" '{print $1}' | grep -Fxn -m 1 "$CURR_SSID" | awk -F ":" '{print $1}') + 1" | ${pkgs.bc}/bin/bc)
-            fi
-            CON_STATE=$(iwctl station $DEVICE show)
-            if [[ "$CON_STATE" =~ " connected" ]]; then
-            	MENU="disconnect from $CURR_SSID\nmanually connect to a network\n$IW_NETWORKS"
-            elif [[ "$CON_STATE" =~ "disconnected" ]]; then
-            	MENU="manually connect to a network\n$IW_NETWORKS"
-            fi
-            R_WIDTH=$(($(echo "$IW_NETWORKS" | head -n 1 | awk '{print length($0); }') + 5))
-            LINE_COUNT=$(echo "$IW_NETWORKS" | wc -l)
-            if [[ "$CON_STATE" =~ " connected" ]]; then
-            	LINE_COUNT=12
-            elif [ "$LINE_COUNT" -gt 8 ] || [[ "$CON_STATE" =~ "disconnected" ]]; then
-            	LINE_COUNT=12
-            fi
-            CHENTRY=$(echo -e "$MENU" | uniq -u | rofi -dmenu -p "WiFi SSID" -lines "$LINE_COUNT" -a "$HIGHLINE" -theme $THEME)
-            CHSSID=$(echo "$CHENTRY" | sed 's/\s\{2,\}/\|/g' | awk -F "|" '{print $1}')
-            if [ "$CHENTRY" = "manually connect to a network" ]; then
-            	MSSID=$(echo "Enter your network's SSID." | rofi -dmenu -p "SSID: " -lines 1 -theme $THEME)
-            	WIFI_PASS=$(echo "Enter the network password." | rofi -dmenu -password -p "Password: " -lines 1 -theme $THEME)
-            	iwctl station $DEVICE disconnect
-            	iwctl --passphrase $WIFI_PASS station $DEVICE connect $MSSID
-            elif [[ "$CHENTRY" =~ "disconnect from " ]]; then
-            	iwctl station $DEVICE disconnect
-            elif [ "$CHSSID" != "" ]; then
-            	WIFI_PASS=$(echo "Enter the network password." | rofi -dmenu -password -p "Password: " -lines 1 -theme $THEME)
-            	iwctl station $DEVICE disconnect
-            	iwctl --passphrase $WIFI_PASS station $DEVICE connect $CHSSID
-            fi
+            # Source: https://github.com/P3rf/rofi-network-manager
+            WIDTH_FIX_STATUS=10
+            PASSWORD_ENTER="if connection is stored, hit enter/esc."
+            WIRELESS_INTERFACES=($(nmcli device | awk '$2=="wifi" {print $1}'))
+            WIRELESS_INTERFACES_PRODUCT=()
+            WLAN_INT=0
+            WIRED_INTERFACES=($(nmcli device | awk '$2=="ethernet" {print $1}'))
+            WIRED_INTERFACES_PRODUCT=()
+            RASI_DIR="~/.config/rofi/wlan.rasi"
+            function initialization() {
+            	for i in $(eval "echo "$\{WIRELESS_INTERFACES[@]}""); do WIRELESS_INTERFACES_PRODUCT+=("$(nmcli -f general.product device show "$i" | awk '{print $2}')"); done
+            	for i in $(eval "echo "$\{WIRED_INTERFACES[@]}""); do WIRED_INTERFACES_PRODUCT+=("$(nmcli -f general.product device show "$i" | awk '{print $2}')"); done
+            	wireless_interface_state && ethernet_interface_state
+            }
+            function notification() {
+            	dunstify -r "5" -u "normal" $1 "$2"
+            }
+            function wireless_interface_state() {
+            	ACTIVE_SSID=$(nmcli device status | grep "^$(eval "echo "$\{WIRELESS_INTERFACES[WLAN_INT]}"")." | awk '{print $4}')
+            	WIFI_CON_STATE=$(nmcli device status | grep "^$(eval "echo "$\{WIRELESS_INTERFACES[WLAN_INT]}"")." | awk '{print $3}')
+            	{ [[ "$WIFI_CON_STATE" == "unavailable" ]] && WIFI_LIST="***Wi-Fi Disabled***" && WIFI_SWITCH="~Wi-Fi On" && OPTIONS="$WIFI_LIST\n$WIFI_SWITCH\n~Scan"; } || { [[ "$WIFI_CON_STATE" =~ "connected" ]] && {
+            		PROMPT="$(eval "echo "$\{WIRELESS_INTERFACES_PRODUCT[WLAN_INT]}"")[$(eval "echo "$\{WIRELESS_INTERFACES[WLAN_INT]}"")]"
+            		WIFI_LIST=$(nmcli --fields IN-USE,SSID,SECURITY,BARS device wifi list ifname "$(eval "echo "$\{WIRELESS_INTERFACES[WLAN_INT]}"")" | awk -F'  +' '{ if (!seen[$2]++) print}' | sed "s/^IN-USE\s//g" | sed "/*/d" | sed "s/^ *//" | awk '$1!="--" {print}')
+            		[[ "$ACTIVE_SSID" == "--" ]] && WIFI_SWITCH="~Scan\n~Manual/Hidden\n~Wi-Fi Off" || WIFI_SWITCH="~Scan\n~Disconnect\n~Manual/Hidden\n~Wi-Fi Off"
+            		OPTIONS="$WIFI_LIST\n$WIFI_SWITCH"
+            	}; }
+            }
+            function ethernet_interface_state() {
+            	WIRED_CON_STATE=$(nmcli device status | grep "ethernet" | head -1 | awk '{print $3}')
+            	{ [[ "$WIRED_CON_STATE" == "disconnected" ]] && WIRED_SWITCH="~Eth On"; } || { [[ "$WIRED_CON_STATE" == "connected" ]] && WIRED_SWITCH="~Eth Off"; } || { [[ "$WIRED_CON_STATE" == "unavailable" ]] && WIRED_SWITCH="***Wired Unavailable***"; } || { [[ "$WIRED_CON_STATE" == "connecting" ]] && WIRED_SWITCH="***Wired Initializing***"; }
+            	OPTIONS="$OPTIONS\n$WIRED_SWITCH"
+            }
+            function rofi_menu() {
+            	{ [[ $(eval "echo "$\{\#WIRELESS_INTERFACES[@]}"") -ne "1" ]] && OPTIONS="$OPTIONS\n~Change Wifi Interface\n~More Options"; } || { OPTIONS="$OPTIONS\n~More Options"; }
+            	{ [[ "$WIRED_CON_STATE" == "connected" ]] && PROMPT="$WIRED_INTERFACES_PRODUCT[$WIRED_INTERFACES]"; } || PROMPT="$(eval "echo "$\{WIRELESS_INTERFACES_PRODUCT[WLAN_INT]}"")[$(eval "echo "$\{WIRELESS_INTERFACES[WLAN_INT]}"")]"
+            	SELECTION=$(echo -e "$OPTIONS" | rofi_cmd "$OPTIONS" 1 "-a 0")
+            	SSID=$(echo "$SELECTION" | sed "s/\s\{2,\}/\|/g" | awk -F "|" '{print $1}')
+            	selection_action
+            }
+            function dimensions() {
+            	{ [[ "$1" != "" ]] && WIDTH=$(echo -e "$1" | awk '{print length}' | sort -n | tail -1) && ((WIDTH += $2)) && LINES=$(echo -e "$1" | wc -l); } || { WIDTH=$2 && LINES=0; }
+            }
+            function rofi_cmd() {
+            	dimensions "$1" $2
+            	rofi -dmenu -i $3 \
+            		-theme "$RASI_DIR" -theme-str '
+            		window{width: '"$((WIDTH / 2))"'em;}
+            		listview{lines: '"$LINES"';}
+            		textbox-prompt-colon{str:"'"$PROMPT"':";}
+            		'"$4"""
+            }
+            function change_wireless_interface() {
+            	{ [[ $(eval "echo "$\{\#WIRELESS_INTERFACES[@]}"") -eq "2" ]] && { [[ $WLAN_INT -eq "0" ]] && WLAN_INT=1 || WLAN_INT=0; }; } || {
+            		LIST_WLAN_INT=""
+            		for i in $(eval "echo "$\{\!WIRELESS_INTERFACES[@]}""); do LIST_WLAN_INT=("$(eval "echo "$\{LIST_WLAN_INT[@]}"")$(eval "echo "$\{WIRELESS_INTERFACES_PRODUCT[\$i]}"")[$(eval "echo "$\{WIRELESS_INTERFACES[\$i]}"")]\n"); done
+            		LIST_WLAN_INT[-1]="$(eval "echo "$\{LIST_WLAN_INT[-1]::-2}"")"
+            		CHANGE_WLAN_INT=$(echo -e "$(eval "echo "$\{LIST_WLAN_INT[@]}"")" | rofi_cmd "$(eval "echo "$\{LIST_WLAN_INT[@]}"")" $WIDTH_FIX_STATUS)
+            		for i in $(eval "echo "$\{\!WIRELESS_INTERFACES[@]}""); do [[ $CHANGE_WLAN_INT == "$(eval "echo "$\{WIRELESS_INTERFACES_PRODUCT[\$i]}"")[$(eval "echo "$\{WIRELESS_INTERFACES[\$i]}"")]" ]] && WLAN_INT=$i && break; done
+            	}
+            	wireless_interface_state && ethernet_interface_state
+            	rofi_menu
+            }
+            function scan() {
+            	[[ "$WIFI_CON_STATE" =~ "unavailable" ]] && change_wifi_state "Wi-Fi" "Enabling Wi-Fi connection" "on" && sleep 2
+            	notification "-t 0 Wifi" "Please Wait, Scanning..."
+            	WIFI_LIST=$(nmcli --fields IN-USE,SSID,SECURITY,BARS device wifi list ifname "$(eval "echo "$\{WIRELESS_INTERFACES[WLAN_INT]}"")" --rescan yes | awk -F'  +' '{ if (!seen[$2]++) print}' | sed "s/^IN-USE\s//g" | sed "/*/d" | sed "s/^ *//" | awk '$1!="--" {print}')
+            	wireless_interface_state && ethernet_interface_state
+            	notification "-t 1 Wifi" "Please Wait, Scanning..."
+            	rofi_menu
+            }
+            function change_wifi_state() {
+            	notification "$1" "$2"
+            	nmcli radio wifi "$3"
+            }
+            function change_wired_state() {
+            	notification "$1" "$2"
+            	nmcli device "$3" "$4"
+            }
+            function net_restart() {
+            	notification "$1" "$2"
+            	nmcli networking off && sleep 3 && nmcli networking on
+            }
+            function disconnect() {
+            	ACTIVE_SSID=$(nmcli -t -f GENERAL.CONNECTION dev show "$(eval "echo "$\{WIRELESS_INTERFACES[WLAN_INT]}"")" | cut -d ':' -f2)
+            	notification "$1" "You're now disconnected from Wi-Fi network '$ACTIVE_SSID'"
+            	nmcli con down id "$ACTIVE_SSID"
+            }
+            function check_wifi_connected() {
+            	[[ "$(nmcli device status | grep "^$(eval "echo "$\{WIRELESS_INTERFACES[WLAN_INT]}"")." | awk '{print $3}')" == "connected" ]] && disconnect "Connection_Terminated"
+            }
+            function connect() {
+            	check_wifi_connected
+            	notification "-t 0 Wi-Fi" "Connecting to $1"
+            	{ [[ $(nmcli dev wifi con "$1" password "$2" ifname "$(eval "echo "$\{WIRELESS_INTERFACES[WLAN_INT]}"")" | grep -c "successfully activated") -eq "1" ]] && notification "Connection_Established" "You're now connected to Wi-Fi network '$1'"; } || notification "Connection_Error" "Connection can not be established"
+            }
+            function enter_passwword() {
+            	PROMPT="Enter_Password" && PASS=$(echo "$PASSWORD_ENTER" | rofi_cmd "$PASSWORD_ENTER" 4 "-password")
+            }
+            function enter_ssid() {
+            	PROMPT="Enter_SSID" && SSID=$(rofi_cmd "" 40)
+            }
+            function stored_connection() {
+            	check_wifi_connected
+            	notification "-t 0 Wi-Fi" "Connecting to $1"
+            	{ [[ $(nmcli dev wifi con "$1" ifname "$(eval "echo "$\{WIRELESS_INTERFACES[WLAN_INT]}"")" | grep -c "successfully activated") -eq "1" ]] && notification "Connection_Established" "You're now connected to Wi-Fi network '$1'"; } || notification "Connection_Error" "Connection can not be established"
+            }
+            function ssid_manual() {
+            	enter_ssid
+            	[[ -n $SSID ]] && {
+            		enter_passwword
+            		{ [[ -n "$PASS" ]] && [[ "$PASS" != "$PASSWORD_ENTER" ]] && connect "$SSID" "$PASS"; } || stored_connection "$SSID"
+            	}
+            }
+            function ssid_hidden() {
+            	enter_ssid
+            	[[ -n $SSID ]] && {
+            		enter_passwword && check_wifi_connected
+            		[[ -n "$PASS" ]] && [[ "$PASS" != "$PASSWORD_ENTER" ]] && {
+            			nmcli con add type wifi con-name "$SSID" ssid "$SSID" ifname "$(eval "echo "$\{WIRELESS_INTERFACES[WLAN_INT]}"")"
+            			nmcli con modify "$SSID" wifi-sec.key-mgmt wpa-psk
+            			nmcli con modify "$SSID" wifi-sec.psk "$PASS"
+            		} || [[ $(nmcli -g NAME con show | grep -c "$SSID") -eq "0" ]] && nmcli con add type wifi con-name "$SSID" ssid "$SSID" ifname "$(eval "echo "$\{WIRELESS_INTERFACES[WLAN_INT]}"")"
+            		notification "-t 0 Wifi" "Connecting to $SSID"
+            		{ [[ $(nmcli con up id "$SSID" | grep -c "successfully activated") -eq "1" ]] && notification "Connection_Established" "You're now connected to Wi-Fi network '$SSID'"; } || notification "Connection_Error" "Connection can not be established"
+            	}
+            }
+            function interface_status() {
+            	local -n INTERFACES=$1 && local -n INTERFACES_PRODUCT=$2
+            	for i in $(eval "echo "$\{\!INTERFACES[@]}""); do
+            		CON_STATE=$(nmcli device status | grep "^$(eval "echo "$\{INTERFACES[\$i]}"")." | awk '{print $3}')
+            		INT_NAME=$(eval "echo "$\{INTERFACES_PRODUCT[\$i]}"")[$(eval "echo "$\{INTERFACES[\$i]}"")]
+            		[[ "$CON_STATE" == "connected" ]] && STATUS="$INT_NAME:\n\t$(nmcli -t -f GENERAL.CONNECTION dev show "$(eval "echo "$\{INTERFACES[\$i]}"")" | awk -F '[:]' '{print $2}') ~ $(nmcli -t -f IP4.ADDRESS dev show "$(eval "echo "$\{INTERFACES[\$i]}"")" | awk -F '[:/]' '{print $2}')" || STATUS="$INT_NAME: $(eval "echo "$\{CON_STATE^}"")"
+            		echo -e "$STATUS"
+            	done
+            }
+            function status() {
+            	WLAN_STATUS="$(interface_status WIRELESS_INTERFACES WIRELESS_INTERFACES_PRODUCT)"
+            	ETH_STATUS="$(interface_status WIRED_INTERFACES WIRED_INTERFACES_PRODUCT)"
+            	OPTIONS="$ETH_STATUS\n$WLAN_STATUS"
+            	ACTIVE_VPN=$(nmcli -g NAME,TYPE con show --active | awk '/:vpn/' | sed 's/:vpn.*//g')
+            	[[ -n $ACTIVE_VPN ]] && OPTIONS="$OPTIONS\n$ACTIVE_VPN[VPN]: $(nmcli -g ip4.address con show "$ACTIVE_VPN" | awk -F '[:/]' '{print $1}')"
+            	echo -e "$OPTIONS" | rofi_cmd "$OPTIONS" $WIDTH_FIX_STATUS "" "mainbox {children:[listview];}"
+            }
+            function share_pass() {
+            	SSID=$(nmcli dev wifi show-password | grep -oP '(?<=SSID: ).*' | head -1)
+            	PASSWORD=$(nmcli dev wifi show-password | grep -oP '(?<=Password: ).*' | head -1)
+            	OPTIONS="SSID: $SSID\nPassword: $PASSWORD"
+            	SELECTION=$(echo -e "$OPTIONS" | rofi_cmd "$OPTIONS" $WIDTH_FIX_STATUS "-a "$((LINES - 1))"" "mainbox {children:[listview];}")
+            	selection_action
+            }
+            function manual_hidden() {
+            	OPTIONS="~Manual\n~Hidden" && SELECTION=$(echo -e "$OPTIONS" | rofi_cmd "$OPTIONS" $WIDTH_FIX_STATUS "" "mainbox {children:[listview];}")
+            	selection_action
+            }
+            function vpn() {
+            	ACTIVE_VPN=$(nmcli -g NAME,TYPE con show --active | awk '/:vpn/' | sed 's/:vpn.*//g')
+            	[[ $ACTIVE_VPN ]] && OPTIONS="~Deactive $ACTIVE_VPN" || OPTIONS="$(nmcli -g NAME,TYPE connection | awk '/:vpn/' | sed 's/:vpn.*//g')"
+            	VPN_ACTION=$(echo -e "$OPTIONS" | rofi_cmd "$OPTIONS" "$WIDTH_FIX_STATUS" "" "mainbox {children:[listview];}")
+            	[[ -n "$VPN_ACTION" ]] && { { [[ "$VPN_ACTION" =~ "~Deactive" ]] && nmcli connection down "$ACTIVE_VPN" && notification "VPN_Deactivated" "$ACTIVE_VPN"; } || {
+            		notification "-t 0 Activating_VPN" "$VPN_ACTION" && VPN_OUTPUT=$(nmcli connection up "$VPN_ACTION" 2>/dev/null)
+            		{ [[ $(echo "$VPN_OUTPUT" | grep -c "Connection successfully activated") -eq "1" ]] && notification "VPN_Successfully_Activated" "$VPN_ACTION"; } || notification "Error_Activating_VPN" "Check your configuration for $VPN_ACTION"
+            	}; }
+            }
+            function more_options() {
+            	OPTIONS=""
+            	[[ "$WIFI_CON_STATE" == "connected" ]] && OPTIONS="~Share Wifi Password\n"
+            	OPTIONS="$OPTIONS~Status\n~Restart Network"
+            	[[ $(nmcli -g NAME,TYPE connection | awk '/:vpn/' | sed 's/:vpn.*//g') ]] && OPTIONS="$OPTIONS\n~VPN"
+            	OPTIONS="$OPTIONS\n~Open Connection Editor"
+            	SELECTION=$(echo -e "$OPTIONS" | rofi_cmd "$OPTIONS" "$WIDTH_FIX_STATUS" "" "mainbox {children:[listview];}")
+            	selection_action
+            }
+            function selection_action() {
+            	case "$SELECTION" in
+            	"~Disconnect") disconnect "Connection_Terminated" ;;
+            	"~Scan") scan ;;
+            	"~Status") status ;;
+            	"~Share Wifi Password") share_pass ;;
+            	"~Manual/Hidden") manual_hidden ;;
+            	"~Manual") ssid_manual ;;
+            	"~Hidden") ssid_hidden ;;
+            	"~Wi-Fi On") change_wifi_state "Wi-Fi" "Enabling Wi-Fi connection" "on" ;;
+            	"~Wi-Fi Off") change_wifi_state "Wi-Fi" "Disabling Wi-Fi connection" "off" ;;
+            	"~Eth Off") change_wired_state "Ethernet" "Disabling Wired connection" "disconnect" "$WIRED_INTERFACES" ;;
+            	"~Eth On") change_wired_state "Ethernet" "Enabling Wired connection" "connect" "$WIRED_INTERFACES" ;;
+            	"***Wi-Fi Disabled***") ;;
+            	"***Wired Unavailable***") ;;
+            	"***Wired Initializing***") ;;
+            	"~Change Wifi Interface") change_wireless_interface ;;
+            	"~Restart Network") net_restart "Network" "Restarting Network" ;;
+            	"~More Options") more_options ;;
+            	"~Open Connection Editor") ${pkgs.networkmanagerapplet}/bin/nm-connection-editor ;;
+            	"~VPN") vpn ;;
+            	*)
+            		[[ -n "$SELECTION" ]] && [[ "$WIFI_LIST" =~ .*"$SELECTION".* ]] && {
+            			[[ "$SSID" == "*" ]] && SSID=$(echo "$SELECTION" | sed "s/\s\{2,\}/\|/g " | awk -F "|" '{print $3}')
+            			{ [[ "$ACTIVE_SSID" == "$SSID" ]] && nmcli con up "$SSID" ifname "$(eval "echo "$\{WIRELESS_INTERFACES[WLAN_INT]}"")"; } || {
+            				[[ "$SELECTION" =~ "WPA2" ]] || [[ "$SELECTION" =~ "WEP" ]] && enter_passwword
+            				{ [[ -n "$PASS" ]] && [[ "$PASS" != "$PASSWORD_ENTER" ]] && connect "$SSID" "$PASS"; } || stored_connection "$SSID"
+            			}
+            		}
+            		;;
+            	esac
+            }
+            function main() {
+            	initialization && rofi_menu
+            }
+            main
           '';
         };
         "weston.ini".text = ''
@@ -991,7 +1146,7 @@
     sarvesh = {
       description = "Sarvesh Kardekar";
       isNormalUser = true;
-      extraGroups = [ "wheel" "video" ];
+      extraGroups = [ "wheel" "video" "networkmanager" ];
       shell = pkgs.fish;
       hashedPassword = "$6$Zwt2/p7axZKbTrAS$TLnZdKjq8D712/Ps1bs2QU2VKVESksTc7cg4t6QDbXKTaA7i5NMJNjcRnwKg6vFVk5qVPO//p8PFniEVfRo8R/";
     };

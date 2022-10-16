@@ -60,7 +60,10 @@ in
     };
   };
 
-  security.rtkit.enable = true;
+  security = {
+    rtkit.enable = true;
+    pam.services.swaylock = { };
+  };
 
   powerManagement = {
     powertop.enable = true;
