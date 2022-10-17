@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, inputs, ... }: {
   home-manager.users.sarvesh = {
     home = {
       packages = with pkgs; [
@@ -362,26 +362,17 @@
             bind = SUPER_SHIFT,right,movewindow,r
             bind = SUPER_SHIFT,up,movewindow,u
             bind = SUPER_SHIFT,down,movewindow,d
-            bind = SUPER,1,workspace,1
-            bind = SUPER,2,workspace,2
-            bind = SUPER,3,workspace,3
-            bind = SUPER,4,workspace,4
-            bind = SUPER,5,workspace,5
-            bind = SUPER,6,workspace,6
-            bind = SUPER,7,workspace,7
-            bind = SUPER,8,workspace,8
-            bind = SUPER,9,workspace,9
-            bind = SUPER,0,workspace,10
-            bind = SUPER_SHIFT,1,movetoworkspacesilent,1
-            bind = SUPER_SHIFT,2,movetoworkspacesilent,2
-            bind = SUPER_SHIFT,3,movetoworkspacesilent,3
-            bind = SUPER_SHIFT,4,movetoworkspacesilent,4
-            bind = SUPER_SHIFT,5,movetoworkspacesilent,5
-            bind = SUPER_SHIFT,6,movetoworkspacesilent,6
-            bind = SUPER_SHIFT,7,movetoworkspacesilent,7
-            bind = SUPER_SHIFT,8,movetoworkspacesilent,8
-            bind = SUPER_SHIFT,9,movetoworkspacesilent,9
-            bind = SUPER_SHIFT,0,movetoworkspacesilent,10
+            ${builtins.concatStringsSep "" (builtins.genList (
+              x: let
+                ws = let
+                  c = (x + 1) / 10;
+                in
+                  builtins.toString (x + 1 - (c * 10));
+              in ''
+                bind = SUPER,${ws},workspace,${toString (x + 1)}
+                bind = SUPER_SHIFT,${ws},movetoworkspacesilent,${toString (x + 1)}
+              ''
+            ) 10)}
             binde = SUPER_ALT,right,resizeactive,10 0
             binde = SUPER_ALT,left,resizeactive,-10 0
             binde = SUPER_ALT,up,resizeactive,0 -10
@@ -389,7 +380,7 @@
             bind = SUPER_SHIFT,Q,exit,
             bind = SUPER,F,togglefloating,
             bind = SUPER,M,fullscreen,
-            bind = SUPER,PRINT,exec,${pkgs.grim}/bin/grim ~/Pictures/Screenshots/$(date +'%s_grim.png') && dunstify "Screenshot saved!"
+            bind = SUPER,PRINT,exec,${inputs.hyprwm-contrib.packages.${pkgs.system}.grimblast}/bin/grimblast --notify copysave area ~/Pictures/Screenshots/$(date +'%s_screenshot.png')
             bind = SUPER,L,exec,${swaylock} --screenshots --effect-scale 0.3 --clock --timestr "%l:%M %p" --datestr "%a, %d %b %Y" --indicator --indicator-radius 100 --indicator-thickness 12 --ring-color 0a0a0a --key-hl-color b0b0b0 --effect-blur 12x12 --effect-vignette 0.6:0.6
             bind = ,XF86MonBrightnessUp,exec,~/.config/hypr/scripts/brightness.sh -inc 2
             bind = ,XF86MonBrightnessDown,exec,~/.config/hypr/scripts/brightness.sh -dec 2
