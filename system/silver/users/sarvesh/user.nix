@@ -8,7 +8,7 @@
         nixpkgs-fmt
         onlyoffice-bin
         mate.eom
-        rofi
+        rofi-wayland
         xfce.thunar
       ];
       stateVersion = "22.11";
@@ -235,7 +235,8 @@
           }
           window {
             x-offset: -12px;
-            y-offset: 58px;
+            y-offset: 12px;
+            border-radius: 12px;
           }
           * {
             background: #0a0a0a;
@@ -252,7 +253,6 @@
             text-color: @foreground;
           }
           listview {
-            lines: 5;
             padding: 12px;
             spacing: 4px;
             cycle: false;
@@ -349,7 +349,6 @@
             }
             monitor = ,1920x1080@60,0x0,1
             workspace = ,1
-            windowrule = float,^(Rofi)$
             windowrule = float,^(nm-connection-editor)$
             windowrulev2 = float,class:^(telegramdesktop)$,title:^(Media viewer)$
             bind = SUPER,RETURN,exec,footclient
@@ -388,7 +387,6 @@
             binde = SUPER_ALT,up,resizeactive,0 -10
             binde = SUPER_ALT,down,resizeactive,0 10
             bind = SUPER_SHIFT,Q,exit,
-            bind = SUPER_SHIFT,R,forcerendererreload,
             bind = SUPER,F,togglefloating,
             bind = SUPER,M,fullscreen,
             bind = SUPER,PRINT,exec,${pkgs.grim}/bin/grim ~/Pictures/Screenshots/$(date +'%s_grim.png') && dunstify "Screenshot saved!"
@@ -406,13 +404,15 @@
         "rofi/apps.rasi".text = ''
           ${rofi-theme}
           configuration {
-            font: "Noto Sans Semi-bold 11";
             drun-display-format: "{name}";
             hover-select: false;
             location: 0;
           }
+          listview {
+            lines: 4;
+          }
           window {
-            width: 260px;
+            width: 205px;
             x-offset: 0;
             y-offset: 0;
           }
@@ -421,6 +421,9 @@
           ${rofi-theme}
           window {
             width: 175px;
+          }
+          listview{
+            lines: 6;
           }
           entry {
             enabled: false;
