@@ -1142,7 +1142,7 @@
       isNormalUser = true;
       extraGroups = [ "wheel" "video" "networkmanager" ];
       shell = pkgs.fish;
-      hashedPassword = "$6$Zwt2/p7axZKbTrAS$TLnZdKjq8D712/Ps1bs2QU2VKVESksTc7cg4t6QDbXKTaA7i5NMJNjcRnwKg6vFVk5qVPO//p8PFniEVfRo8R/";
+      hashedPassword = "$6$fufT2D6kJQRja847$pyn9VWGTzdB5gxm4kQa0ln6pI5A3vayZKT3UDJswebZnrWXB.dKLZUtMgNgdI3LoHcO.mUDrBMODTj/QGZyGn1";
     };
   };
 }

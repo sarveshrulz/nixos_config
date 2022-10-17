@@ -45,7 +45,7 @@
 
   users = {
     mutableUsers = false;
-    users.root.hashedPassword = "$6$VQp0iZV1/rrLMDS8$x83C0JxkQ8WedG0pKUrGHxSW4LDWJUTLhb7V.AGZRO2LL3yvN8ATDRGZyiAhQRFtkvNkAybfLydG9a7Gmo40p0";
+    users.root.hashedPassword = "$6$BMgONX6ZiwY6UCvJ$aEQjnD2NyJrLV.jGVXgUJr9iEm7GU6t6.cgVb0Ro8S89tf34XeGvN.s5I1LuKJGDMYikINsBAlrYhz91hQe370";
   };
 
   system = {
