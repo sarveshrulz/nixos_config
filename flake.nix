@@ -17,17 +17,32 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, hyprland, ... } @inputs: {
-    nixosConfigurations.silver = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = [
-        hyprland.nixosModules.default
-        home-manager.nixosModules.home-manager
-        ./system/silver/configuration.nix
-      ];
-      specialArgs = {
-        inherit inputs;
+  outputs = { self, nixpkgs, home-manager, hyprland, hyprwm-contrib }: {
+    nixosConfigurations.silver =
+      let
+        system = "x86_64-linux";
+      in
+      nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [
+          hyprland.nixosModules.default
+          home-manager.nixosModules.home-manager
+          ./system/silver/configuration.nix
+        ];
+        specialArgs =
+          let
+            pkgs = import nixpkgs {
+              inherit system;
+              overlays = [
+                (self: super: {
+                  hyprwm-contrib-packages = hyprwm-contrib.packages.${system};
+                })
+              ];
+            };
+          in
+          {
+            inherit pkgs;
+          };
       };
-    };
   };
 }
