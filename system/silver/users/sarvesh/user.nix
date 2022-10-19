@@ -36,7 +36,7 @@
             if test $c = "H" || test $c = "h"
               exec Hyprland
             else if test $c = "W" || test $c = "w"
-              exec ~/.config/weston/waydroid-session
+              exec sh -c "(${pkgs.westonLite}/bin/weston; waydroid session stop) & WAYLAND_DISPLAY=wayland-1 waydroid show-full-ui"
             end
           end
         '';
@@ -302,24 +302,9 @@
               fi
             '';
         };
-        "hypr/autostart" = {
-          executable = true;
-          text = ''
-            #!/usr/bin/env bash
-            dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY HYPRLAND_INSTANCE_SIGNATURE XDG_CURRENT_DESKTOP &
-            dunst &
-            ${pkgs.wl-clipboard}/bin/wl-paste -t text --watch ${pkgs.clipman}/bin/clipman store &
-            ${pkgs.gammastep}/bin/gammastep -l 19:72 &
-            ${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1 &
-            foot -s &
-            thunar --daemon &
-            waybar &
-            ${pkgs.swaybg}/bin/swaybg -o \* -i ~/Pictures/Wallpapers/default -m fill
-          '';
-        };
         "hypr/hyprland.conf".text =
           let
-            swaylock = "${pkgs.swaylock-effects}/bin/swaylock";
+            swaylock = "${pkgs.swaylock-effects}/bin/swaylock --clock --timestr '%l:%M %p' --datestr '%a, %d %b %Y' --indicator --indicator-radius 100 --indicator-thickness 12 --ring-color 0a0a0a --key-hl-color b0b0b0 --effect-blur 12x12";
           in
           ''
             input {
@@ -390,16 +375,24 @@
             bind = SUPER,F,togglefloating,
             bind = SUPER,M,fullscreen,
             bind = SUPER,PRINT,exec,${pkgs.hyprwm-contrib-packages.grimblast}/bin/grimblast --notify copysave area ~/Pictures/Screenshots/$(date +'%s_screenshot.png')
-            bind = SUPER,L,exec,${swaylock} --screenshots --effect-scale 0.3 --clock --timestr "%l:%M %p" --datestr "%a, %d %b %Y" --indicator --indicator-radius 100 --indicator-thickness 12 --ring-color 0a0a0a --key-hl-color b0b0b0 --effect-blur 12x12 --effect-vignette 0.6:0.6
+            bind = SUPER,L,exec,${swaylock} --screenshots --effect-scale 0.3
             bind = ,XF86MonBrightnessUp,exec,~/.config/hypr/scripts/brightness.sh -inc 2
             bind = ,XF86MonBrightnessDown,exec,~/.config/hypr/scripts/brightness.sh -dec 2
             bind = ,XF86AudioMute,exec,~/.config/hypr/scripts/volume.sh -t
             bind = ,XF86AudioRaiseVolume,exec,~/.config/hypr/scripts/volume.sh -i 5
             bind = ,XF86AudioLowerVolume,exec,~/.config/hypr/scripts/volume.sh -d 5
-            bindl = ,switch:Lid Switch,exec,${swaylock} --image ~/Pictures/Wallpapers/default --effect-scale 0.1 --clock --timestr "%l:%M %p" --datestr "%a, %d %b %Y" --indicator --indicator-radius 100 --indicator-thickness 12 --ring-color 0a0a0a --key-hl-color b0b0b0 --effect-blur 12x12 --effect-vignette 0.6:0.6
+            bindl = ,switch:Lid Switch,exec,${swaylock} --image ~/Pictures/Wallpapers/default --effect-scale 0.1
             bindm = SUPER,mouse:272,movewindow
             bindm = SUPER,mouse:273,resizewindow
-            exec-once = ~/.config/hypr/autostart
+            exec-once = dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY HYPRLAND_INSTANCE_SIGNATURE XDG_CURRENT_DESKTOP
+            exec-once = ${pkgs.gammastep}/bin/gammastep -l 19:72
+            exec-once = ${pkgs.swaybg}/bin/swaybg -o \* -i ~/Pictures/Wallpapers/default -m fill
+            exec-once = TERM='xterm-256color' waybar
+            exec-once = foot -s
+            exec-once = dunst
+            exec-once = thunar --daemon
+            exec-once = ${pkgs.wl-clipboard}/bin/wl-paste -t text --watch ${pkgs.clipman}/bin/clipman store
+            exec-once = ${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1
           '';
         "rofi/apps.rasi".text = ''
           ${rofi-theme}
@@ -1084,19 +1077,13 @@
           panel-position=none
           background-image=/home/sarvesh/.config/weston/background.jpg
         '';
-        "weston/waydroid-session" = {
-          executable = true;
-          text = ''
-            #!/usr/bin/env bash
-            (${pkgs.westonLite}/bin/weston; waydroid session stop) &
-            WAYLAND_DISPLAY="wayland-1" waydroid show-full-ui
-          '';
-        };
         "weston/background.jpg".source = ./files/config/weston/background.jpg;
         "dunst/icons/brightness.png".source = ./files/config/dunst/icons/brightness.png;
         "dunst/icons/muted.png".source = ./files/config/dunst/icons/muted.png;
         "dunst/icons/volume.png".source = ./files/config/dunst/icons/volume.png;
       };
+
+    manual.manpages.enable = false;
 
     gtk =
       let
