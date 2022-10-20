@@ -5,6 +5,7 @@
         librewolf-wayland
         tdesktop
         capitaine-cursors
+        inkscape
         nixpkgs-fmt
         onlyoffice-bin
         mate.eom
@@ -221,6 +222,13 @@
           timeout = 7;
         };
       };
+    };
+
+    systemd.user.services.mpris-proxy = {
+      Unit.Description = "Mpris proxy";
+      Unit.After = [ "network.target" "sound.target" ];
+      Service.ExecStart = "${pkgs.bluez}/bin/mpris-proxy";
+      Install.WantedBy = [ "default.target" ];
     };
 
     xdg.configFile =

@@ -47,7 +47,14 @@ in
 
   hardware = {
     acpilight.enable = true;
-    bluetooth.enable = true;
+    bluetooth = {
+      enable = true;
+      settings = {
+        General = {
+          Enable = "Source,Sink,Media,Socket";
+        };
+      };
+    };
     opengl = {
       driSupport = true;
       extraPackages = with pkgs; [
