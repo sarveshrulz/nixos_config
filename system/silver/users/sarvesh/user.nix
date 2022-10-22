@@ -189,6 +189,10 @@
           }
         '';
       };
+      rbw = {
+        enable = true;
+        settings.email = "sarveshkardekar+bitwarden@gmail.com";
+      };
     };
 
     services.dunst = {
@@ -1129,7 +1133,18 @@
           gtk-cursor-theme-name="capitaine-cursors-white"
         '';
       };
+  };
 
+  networking.wg-quick.interfaces.protonvpn = {
+    autostart = true;
+    address = [ "10.2.0.2/32" ];
+    dns = [ "10.2.0.1" ];
+    privateKeyFile = "${../../../../secrets/silver/protonvpnPrivateKey}";
+    peers = [{
+      publicKey = "UIV6mDfDCun6PrjT7kFrpl02eEwqIa/piXoSKm1ybBU=";
+      allowedIPs = [ "0.0.0.0/0" ];
+      endpoint = "89.39.107.113:51820";
+    }];
   };
 
   services.getty = {
@@ -1146,7 +1161,7 @@
       isNormalUser = true;
       extraGroups = [ "wheel" "video" "networkmanager" ];
       shell = pkgs.fish;
-      hashedPassword = "$6$fufT2D6kJQRja847$pyn9VWGTzdB5gxm4kQa0ln6pI5A3vayZKT3UDJswebZnrWXB.dKLZUtMgNgdI3LoHcO.mUDrBMODTj/QGZyGn1";
+      passwordFile = "${../../../../secrets/silver/sarveshPassword}";
     };
   };
 }

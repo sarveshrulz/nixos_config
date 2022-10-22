@@ -45,7 +45,7 @@
 
   users = {
     mutableUsers = false;
-    users.root.hashedPassword = "$6$BMgONX6ZiwY6UCvJ$aEQjnD2NyJrLV.jGVXgUJr9iEm7GU6t6.cgVb0Ro8S89tf34XeGvN.s5I1LuKJGDMYikINsBAlrYhz91hQe370";
+    users.root.passwordFile = "${../secrets/rootPassword}";
   };
 
   system = {
