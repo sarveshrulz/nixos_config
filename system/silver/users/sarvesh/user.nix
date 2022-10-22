@@ -49,13 +49,14 @@
           bpytop = "${pkgs.bpytop}/bin/bpytop";
           editconf = "codium ~/.dotfiles";
           update-flake = "pushd ~/.dotfiles && nix flake update; popd";
-          update-system = "pushd ~/.dotfiles && git add . && sudo nixos-rebuild switch --flake .#; popd";
+          update-system = "pushd ~/.dotfiles && git add . && sudo nixos-rebuild switch --flake '.?submodules=1#'; popd";
         };
       };
       git = {
         enable = true;
         userName = "sarveshrulz";
         userEmail = "sarveshkardekar@gmail.com";
+        extraConfig.credential.helper = "rbw";
       };
       vscode = {
         enable = true;
