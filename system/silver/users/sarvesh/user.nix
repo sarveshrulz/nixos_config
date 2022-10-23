@@ -54,6 +54,7 @@
           editconf = "codium ~/.dotfiles";
           update-flake = "pushd ~/.dotfiles && nix flake update; popd";
           update-system = "pushd ~/.dotfiles && git add . && sudo nixos-rebuild switch --flake '.?submodules=1#'; popd";
+          silver-oracle = "ssh ubuntu@140.238.255.129";
         };
       };
       git = {
@@ -349,7 +350,7 @@
               drop_shadow = false
               dim_inactive = true
             }
-            monitor = ,1920x1080@60,0x0,1
+            monitor = ,preffered,auto,1
             workspace = ,1
             windowrule = float,^(nm-connection-editor)$
             windowrulev2 = float,class:^(telegramdesktop)$,title:^(Media viewer)$
