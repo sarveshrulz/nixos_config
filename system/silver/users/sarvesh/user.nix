@@ -12,6 +12,10 @@
         rofi-wayland
         xfce.thunar
       ];
+      file.".ssh" = {
+        recursive = true;
+        source = ../../../../secrets/silver/sarvesh/ssh;
+      };
       stateVersion = "22.11";
     };
 
@@ -1140,7 +1144,7 @@
     autostart = true;
     address = [ "10.2.0.2/32" ];
     dns = [ "10.2.0.1" ];
-    privateKeyFile = "${../../../../secrets/silver/protonvpnPrivateKey}";
+    privateKeyFile = "${../../../../secrets/silver/sarvesh/protonvpnPrivateKey}";
     peers = [{
       publicKey = "UIV6mDfDCun6PrjT7kFrpl02eEwqIa/piXoSKm1ybBU=";
       allowedIPs = [ "0.0.0.0/0" ];
@@ -1162,7 +1166,7 @@
       isNormalUser = true;
       extraGroups = [ "wheel" "video" "networkmanager" ];
       shell = pkgs.fish;
-      passwordFile = "${../../../../secrets/silver/sarveshPassword}";
+      passwordFile = "${../../../../secrets/silver/sarvesh/sarveshPassword}";
     };
   };
 }
