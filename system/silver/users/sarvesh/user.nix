@@ -197,10 +197,7 @@
       };
       rbw = {
         enable = true;
-        settings = {
-          email = "sarveshkardekar+bitwarden@gmail.com";
-          pinentry = "tty";
-        };
+        settings.email = "sarveshkardekar+bitwarden@gmail.com";
       };
     };
 
