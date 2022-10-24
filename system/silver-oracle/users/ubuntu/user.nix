@@ -3,7 +3,6 @@
     stateVersion = "22.11";
     username = "ubuntu";
     homeDirectory = /home/ubuntu;
-    packages = with pkgs; [ nixpkgs-fmt ];
     file.".ssh" = {
       recursive = true;
       source = ../../../../secrets/silver/sarvesh/ssh;
@@ -24,7 +23,7 @@
       '';
       shellAliases = {
         update-flake = "pushd ~/.dotfiles && nix flake update; popd";
-        update-system = "pushd ~/.dotfiles && home-manager switch --flake '?submodules=1.#ubuntu'; popd";
+        update-system = "pushd ~/.dotfiles && ${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt (find -type f -name '*.nix') && git add . && home-manager switch --flake '.?submodules=1#ubuntu'; popd";
         editconf = "vim ~/.dotfiles/system/silver-oracle/users/ubuntu/user.nix";
       };
     };
