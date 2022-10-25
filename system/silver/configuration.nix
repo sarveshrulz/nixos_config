@@ -52,11 +52,7 @@ in
     acpilight.enable = true;
     bluetooth = {
       enable = true;
-      settings = {
-        General = {
-          Enable = "Source,Sink,Media,Socket";
-        };
-      };
+      settings.General.Enable = "Source,Sink,Media,Socket";
     };
     opengl = {
       driSupport = true;
