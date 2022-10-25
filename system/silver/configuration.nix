@@ -28,7 +28,10 @@ in
     kernelParams = [ "acpi_backlight=native" ];
   };
 
-  networking.hostName = "silver";
+  networking = {
+    networkmanager.enable = true;
+    hostName = "silver";
+  };
 
   programs = {
     kdeconnect.enable = true;

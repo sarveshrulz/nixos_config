@@ -1147,9 +1147,9 @@
     dns = [ "10.2.0.1" ];
     privateKeyFile = "${../../../../secrets/silver/sarvesh/protonvpnPrivateKey}";
     peers = [{
-      publicKey = "UIV6mDfDCun6PrjT7kFrpl02eEwqIa/piXoSKm1ybBU=";
+      publicKey = "6viKMPw7x82HUJJbPTA08M3oY9U0SRDxpktohKENJTk=";
       allowedIPs = [ "0.0.0.0/0" ];
-      endpoint = "89.39.107.113:51820";
+      endpoint = "37.19.200.22:51820";
     }];
   };
 
