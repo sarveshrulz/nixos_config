@@ -44,14 +44,13 @@
             inherit pkgs;
           };
       };
-    homeConfigurations.ubuntu =
-      let
-        system = "aarch64-linux";
-        pkgs = nixpkgs.legacyPackages.${system};
-      in
-      home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [ ./system/silver-oracle/users/ubuntu/user.nix ];
-      };
+
+    nixosConfigurations.silver-oracle = nixpkgs.lib.nixosSystem {
+      system = "aarch64-linux";
+      modules = [
+        home-manager.nixosModules.home-manager
+        ./system/silver-oracle/configuration.nix
+      ];
+    };
   };
 }
