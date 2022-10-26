@@ -1,11 +1,16 @@
-{ ... }: {
+{ pkgs, ... }: {
   imports = [
     ../common.nix
     ./users/sarvesh/user.nix
     ./hardware-configuration.nix
   ];
 
-  networking.hostName = "silver-oracle";
+  networking = {
+    hostName = "silver-oracle";
+    networkmanager.enable = true;
+  };
+
+  environment.systemPackages = with pkgs; [ podman-compose ];
 
   services.openssh.enable = true;
 
@@ -13,5 +18,22 @@
 
   security.sudo.wheelNeedsPassword = false;
 
-  virtualisation.docker.enable = true;
+  virtualisation = {
+    oci-containers = {
+      backend = "podman";
+      containers.yacht = {
+        autoStart = true;
+        image = "selfhostedpro/yacht";
+        ports = [ "8000:8000" ];
+        volumes = [
+          "/var/lib/podman/storage/yacht:/config"
+          "/var/run/podman/podman.sock:/var/run/docker.sock"
+        ];
+      };
+    };
+    podman = {
+      enable = true;
+      defaultNetwork.dnsname.enable = true;
+    };
+  };
 }
