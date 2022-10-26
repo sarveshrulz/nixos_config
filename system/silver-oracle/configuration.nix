@@ -16,18 +16,18 @@
   security.sudo.wheelNeedsPassword = false;
 
   virtualisation = {
-    oci-containers = {
-      backend = "podman";
-      containers.yacht = {
-        autoStart = true;
-        image = "selfhostedpro/yacht";
-        ports = [ "8000:8000" ];
-        volumes = [
-          "/var/lib/podman/storage/yacht:/config"
-          "/var/run/podman/podman.sock:/var/run/docker.sock"
-        ];
-      };
-    };
+    # oci-containers = {
+    #   backend = "podman";
+    #   containers.yacht = {
+    #     autoStart = true;
+    #     image = "selfhostedpro/yacht";
+    #     ports = [ "8000:8000" ];
+    #     volumes = [
+    #       "/var/lib/podman/storage/yacht:/config"
+    #       "/var/run/podman/podman.sock:/var/run/docker.sock"
+    #     ];
+    #   };
+    # };
     podman = {
       enable = true;
       defaultNetwork.dnsname.enable = true;
