@@ -5,10 +5,7 @@
     ./hardware-configuration.nix
   ];
 
-  networking = {
-    hostName = "silver-oracle";
-    networkmanager.enable = true;
-  };
+  networking.hostName = "silver-oracle";
 
   environment.systemPackages = with pkgs; [ podman-compose ];
 

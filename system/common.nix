@@ -1,8 +1,13 @@
 { pkgs, ... }: {
   boot = {
     kernelPackages = pkgs.linuxPackages_zen;
-    cleanTmpDir = true;
+    tmpOnTmpfs = true;
+    initrd.compressor = "lz4";
+    consoleLogLevel = 0;
+    kernelParams = [ "quiet" "udev.log_level=3" ];
   };
+
+  networking.networkmanager.enable = true;
 
   programs = {
     neovim = {

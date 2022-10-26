@@ -51,7 +51,7 @@
         '';
         shellAliases = {
           bpytop = "${pkgs.bpytop}/bin/bpytop";
-          editconf = "codium ~/.dotfiles";
+          edit-conf = "codium ~/.dotfiles";
           update-flake = "pushd ~/.dotfiles && nix flake update; popd";
           update-system = "pushd ~/.dotfiles && git add . && sudo nixos-rebuild switch --flake '.?submodules=1#'; popd";
           silver-oracle = "ssh sarvesh@140.238.167.175";

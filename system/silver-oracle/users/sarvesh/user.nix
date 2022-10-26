@@ -18,6 +18,8 @@
         shellAliases = {
           update-flake = "pushd ~/.dotfiles && nix flake update; popd";
           update-system = "pushd ~/.dotfiles && ${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt (find -type f -name '*.nix') && git add . && sudo nixos-rebuild switch --flake '.?submodules=1#'; popd";
+          edit-conf = "vim ~/.dotfiles/system/silver-oracle/configuration.nix";
+          edit-user = "vim ~/.dotfiles/system/silver-oracle/users/sarvesh/user.nix";
         };
       };
       git = {
