@@ -38,6 +38,18 @@
     };
   };
 
+  networking.wg-quick.interfaces.protonvpn = {
+    autostart = true;
+    address = [ "10.2.0.2/32" ];
+    dns = [ "10.2.0.1" ];
+    privateKeyFile = "${../../../../secrets/silver-oracle/sarvesh/protonvpnPrivateKey}";
+    peers = [{
+      publicKey = "miiJL4putHojjkN0tOnNHu1/ae8rxvrBPCF47mqWnko=";
+      allowedIPs = [ "0.0.0.0/0" ];
+      endpoint = "185.107.56.49:51820";
+    }];
+  };
+
   users.users.sarvesh = {
     description = "Sarvesh Kardekar";
     isNormalUser = true;

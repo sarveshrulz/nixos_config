@@ -54,7 +54,7 @@
           edit-conf = "codium ~/.dotfiles";
           update-flake = "pushd ~/.dotfiles && nix flake update; popd";
           update-system = "pushd ~/.dotfiles && git add . && sudo nixos-rebuild switch --flake '.?submodules=1#'; popd";
-          silver-oracle = "ssh sarvesh@140.238.167.175";
+          silver-oracle = "ssh sarvesh@sarveshrulz.duckdns.org";
         };
       };
       git = {
@@ -1147,9 +1147,9 @@
     dns = [ "10.2.0.1" ];
     privateKeyFile = "${../../../../secrets/silver/sarvesh/protonvpnPrivateKey}";
     peers = [{
-      publicKey = "6viKMPw7x82HUJJbPTA08M3oY9U0SRDxpktohKENJTk=";
+      publicKey = "miiJL4putHojjkN0tOnNHu1/ae8rxvrBPCF47mqWnko=";
       allowedIPs = [ "0.0.0.0/0" ];
-      endpoint = "37.19.200.22:51820";
+      endpoint = "185.107.56.49:51820";
     }];
   };
 
