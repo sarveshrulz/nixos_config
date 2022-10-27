@@ -18,6 +18,21 @@
     fish.enable = true;
   };
 
+  services.dnsmasq = {
+    enable = true;
+    alwaysKeepRunning = true;
+    extraConfig = ''
+      no-resolv
+      bogus-priv
+      strict-order
+      server=2a07:a8c1::
+      server=45.90.30.0
+      server=2a07:a8c0::
+      server=45.90.28.0
+      add-cpe-id=${builtins.readFile ../secrets/sarvesh/dnsId}
+    '';
+  };
+
   i18n.defaultLocale = "en_US.UTF-8";
 
   console.keyMap = "us";
