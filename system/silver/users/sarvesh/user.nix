@@ -120,14 +120,14 @@
             interval = 60;
           };
           "network" = {
-            format = " ";
+            format = "";
             on-click = "~/.config/rofi/scripts/rofi-wifi-menu";
             tooltip = false;
           };
           "pulseaudio" = {
             format = "{icon}";
-            format-muted = "<span color=\"#4a4a4a\"> </span>";
-            format-icons = [ " " " " " " ];
+            format-muted = "<span color=\"#4a4a4a\"></span>";
+            format-icons = [ "" "" "" ];
             on-click = "pamixer -t";
             tooltip = false;
           };
@@ -151,47 +151,38 @@
         }];
         style = ''
           #waybar {
+            background: transparent;
+          }
+          #workspaces, #workspaces button, #battery, #bluetooth, #network, #clock, #clock.time, #pulseaudio, #custom-bluetooth, #custom-power {
             font-family: "NotoSans", "FontAwesome6Free";
             font-weight: bolder;
-            background: transparent;
             color: #b0b0b0;
-          }
-          #workspaces {
-            border-radius: 12px;
-            padding: 4px;
-          }
-          #workspaces button {
-            color: #b0b0b0;
-            border-radius: inherit;
-            font-weight: inherit;
+            background-color: #0a0a0a;
+            border-radius: 0;
             transition: none;
-            padding: 0 4px;
           }
-          #workspaces, #network, #pulseaudio, #battery, #clock, #custom-bluetooth {
-            background: #0a0a0a;
-          }
-          #custom-power, #network, #pulseaudio, #battery, #clock, #clock.time, custom-bluetooth {
-            padding: 0 8px;
-          }
-          #network, #clock {
-            border-radius: 12px 0 0 12px;
-          }
-          #custom-power, #clock.time {
+          #custom-power, #clock.time, #workspaces button.active {
+            background-color: #b0b0b0;
+            color: #0a0a0a;
             border-radius: 0 12px 12px 0;
           }
-          #clock.time {
-            padding-left: 4px;
+          #custom-power {
+            background-color: #a54242;
           }
-          #workspaces button.active, #clock.time {
-            background: #b0b0b0;
-            color: #0a0a0a;
+          #clock, #network {
+            border-radius: 12px 0 0 12px;
+          }
+          #workspaces, #workspaces button {
+            padding: 0 4px 0 4px;
+            border-radius: 12px;
+          }
+          #workspaces button.active {
+            border-radius: 50%;
+            padding: 0 4px;
+            margin: 4px 0 4px 0;
           }
           #network.disconnected {
             color: #4a4a4a;
-          }
-          #custom-power {
-            background: #a54242;
-            color: #0a0a0a;
           }
         '';
       };
@@ -606,12 +597,12 @@
             			fi
             		done
             		if ! [[ $counter = 0 ]]; then
-            			printf "%d %s" "$counter" " "
+            			printf "%d %s" "$counter" ""
             		else
-            			printf ' '
+            			printf ''
             		fi
             	else
-            		echo "<span color=\"#4a4a4a\"> </span>"
+            		echo "<span color=\"#4a4a4a\"></span>"
             	fi
             }
             device_menu() {
