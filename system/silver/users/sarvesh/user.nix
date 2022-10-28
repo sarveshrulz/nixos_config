@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, secrets, ... }: {
   home-manager.users.sarvesh = {
     home = {
       packages = with pkgs; [
@@ -14,7 +14,7 @@
       ];
       file.".ssh" = {
         recursive = true;
-        source = ../../../../secrets/silver/sarvesh/ssh;
+        source = secrets.silver.sarvesh.sshPath;
       };
       stateVersion = "22.11";
     };
@@ -1144,7 +1144,7 @@
   networking.wg-quick.interfaces.protonvpn = {
     address = [ "10.2.0.2/32" ];
     dns = [ "10.2.0.1" ];
-    privateKeyFile = "${../../../../secrets/silver/sarvesh/protonvpnPrivateKey}";
+    privateKey = secrets.silver.sarvesh.protonvpnKey;
     peers = [{
       publicKey = "miiJL4putHojjkN0tOnNHu1/ae8rxvrBPCF47mqWnko=";
       allowedIPs = [ "0.0.0.0/0" ];
@@ -1166,7 +1166,7 @@
       isNormalUser = true;
       extraGroups = [ "wheel" "video" "networkmanager" ];
       shell = pkgs.fish;
-      passwordFile = "${../../../../secrets/silver/sarvesh/sarveshPassword}";
+      hashedPassword = secrets.silver.sarvesh.password;
     };
   };
 }

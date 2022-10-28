@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, secrets, ... }: {
   boot = {
     kernelPackages = pkgs.linuxPackages_zen;
     tmpOnTmpfs = true;
@@ -29,7 +29,7 @@
       server=45.90.30.0
       server=2a07:a8c0::
       server=45.90.28.0
-      add-cpe-id=${builtins.readFile ../secrets/sarvesh/dnsId}
+      add-cpe-id=${secrets.common.sarvesh.dnsId}
     '';
   };
 
@@ -39,10 +39,7 @@
 
   time.timeZone = "Asia/Kolkata";
 
-  users = {
-    mutableUsers = false;
-    users.root.passwordFile = "${../secrets/rootPassword}";
-  };
+  users.mutableUsers = false;
 
   system = {
     stateVersion = "22.11";

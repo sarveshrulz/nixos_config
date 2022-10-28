@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, secrets, ... }:
 let
   f2fsOpts = [
     "compress_algorithm=lz4"
@@ -62,6 +62,8 @@ in
       ];
     };
   };
+
+  users.users.root.hashedPassword = secrets.silver.root.password;
 
   security = {
     rtkit.enable = true;
