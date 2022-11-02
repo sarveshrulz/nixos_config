@@ -43,6 +43,8 @@ in
     };
     gvfs.enable = true;
     tumbler.enable = true;
+    thermald.enable = true;
+    auto-cpufreq.enable = true;
   };
 
   hardware = {
@@ -68,11 +70,6 @@ in
   security = {
     rtkit.enable = true;
     pam.services.swaylock = { };
-  };
-
-  powerManagement = {
-    powertop.enable = true;
-    cpuFreqGovernor = lib.mkForce "powersave";
   };
 
   fonts.fonts = with pkgs; [
