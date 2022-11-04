@@ -26,6 +26,7 @@ in
       efi.canTouchEfiVariables = true;
     };
     kernelParams = [ "acpi_backlight=native" ];
+    kernelModules = [ "k10temp" ];
   };
 
   networking.hostName = "silver";
