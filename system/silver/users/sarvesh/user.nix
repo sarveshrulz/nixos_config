@@ -189,6 +189,7 @@
       rbw = {
         enable = true;
         settings.email = "sarveshkardekar+bitwarden@gmail.com";
+	pinentry = "curses";
       };
     };
 

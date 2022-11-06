@@ -32,7 +32,7 @@
         enable = true;
         settings = {
           email = "sarveshkardekar+bitwarden@gmail.com";
-          pinentry = "tty";
+          pinentry = "curses";
         };
       };
     };
