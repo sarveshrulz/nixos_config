@@ -53,7 +53,7 @@
           bpytop = "${pkgs.bpytop}/bin/bpytop";
           edit-conf = "codium ~/.dotfiles";
           update-flake = "pushd ~/.dotfiles && nix flake update; popd";
-          update-system = "pushd ~/.dotfiles && git add . && sudo nixos-rebuild switch --flake '.?submodules=1#'; popd";
+          update-system = "pushd ~/.dotfiles && git add . && sudo nixos-rebuild --install-bootloader switch --flake '.?submodules=1#'; popd";
           silver-oracle = "ssh sarvesh@sarveshrulz.duckdns.org";
         };
       };
@@ -188,8 +188,10 @@
       };
       rbw = {
         enable = true;
-        settings.email = "sarveshkardekar+bitwarden@gmail.com";
-	pinentry = "curses";
+        settings = {
+          email = "sarveshkardekar+bitwarden@gmail.com";
+          pinentry = "curses";
+        };
       };
     };
 
@@ -318,7 +320,6 @@
           in
           ''
             input {
-              sensitivity = 0.5
               touchpad {
                 natural_scroll = true
               }

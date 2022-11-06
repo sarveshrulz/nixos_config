@@ -2,7 +2,6 @@
   boot = {
     kernelPackages = pkgs.linuxPackages_zen;
     tmpOnTmpfs = true;
-    initrd.compressor = "lz4";
     consoleLogLevel = 0;
     kernelParams = [ "quiet" "udev.log_level=3" ];
   };

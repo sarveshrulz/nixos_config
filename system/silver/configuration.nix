@@ -1,29 +1,50 @@
-{ pkgs, lib, secrets, ... }:
-let
-  f2fsOpts = [
-    "compress_algorithm=lz4"
-    "compress_chksum"
-    "atgc"
-    "gc_merge"
-    "lazytime"
-  ];
-in
-{
+{ pkgs, lib, secrets, ... }: {
   imports = [
     ../common.nix
     ./hardware-configuration.nix
     ./users/sarvesh/user.nix
   ];
 
-  fileSystems = {
-    "/".options = f2fsOpts;
-    "/home".options = f2fsOpts;
-  };
+  fileSystems =
+    let
+      options = [ "compress=zstd:1" "commit=120" "space_cache=v2" "noatime" ];
+    in
+    {
+      "/".options = options ++ [ "ssd" ];
+      "/home" = {
+        device = "/dev/disk/by-label/home";
+        options = options ++ [ "autodefrag" "subvol=@home" ];
+        encrypted = {
+          enable = true;
+          label = "crypted-home";
+          keyFile = "/home.key";
+          blkDev = "/dev/disk/by-label/rawHome";
+        };
+      };
+    };
 
   boot = {
     loader = {
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
+      grub = {
+        enable = true;
+        device = "nodev";
+        efiSupport = true;
+        enableCryptodisk = true;
+      };
+      efi = {
+        canTouchEfiVariables = true;
+        efiSysMountPoint = "/boot/efi";
+      };
+    };
+    initrd = {
+      luks.devices."crypted-nixos" = {
+        allowDiscards = true;
+        keyFile = "/nixos.key";
+      };
+      secrets = {
+        "nixos.key" = secrets.silver.encryptionKeys.nixos;
+        "home.key" = secrets.silver.encryptionKeys.home;
+      };
     };
     kernelParams = [ "acpi_backlight=native" ];
     kernelModules = [ "k10temp" ];
