@@ -1146,11 +1146,7 @@
     }];
   };
 
-  services.getty = {
-    loginOptions = "-p -- sarvesh";
-    extraArgs = [ "--noclear" "--skip-login" ];
-    greetingLine = "Welcome to silver! please enter password for sarvesh to login...";
-  };
+  services.getty.autologinUser = "sarvesh";
 
   security.pam.enableEcryptfs = true;
 
