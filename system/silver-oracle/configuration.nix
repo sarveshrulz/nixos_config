@@ -20,16 +20,7 @@
     oci-containers = {
       backend = "podman";
       containers = {
-        duckdns = {
-          autoStart = true;
-          image = "lscr.io/linuxserver/duckdns:latest";
-          environment = {
-            TZ = "Asia/Kolkata";
-            SUBDOMAINS = "sarveshrulz";
-            TOKEN = secrets.silver-oracle.duckdns.token;
-          };
-        };
-      };
+        #####
     };
     podman = {
       enable = true;

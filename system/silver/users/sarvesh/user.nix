@@ -1094,8 +1094,6 @@
         "dunst/icons/volume.png".source = ./files/config/dunst/icons/volume.png;
       };
 
-    manual.manpages.enable = false;
-
     gtk =
       let
         gtkconf = {
@@ -1134,21 +1132,7 @@
       };
   };
 
-  networking.wg-quick.interfaces.protonvpn = {
-    autostart = false;
-    address = [ "10.2.0.2/32" ];
-    dns = [ "10.2.0.1" ];
-    privateKey = secrets.silver.sarvesh.protonvpnKey;
-    peers = [{
-      publicKey = "miiJL4putHojjkN0tOnNHu1/ae8rxvrBPCF47mqWnko=";
-      allowedIPs = [ "0.0.0.0/0" ];
-      endpoint = "185.107.56.49:51820";
-    }];
-  };
-
   services.getty.autologinUser = "sarvesh";
-
-  security.pam.enableEcryptfs = true;
 
   users.users = {
     sarvesh = {
