@@ -11,7 +11,6 @@
     in
     {
       "/".options = options ++ [ "discard=async" "ssd_spread" ];
-      "/swap".options = [ "nodatacow" ];
       "/home" = {
         device = "/dev/disk/by-label/home";
         options = options ++ [ "autodefrag" "subvol=@home" ];
@@ -22,12 +21,23 @@
           blkDev = "/dev/disk/by-label/rawHome";
         };
       };
+      "/swaps/swap1" = {
+        device = "/dev/disk/by-label/home";
+        options = [ "nodatacow" "subvol=@swap" ];
+      };
+      "/swaps/swap2".options = [ "nodatacow" ];
     };
 
-  swapDevices = [{
-    device = "/swap/swapfile";
-    size = 1024 * 8;
-  }];
+  swapDevices = [
+    {
+      device = "/swaps/swap1/swapfile";
+      size = 1024 * 2;
+    }
+    {
+      device = "/swaps/swap2/swapfile";
+      size = 1024 * 6;
+    }
+  ];
 
   boot = {
     loader = {
@@ -75,21 +85,6 @@
     tumbler.enable = true;
     thermald.enable = true;
     auto-cpufreq.enable = true;
-  };
-
-  systemd.services.create-swapfile = {
-    serviceConfig.Type = "oneshot";
-    wantedBy = [ "swap-swapfile.swap" ];
-    script = ''
-      swapfile="/swap/swapfile"
-      if [[ -f "$swapfile" ]]; then
-        echo "Swap file $swapfile already exists, taking no action"
-      else
-        echo "Setting up swap file $swapfile"
-        ${pkgs.coreutils}/bin/truncate -s 0 "$swapfile"
-        ${pkgs.e2fsprogs}/bin/chattr +C "$swapfile"
-      fi
-    '';
   };
 
   hardware = {

@@ -9,7 +9,7 @@
       (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "rtsx_pci_sdmmc" ];
+  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "sd_mod" "rtsx_pci_sdmmc" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
@@ -23,17 +23,17 @@
 
   boot.initrd.luks.devices."crypted-nixos".device = "/dev/disk/by-uuid/3979fd5f-ef5a-4ab8-9cec-17d78a9818ff";
 
-  fileSystems."/swap" =
-    {
-      device = "/dev/disk/by-uuid/9365162f-98b5-4fdd-aefa-3ea9a7688ddf";
-      fsType = "btrfs";
-      options = [ "subvol=@swap" ];
-    };
-
   fileSystems."/boot/efi" =
     {
       device = "/dev/disk/by-uuid/C9F6-1F04";
       fsType = "vfat";
+    };
+
+  fileSystems."/swaps/swap2" =
+    {
+      device = "/dev/disk/by-uuid/9365162f-98b5-4fdd-aefa-3ea9a7688ddf";
+      fsType = "btrfs";
+      options = [ "subvol=@swap" ];
     };
 
   swapDevices = [ ];
