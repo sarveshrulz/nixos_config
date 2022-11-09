@@ -35,6 +35,8 @@
         device = "nodev";
         efiSupport = true;
         enableCryptodisk = true;
+        splashImage = null;
+        configurationLimit = 30;
       };
       efi = {
         canTouchEfiVariables = true;
