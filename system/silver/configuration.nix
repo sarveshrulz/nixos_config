@@ -7,13 +7,13 @@
 
   fileSystems =
     let
-      options = [ "compress=zstd:1" "commit=120" "space_cache=v2" "noatime" "noacl" ];
+      options = [ "commit=120" "space_cache=v2" "noatime" "noacl" ];
     in
     {
-      "/".options = options ++ [ "discard=async" "ssd_spread" ];
+      "/".options = options ++ [ "compress=zstd:1" "discard=async" "ssd_spread" ];
       "/home" = {
         device = "/dev/disk/by-label/home";
-        options = options ++ [ "autodefrag" "subvol=@home" ];
+        options = options ++ [ "compress=zstd:1" "autodefrag" "subvol=@home" ];
         encrypted = {
           enable = true;
           label = "crypted-home";
@@ -23,9 +23,9 @@
       };
       "/swaps/swap1" = {
         device = "/dev/disk/by-label/home";
-        options = [ "nodatacow" "subvol=@swap" ];
+        options = options ++ [ "nodatacow" "subvol=@swap" "autodefrag" ];
       };
-      "/swaps/swap2".options = [ "nodatacow" ];
+      "/swaps/swap2".options = options ++ [ "nodatacow" "discard=async" "ssd_spread" ];
     };
 
   swapDevices = [
