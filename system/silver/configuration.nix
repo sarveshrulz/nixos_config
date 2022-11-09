@@ -7,10 +7,11 @@
 
   fileSystems =
     let
-      options = [ "compress=zstd:1" "commit=120" "space_cache=v2" "noatime" ];
+      options = [ "compress=zstd:1" "commit=120" "space_cache=v2" "noatime" "noacl" ];
     in
     {
-      "/".options = options ++ [ "ssd" ];
+      "/".options = options ++ [ "discard=async" "ssd_spread" ];
+      "/swap".options = [ "nodatacow" ];
       "/home" = {
         device = "/dev/disk/by-label/home";
         options = options ++ [ "autodefrag" "subvol=@home" ];
