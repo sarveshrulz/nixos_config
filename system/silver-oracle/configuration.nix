@@ -21,6 +21,7 @@
       backend = "podman";
       containers = {
         #####
+      };
     };
     podman = {
       enable = true;
