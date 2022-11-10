@@ -15,6 +15,7 @@
       defaultEditor = true;
     };
     fish.enable = true;
+    git.enable = true;
   };
 
   services.dnsmasq = {
@@ -34,7 +35,18 @@
 
   zramSwap.enable = true;
 
-  security.apparmor.enable = true;
+  environment.systemPackages = [
+    (pkgs.writeScriptBin "sudo" ''exec doas "$@"'')
+  ];
+
+  security = {
+    apparmor.enable = true;
+    sudo.enable = false;
+    doas = {
+      enable = true;
+      extraRules = [{ groups = [ "wheel" ]; persist = true; keepEnv = true; }];
+    };
+  };
 
   i18n.defaultLocale = "en_US.UTF-8";
 
