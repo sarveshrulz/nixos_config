@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "doasedit-git": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1667501267,
+        "narHash": "sha256-m23Az6bxq5E1WvFmsULSB6vEF+ki/gs5CgQAPGl4R4k=",
+        "ref": "refs/heads/main",
+        "rev": "493ee9353c4f068d766a1fef16bcaf1202231c1a",
+        "revCount": 9,
+        "type": "git",
+        "url": "https://codeberg.org/TotallyLeGIT/doasedit"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://codeberg.org/TotallyLeGIT/doasedit"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -29,11 +45,11 @@
         "wlroots": "wlroots"
       },
       "locked": {
-        "lastModified": 1668088216,
-        "narHash": "sha256-gDB8qRi4rK7DjhwXYXQer5evfbvJLnB83wTesoz1wY0=",
+        "lastModified": 1668094596,
+        "narHash": "sha256-WRgufGX4mBGWiUN7kw3OAgtnso66kPp+oasyvAWgtqg=",
         "owner": "hyprwm",
         "repo": "Hyprland",
-        "rev": "153c99217d70288b029e965a8c94152705dbd64a",
+        "rev": "27cada2a023cd2448c2a870a09895931b036eb4a",
         "type": "github"
       },
       "original": {
@@ -80,6 +96,7 @@
     },
     "root": {
       "inputs": {
+        "doasedit-git": "doasedit-git",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
         "hyprwm-contrib": "hyprwm-contrib",

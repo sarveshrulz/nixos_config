@@ -1,4 +1,4 @@
-{ pkgs, secrets, ... }: {
+{ pkgs, secrets, doasedit-git, ... }: {
   boot = {
     kernelPackages = pkgs.linuxPackages_zen;
     tmpOnTmpfs = true;
@@ -37,6 +37,7 @@
 
   environment.systemPackages = [
     (pkgs.writeScriptBin "sudo" ''exec doas "$@"'')
+    (pkgs.writeScriptBin "sudoedit" ''${builtins.readFile "${doasedit-git}/doasedit"}'')
   ];
 
   security = {

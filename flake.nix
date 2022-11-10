@@ -15,9 +15,13 @@
       url = "github:hyprwm/contrib";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    doasedit-git = {
+      url = "git+https://codeberg.org/TotallyLeGIT/doasedit";
+      flake = false;
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, hyprland, hyprwm-contrib }:
+  outputs = { self, nixpkgs, home-manager, hyprland, hyprwm-contrib, doasedit-git }:
     let
       secrets = import ./secrets/secrets.nix;
     in
@@ -45,8 +49,9 @@
               };
             in
             {
-              inherit secrets;
               inherit pkgs;
+              inherit secrets;
+              inherit doasedit-git;
             };
         };
 
@@ -56,7 +61,10 @@
           home-manager.nixosModules.home-manager
           ./system/silver-oracle/configuration.nix
         ];
-        specialArgs = { inherit secrets; };
+        specialArgs = {
+          inherit secrets;
+          inherit doasedit-git;
+        };
       };
     };
 }
