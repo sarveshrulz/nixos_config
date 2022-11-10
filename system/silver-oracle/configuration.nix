@@ -1,6 +1,6 @@
 { pkgs, secrets, ... }: {
   imports = [
-    ../common.nix
+    ../common/configuration.nix
     ./users/sarvesh/user.nix
     ./hardware-configuration.nix
   ];
