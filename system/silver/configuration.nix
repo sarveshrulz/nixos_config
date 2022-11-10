@@ -60,12 +60,23 @@
         keyFile = "/nixos.key";
       };
       secrets = {
-        "nixos.key" = secrets.silver.encryptionKeys.nixos;
-        "home.key" = secrets.silver.encryptionKeys.home;
+        "nixos.key" = "/etc/secrets/initrd/nixos.key";
+        "home.key" = "/etc/secrets/initrd/home.key";
       };
     };
     kernelParams = [ "acpi_backlight=native" ];
     kernelModules = [ "k10temp" ];
+  };
+
+  environment.etc = {
+    "secrets/initrd/nixos.key" = {
+      source = secrets.silver.encryptionKeys.nixos;
+      mode = "000";
+    };
+    "secrets/initrd/home.key" = {
+      source = secrets.silver.encryptionKeys.home;
+      mode = "000";
+    };
   };
 
   networking.hostName = "silver";
