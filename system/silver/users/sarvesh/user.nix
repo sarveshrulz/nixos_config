@@ -54,7 +54,7 @@
           edit-conf = "codium ~/.dotfiles";
           update-flake = "pushd ~/.dotfiles && nix flake update; popd";
           update-system = "pushd ~/.dotfiles && git add . && sudo nixos-rebuild --install-bootloader -j 8 switch --flake '.?submodules=1#'; popd";
-          silver-oracle = "ssh sarvesh@sarveshrulz.duckdns.org";
+          silver-oracle = "ssh sarvesh@140.238.167.175";
         };
       };
       git = {
