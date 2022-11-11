@@ -5,21 +5,14 @@
         enable = true;
         userName = "sarveshrulz";
         userEmail = "sarveshkardekar@gmail.com";
-        extraConfig.credential.helper = "rbw";
       };
+      gh.enable = true;
       fish = {
         enable = true;
         shellInit = ''
           set fish_greeting
           ${pkgs.pfetch}/bin/pfetch
         '';
-      };
-      rbw = {
-        enable = true;
-        settings = {
-          email = "sarveshkardekar+bitwarden@gmail.com";
-          pinentry = "curses";
-        };
       };
     };
   };
