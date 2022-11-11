@@ -22,7 +22,7 @@
 
   environment.systemPackages = [
     (pkgs.writeScriptBin "sudo" ''exec doas "$@"'')
-    (pkgs.writeScriptBin "sudoedit" ''${builtins.readFile "${doasedit-git}/doasedit"}'')
+    (pkgs.writeScriptBin "sudoedit" ''exec ${doasedit-git}/doasedit "$@"'')
   ];
 
   security = {
