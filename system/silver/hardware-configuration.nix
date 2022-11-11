@@ -5,38 +5,37 @@
 
 {
   imports =
-    [
-      (modulesPath + "/installer/scan/not-detected.nix")
+    [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "sd_mod" "rtsx_pci_sdmmc" ];
+  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    {
-      device = "/dev/disk/by-uuid/9365162f-98b5-4fdd-aefa-3ea9a7688ddf";
+    { device = "/dev/disk/by-uuid/e57db5ab-64af-4cc2-8a75-c782504e21f4";
       fsType = "btrfs";
-      options = [ "subvol=@nixos" ];
     };
 
-  boot.initrd.luks.devices."crypted-nixos".device = "/dev/disk/by-uuid/3979fd5f-ef5a-4ab8-9cec-17d78a9818ff";
+  boot.initrd.luks.devices."crypted-nixos".device = "/dev/disk/by-uuid/a3a12bdb-73fa-406d-8ff6-cc44102c83b4";
 
-  fileSystems."/boot/efi" =
-    {
-      device = "/dev/disk/by-uuid/C9F6-1F04";
+  fileSystems."/home" =
+    { device = "/dev/disk/by-uuid/4d12d1cc-4030-4833-92e5-0f02b34fba3a";
+      fsType = "btrfs";
+    };
+
+  boot.initrd.luks.devices."crypted-home".device = "/dev/disk/by-uuid/b8de4d73-1566-46c4-9805-fd88c3d79092";
+
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/A030-A409";
       fsType = "vfat";
     };
 
-  fileSystems."/swaps/swap2" =
-    {
-      device = "/dev/disk/by-uuid/9365162f-98b5-4fdd-aefa-3ea9a7688ddf";
-      fsType = "btrfs";
-      options = [ "subvol=@swap" ];
-    };
-
-  swapDevices = [ ];
+  swapDevices =
+    [ { device = "/dev/disk/by-uuid/1a05edc8-0140-4b25-a693-29e988ea8734"; }
+      { device = "/dev/disk/by-uuid/6301c423-b826-469c-bcd2-52bfd11d7a83"; }
+    ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
@@ -46,6 +45,5 @@
   # networking.interfaces.wlp2s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

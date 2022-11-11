@@ -1,4 +1,6 @@
 { pkgs, secrets, ... }: {
+  imports = [ ../../../common/users/sarvesh/user.nix ];
+
   home-manager.users.sarvesh = {
     home = {
       packages = with pkgs; [
@@ -32,7 +34,6 @@
         };
       };
       fish = {
-        enable = true;
         loginShellInit = ''
           if test -z "$DISPLAY" -a $XDG_VTNR -eq 1
             echo -e "Select session:\n[H] Hyprland\n[W] Waydroid\n[N] none\n"
@@ -45,10 +46,6 @@
             end
           end
         '';
-        shellInit = ''
-          set fish_greeting
-          ${pkgs.pfetch}/bin/pfetch
-        '';
         shellAliases = {
           bpytop = "${pkgs.bpytop}/bin/bpytop";
           edit-conf = "codium ~/.dotfiles";
@@ -56,12 +53,6 @@
           update-system = "pushd ~/.dotfiles && git add . && sudo nixos-rebuild --install-bootloader -j 8 switch --flake '.?submodules=1#'; popd";
           silver-oracle = "ssh sarvesh@140.238.167.175";
         };
-      };
-      git = {
-        enable = true;
-        userName = "sarveshrulz";
-        userEmail = "sarveshkardekar@gmail.com";
-        extraConfig.credential.helper = "rbw";
       };
       vscode = {
         enable = true;
@@ -185,13 +176,6 @@
             color: #4a4a4a;
           }
         '';
-      };
-      rbw = {
-        enable = true;
-        settings = {
-          email = "sarveshkardekar+bitwarden@gmail.com";
-          pinentry = "curses";
-        };
       };
     };
 
@@ -1132,19 +1116,26 @@
       };
   };
 
+  fileSystems."/home/sarvesh/.cache/librewolf" = {
+    device = "tmpfs";
+    fsType = "tmpfs";
+    noCheck = true;
+    options = [
+      "noatime"
+      "nodev"
+      "nosuid"
+      "size=128M"
+    ];
+  };
+
   services.getty = {
     loginOptions = "-p -- sarvesh";
     extraArgs = [ "--noclear" "--skip-login" ];
     greetingLine = "Welcome to silver! please enter password for sarvesh to login...";
   };
 
-  users.users = {
-    sarvesh = {
-      description = "Sarvesh Kardekar";
-      isNormalUser = true;
-      extraGroups = [ "wheel" "video" "networkmanager" ];
-      shell = pkgs.fish;
-      hashedPassword = secrets.silver.sarvesh.password;
-    };
+  users.users.sarvesh = {
+    hashedPassword = secrets.silver.sarvesh.password;
+    extraGroups = [ "wheel" "video" "networkmanager" ];
   };
 }

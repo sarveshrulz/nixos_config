@@ -1,7 +1,7 @@
 { pkgs, secrets, doasedit-git, ... }: {
   boot = {
     kernelPackages = pkgs.linuxPackages_zen;
-    tmpOnTmpfs = true;
+    cleanTmpDir = true;
     consoleLogLevel = 0;
     kernelParams = [ "quiet" "udev.log_level=3" ];
   };
@@ -16,21 +16,6 @@
     };
     fish.enable = true;
     git.enable = true;
-  };
-
-  services.dnsmasq = {
-    enable = true;
-    alwaysKeepRunning = true;
-    extraConfig = ''
-      no-resolv
-      bogus-priv
-      strict-order
-      server=2a07:a8c1::
-      server=45.90.30.0
-      server=2a07:a8c0::
-      server=45.90.28.0
-      add-cpe-id=${secrets.common.sarvesh.dnsId}
-    '';
   };
 
   zramSwap.enable = true;

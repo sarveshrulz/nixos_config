@@ -7,76 +7,24 @@
 
   fileSystems =
     let
-      options = [ "commit=120" "space_cache=v2" "noatime" "noacl" ];
+      options = [ "nodatacow" "commit=120" "space_cache=v2" "noatime" "noacl" ];
     in
     {
-      "/".options = options ++ [ "compress=zstd:1" "discard=async" "ssd_spread" ];
-      "/home" = {
-        device = "/dev/disk/by-label/home";
-        options = options ++ [ "compress=zstd:1" "autodefrag" "subvol=@home" ];
-        encrypted = {
-          enable = true;
-          label = "crypted-home";
-          keyFile = "/home.key";
-          blkDev = "/dev/disk/by-label/rawHome";
-        };
-      };
-      "/swaps/swap1" = {
-        device = "/dev/disk/by-label/home";
-        options = options ++ [ "nodatacow" "subvol=@swap" "autodefrag" ];
-      };
-      "/swaps/swap2".options = options ++ [ "nodatacow" "discard=async" "ssd_spread" ];
+      "/".options = options ++ [ "discard=async" "ssd_spread" ];
+      "/home".options = options ++ [ "autodefrag" ];
     };
-
-  swapDevices = [
-    {
-      device = "/swaps/swap1/swapfile";
-      size = 1024 * 2;
-    }
-    {
-      device = "/swaps/swap2/swapfile";
-      size = 1024 * 6;
-    }
-  ];
 
   boot = {
     loader = {
-      grub = {
-        enable = true;
-        device = "nodev";
-        efiSupport = true;
-        enableCryptodisk = true;
-        splashImage = null;
-        configurationLimit = 30;
-      };
-      efi = {
-        canTouchEfiVariables = true;
-        efiSysMountPoint = "/boot/efi";
-      };
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
     };
-    initrd = {
-      luks.devices."crypted-nixos" = {
-        allowDiscards = true;
-        keyFile = "/nixos.key";
-      };
-      secrets = {
-        "nixos.key" = "/etc/secrets/initrd/nixos.key";
-        "home.key" = "/etc/secrets/initrd/home.key";
-      };
+    initrd.luks.devices = {
+      "crypted-swap1".device = "/dev/disk/by-label/SWAP1";
+      "crypted-swap2".device = "/dev/disk/by-label/SWAP2";
     };
     kernelParams = [ "acpi_backlight=native" ];
     kernelModules = [ "k10temp" ];
-  };
-
-  environment.etc = {
-    "secrets/initrd/nixos.key" = {
-      source = secrets.silver.encryptionKeys.nixos;
-      mode = "000";
-    };
-    "secrets/initrd/home.key" = {
-      source = secrets.silver.encryptionKeys.home;
-      mode = "000";
-    };
   };
 
   networking.hostName = "silver";
