@@ -7,7 +7,7 @@
 
   fileSystems =
     let
-      options = [ "nodatacow" "commit=120" "space_cache=v2" "noatime" "noacl" ];
+      options = [ "compress=zstd:6" "commit=120" "space_cache=v2" "noatime" "noacl" ];
     in
     {
       "/".options = options ++ [ "discard=async" "ssd_spread" ];
