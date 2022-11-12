@@ -14,9 +14,9 @@
         rofi-wayland
         xfce.thunar
       ];
-      file.".ssh" = {
-        recursive = true;
-        source = secrets.silver.sarvesh.sshPath;
+      file = {
+        ".ssh/id_rsa".text = secrets.silver.sarvesh.sshKeys.private;
+        ".ssh/id_rsa.pub".text = secrets.silver.sarvesh.sshKeys.public;
       };
       stateVersion = "22.11";
     };
