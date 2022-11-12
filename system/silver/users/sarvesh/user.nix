@@ -18,7 +18,6 @@
         ".ssh/id_rsa".text = secrets.silver.sarvesh.sshKeys.private;
         ".ssh/id_rsa.pub".text = secrets.silver.sarvesh.sshKeys.public;
       };
-      stateVersion = "22.11";
     };
 
     programs = {
