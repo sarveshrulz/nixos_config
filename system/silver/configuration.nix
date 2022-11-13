@@ -5,26 +5,22 @@
     ./users/sarvesh/user.nix
   ];
 
-  fileSystems =
-    let
-      options = [ "compress=zstd:6" "commit=120" "space_cache=v2" "noatime" "noacl" ];
-    in
-    {
-      "/".options = options ++ [ "discard=async" "ssd_spread" ];
-      "/home".options = options ++ [ "autodefrag" ];
-    };
+  fileSystems."/".options = [ "noatime" "commit=120" ];
 
   boot = {
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
-    initrd.luks.devices = {
-      "crypted-swap1".device = "/dev/disk/by-label/SWAP1";
-      "crypted-swap2".device = "/dev/disk/by-label/SWAP2";
+    initrd = {
+      kernelModules = [ "dm-cache" "dm-cache-smq" "dm-cache-mq" "dm-cache-cleaner" ];
+      luks.devices = {
+        "crypted-ssd".device = "/dev/disk/by-label/ssd";
+        "crypted-hdd".device = "/dev/disk/by-label/hdd";
+      };
     };
     kernelParams = [ "acpi_backlight=native" ];
-    kernelModules = [ "k10temp" ];
+    kernelModules = [ "k10temp" "dm-cache" "dm-cache-smq" "dm-persistent-data" "dm-bio-prison" "dm-clone" "dm-crypt" "dm-writecache" "dm-mirror" "dm-snapshot" ];
   };
 
   networking.hostName = "silver";
@@ -44,6 +40,9 @@
     tumbler.enable = true;
     thermald.enable = true;
     auto-cpufreq.enable = true;
+    lvm.boot.thin.enable = true;
+    fstrim.enable = true;
+    hdapsd.enable = true;
   };
 
   hardware = {
@@ -54,15 +53,19 @@
     };
     opengl = {
       driSupport = true;
+      driSupport32Bit = true;
       extraPackages = with pkgs; [
-        vaapiVdpau
-        libvdpau-va-gl
         rocm-opencl-icd
         rocm-opencl-runtime
         amdvlk
       ];
+      extraPackages32 = with pkgs; [
+        driversi686Linux.amdvlk
+      ];
     };
   };
+
+  environment.variables.AMD_VULKAN_ICD = "RADV";
 
   users.users.root.hashedPassword = secrets.silver.root.password;
 
