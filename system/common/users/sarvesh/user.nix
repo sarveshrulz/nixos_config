@@ -9,11 +9,6 @@
       gh.enable = true;
       fish = {
         enable = true;
-        shellAliases = {
-          bpytop = "${pkgs.bpytop}/bin/bpytop";
-          update-flake = "pushd ~/.dotfiles && nix flake update; popd";
-          update-system = "pushd ~/.dotfiles && ${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt (find -type f -name '*.nix') && git add . && sudo nixos-rebuild -j 8 switch --flake '.?submodules=1#'; popd";
-        };
         shellInit = ''
           set fish_greeting
           ${pkgs.pfetch}/bin/pfetch

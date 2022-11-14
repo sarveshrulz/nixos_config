@@ -1,4 +1,4 @@
-{ pkgs, secrets, fleet-proxy, ... }: {
+{ pkgs, secrets, ... }: {
   imports = [ ../../../common/users/sarvesh/user.nix ];
 
   home-manager.users.sarvesh = {
@@ -13,22 +13,10 @@
         mate.eom
         rofi-wayland
         xfce.thunar
-        (pkgs.writeScriptBin "jetbrains-fleet" ''${pkgs.steam-run}/bin/steam-run ${fleet-proxy}/bin/Fleet "$@"'')
       ];
       file = {
         ".ssh/id_rsa".text = secrets.silver.sarvesh.sshKeys.private;
         ".ssh/id_rsa.pub".text = secrets.silver.sarvesh.sshKeys.public;
-        ".local/share/applications/Fleet.desktop".text = ''
-          [Desktop Entry]
-          Name=JetBrains Fleet
-          Comment=Next-generation IDE by JetBrains
-          Exec=jetbrains-fleet %u
-          Icon=jetbrains-fleet
-          Terminal=false
-          StartupWMClass=jetbrains-fleet
-          Type=Application
-          Categories=Development;IDE;
-        '';
       };
     };
 
@@ -58,9 +46,20 @@
           end
         '';
         shellAliases = {
-          edit-conf = "jetbrains-fleet .dotfiles > /dev/null &";
+          bpytop = "${pkgs.bpytop}/bin/bpytop";
+          edit-conf = "codium ~/.dotfiles";
+          update-flake = "pushd ~/.dotfiles && nix flake update; popd";
+          update-system = "pushd ~/.dotfiles && git add . && sudo nixos-rebuild -j 8 switch --flake '.?submodules=1#'; popd";
           silver-oracle = "ssh sarvesh@140.238.167.175";
         };
+      };
+      vscode = {
+        enable = true;
+        package = pkgs.vscodium;
+        extensions = with pkgs.vscode-extensions; [
+          jnoortheen.nix-ide
+          foxundermoon.shell-format
+        ];
       };
       foot = {
         enable = true;
@@ -330,7 +329,6 @@
             monitor = ,preffered,auto,1
             workspace = ,1
             windowrule = float,^(nm-connection-editor)$
-            windowrule = tile,^(jetbrains-fleet)$
             windowrulev2 = float,class:^(telegramdesktop)$,title:^(Media viewer)$
             bind = SUPER,RETURN,exec,footclient
             bind = SUPER,SPACE,exec,rofi -no-lazy-grab -show drun -modi drun -theme ~/.config/rofi/apps.rasi

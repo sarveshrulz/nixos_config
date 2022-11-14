@@ -19,14 +19,9 @@
       url = "git+https://codeberg.org/TotallyLeGIT/doasedit";
       flake = false;
     };
-    fleet-proxy = {
-      url = "https://fleet.kryptk.me";
-      type = "tarball";
-      flake = false;
-    };
   };
 
-  outputs = { self, nixpkgs, home-manager, hyprland, hyprwm-contrib, doasedit-git, fleet-proxy }:
+  outputs = { self, nixpkgs, home-manager, hyprland, hyprwm-contrib, doasedit-git }:
     let
       secrets = import ./secrets/secrets.nix;
     in
@@ -46,7 +41,6 @@
             let
               pkgs = import nixpkgs {
                 inherit system;
-                config.allowUnfree = true;
                 overlays = [
                   (self: super: {
                     hyprwm-contrib-packages = hyprwm-contrib.packages.${system};
@@ -58,7 +52,6 @@
               inherit pkgs;
               inherit secrets;
               inherit doasedit-git;
-              inherit fleet-proxy;
             };
         };
 
