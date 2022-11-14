@@ -16,6 +16,18 @@
         "url": "https://codeberg.org/TotallyLeGIT/doasedit"
       }
     },
+    "fleet-proxy": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-+TBHAeQtwvvvCiM0SPmWRDpEpdpc+p4OH+oHlzfYk2I=",
+        "type": "tarball",
+        "url": "https://fleet.kryptk.me"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://fleet.kryptk.me"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -24,11 +36,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1667981810,
-        "narHash": "sha256-p27zd5M+OkfND46gzbGkaHlNBZsYe95M48OJuFeuuSY=",
+        "lastModified": 1668332334,
+        "narHash": "sha256-YT1qcE/MCqBO1Bi/Yr6GcFpNKsvmzrBKh8juyXDbxQc=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "6ce3493a3c5c6a8f4cfa6f5f88723272e0cfd335",
+        "rev": "bc90de24d898655542589237cc0a6ada7564cb6c",
         "type": "github"
       },
       "original": {
@@ -45,11 +57,11 @@
         "wlroots": "wlroots"
       },
       "locked": {
-        "lastModified": 1668210064,
-        "narHash": "sha256-O0m1nGeNY7li8uv9FgtCYEQsL7vZoKiRZdZJJtBVdoE=",
+        "lastModified": 1668427933,
+        "narHash": "sha256-yYNJ9Py4op+bCzuy4j1f0KZnEDhWVTukj3RsKcZhpYk=",
         "owner": "hyprwm",
         "repo": "Hyprland",
-        "rev": "dd11434e901ec616a5acc1008bb1ce4c1ef33a65",
+        "rev": "fcb5037a1d22d05d9f58b8a43d75b1870d93b896",
         "type": "github"
       },
       "original": {
@@ -97,6 +109,7 @@
     "root": {
       "inputs": {
         "doasedit-git": "doasedit-git",
+        "fleet-proxy": "fleet-proxy",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
         "hyprwm-contrib": "hyprwm-contrib",
@@ -122,11 +135,11 @@
       "flake": false,
       "locked": {
         "host": "gitlab.freedesktop.org",
-        "lastModified": 1666466001,
-        "narHash": "sha256-ZjxAnqtcGmHQHKL1Z9sIraDnzIqrJleWcJXfPtzAm74=",
+        "lastModified": 1668292512,
+        "narHash": "sha256-lCMnIguyZgAGq7W2IwIVPoQS8fAfZ/XFwz/1TQ53eI8=",
         "owner": "wlroots",
         "repo": "wlroots",
-        "rev": "c2d2773df57750081b16d56da13b5015d752cbd7",
+        "rev": "627a5c511278e67c3c308cdc6a639cbb490f48c3",
         "type": "gitlab"
       },
       "original": {
