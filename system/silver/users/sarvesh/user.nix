@@ -13,6 +13,7 @@
         mate.eom
         rofi-wayland
         xfce.thunar
+        wl-clipboard
       ];
       file = {
         ".ssh/id_rsa".text = secrets.silver.sarvesh.sshKeys.private;
@@ -45,21 +46,7 @@
             end
           end
         '';
-        shellAliases = {
-          bpytop = "${pkgs.bpytop}/bin/bpytop";
-          edit-conf = "codium ~/.dotfiles";
-          update-flake = "pushd ~/.dotfiles && nix flake update; popd";
-          update-system = "pushd ~/.dotfiles && git add . && sudo nixos-rebuild -j 8 switch --flake '.?submodules=1#'; popd";
-          silver-oracle = "ssh sarvesh@140.238.167.175";
-        };
-      };
-      vscode = {
-        enable = true;
-        package = pkgs.vscodium;
-        extensions = with pkgs.vscode-extensions; [
-          jnoortheen.nix-ide
-          foxundermoon.shell-format
-        ];
+        shellAliases.silver-oracle = "ssh sarvesh@140.238.167.175";
       };
       foot = {
         enable = true;
@@ -385,7 +372,7 @@
             exec-once = foot -s
             exec-once = dunst
             exec-once = thunar --daemon
-            exec-once = ${pkgs.wl-clipboard}/bin/wl-paste -t text --watch ${pkgs.clipman}/bin/clipman store
+            exec-once = wl-paste -t text --watch ${pkgs.clipman}/bin/clipman store
             exec-once = ${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1
           '';
         "rofi/apps.rasi".text = ''
@@ -1135,6 +1122,6 @@
 
   users.users.sarvesh = {
     hashedPassword = secrets.silver.sarvesh.password;
-    extraGroups = [ "wheel" "video" "networkmanager" ];
+    extraGroups = [ "video" ];
   };
 }

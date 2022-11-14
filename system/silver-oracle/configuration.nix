@@ -14,8 +14,6 @@
     hashedPassword = secrets.silver-oracle.root.password;
   };
 
-  security.sudo.wheelNeedsPassword = false;
-
   virtualisation = {
     oci-containers = {
       backend = "podman";

@@ -9,10 +9,20 @@
       gh.enable = true;
       fish = {
         enable = true;
+        shellAliases = {
+          bpytop = "${pkgs.bpytop}/bin/bpytop";
+          edit-conf = "vim ~/.dotfiles";
+          update-flake = "pushd ~/.dotfiles && nix flake update; popd";
+          update-system = "pushd ~/.dotfiles && git add . && sudo nixos-rebuild -j 8 switch --flake '.?submodules=1#'; popd";
+        };
         shellInit = ''
           set fish_greeting
           ${pkgs.pfetch}/bin/pfetch
         '';
+      };
+      helix = {
+        enable = true;
+        settings.theme = "base16_transparent";
       };
     };
     home.stateVersion = "22.11";
@@ -33,6 +43,7 @@
 
   users.users.sarvesh = {
     description = "Sarvesh Kardekar";
+    extraGroups = [ "wheel" "networkmanager" ];
     isNormalUser = true;
     shell = pkgs.fish;
   };

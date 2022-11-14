@@ -9,20 +9,17 @@
   networking.networkmanager.enable = true;
 
   programs = {
-    neovim = {
-      enable = true;
-      vimAlias = true;
-      defaultEditor = true;
-    };
     fish.enable = true;
     git.enable = true;
   };
 
   zramSwap.enable = true;
 
-  environment.systemPackages = [
-    (pkgs.writeScriptBin "sudo" ''exec doas "$@"'')
-    (pkgs.writeScriptBin "sudoedit" ''exec ${doasedit-git}/doasedit "$@"'')
+  environment.systemPackages = with pkgs; [
+    rnix-lsp
+    (writeScriptBin "vim" ''exec ${helix}/bin/hx "$@"'')
+    (writeScriptBin "sudo" ''exec doas "$@"'')
+    (writeScriptBin "sudoedit" ''exec ${doasedit-git}/doasedit "$@"'')
   ];
 
   security = {
