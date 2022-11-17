@@ -40,7 +40,10 @@
     tumbler.enable = true;
     thermald.enable = true;
     auto-cpufreq.enable = true;
-    lvm.boot.thin.enable = true;
+    lvm = {
+      boot.thin.enable = true;
+      dmeventd.enable = true;
+    };
     fstrim.enable = true;
     hdapsd.enable = true;
   };
