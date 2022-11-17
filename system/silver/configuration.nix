@@ -19,7 +19,12 @@
         "crypted-hdd".device = "/dev/disk/by-label/hdd";
       };
     };
-    kernelParams = [ "acpi_backlight=native" ];
+    kernel.sysctl = {
+      "vm.dirty_ratio" = 10;
+      "vm.dirty_background_ratio" = 5;
+      "vm.vfs_cache_pressure" = 50;
+    };
+    kernelParams = [ "acpi_backlight=native" "nowatchdog" ];
     kernelModules = [ "k10temp" "dm-cache" "dm-cache-smq" "dm-persistent-data" "dm-bio-prison" "dm-clone" "dm-crypt" "dm-writecache" "dm-mirror" "dm-snapshot" ];
   };
 
@@ -31,6 +36,8 @@
   };
 
   services = {
+    ananicy.enable = true;
+    irqbalance.enable = true;
     pipewire = {
       enable = true;
       alsa.enable = true;
