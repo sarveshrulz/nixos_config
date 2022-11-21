@@ -31,6 +31,7 @@
           video-sync = "display-resample";
           interpolation = true;
           tscale = "oversample";
+          ao = "pipewire";
         };
       };
       fish = {
