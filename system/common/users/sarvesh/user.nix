@@ -7,18 +7,21 @@
         userEmail = "sarveshkardekar@gmail.com";
       };
       gh.enable = true;
-      fish = {
+      zsh = {
         enable = true;
+        enableAutosuggestions = true;
+        enableSyntaxHighlighting = true;
+        oh-my-zsh = {
+          enable = true;
+          theme = "bira";
+        };
         shellAliases = {
           bpytop = "${pkgs.bpytop}/bin/bpytop";
           edit-conf = "vim ~/.dotfiles";
           update-flake = "pushd ~/.dotfiles && nix flake update; popd";
           update-system = "pushd ~/.dotfiles && git add . && sudo nixos-rebuild -j 8 switch --flake '.?submodules=1#'; popd";
         };
-        shellInit = ''
-          set fish_greeting
-          ${pkgs.pfetch}/bin/pfetch
-        '';
+        initExtra = "${pkgs.pfetch}/bin/pfetch";
       };
       helix = {
         enable = true;
@@ -45,6 +48,6 @@
     description = "Sarvesh Kardekar";
     extraGroups = [ "wheel" "networkmanager" ];
     isNormalUser = true;
-    shell = pkgs.fish;
+    shell = pkgs.zsh;
   };
 }

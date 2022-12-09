@@ -9,7 +9,7 @@
   networking.networkmanager.enable = true;
 
   programs = {
-    fish.enable = true;
+    zsh.enable = true;
     git.enable = true;
   };
 

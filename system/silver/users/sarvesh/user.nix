@@ -5,12 +5,9 @@
     home = {
       packages = with pkgs; [
         librewolf-wayland
-        tdesktop
         capitaine-cursors
         inkscape
-        nixpkgs-fmt
         onlyoffice-bin
-        mate.eom
         rofi-wayland
         xfce.thunar
         wl-clipboard
@@ -34,18 +31,11 @@
           ao = "pipewire";
         };
       };
-      fish = {
-        loginShellInit = ''
-          if test -z "$DISPLAY" -a $XDG_VTNR -eq 1
-            echo -e "Select session:\n[H] Hyprland\n[W] Waydroid\n[N] none\n"
-            read -P "[H/w/n]: " c
-            test -n $c; or set c "H"
-            if test $c = "H" || test $c = "h"
-              exec Hyprland
-            else if test $c = "W" || test $c = "w"
-              exec sh -c "(${pkgs.westonLite}/bin/weston; waydroid session stop) & WAYLAND_DISPLAY=wayland-1 waydroid show-full-ui"
-            end
-          end
+      zsh = {
+        initExtra = ''
+          if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" -eq 1 ]; then
+            exec Hyprland
+          fi
         '';
         shellAliases.silver-oracle = "ssh sarvesh@140.238.167.175";
       };
@@ -138,6 +128,7 @@
             background-color: #0a0a0a;
             border-radius: 0;
             transition: none;
+            padding: 4px 8px;
           }
           #custom-power, #clock.time, #workspaces button.active {
             background-color: #b0b0b0;

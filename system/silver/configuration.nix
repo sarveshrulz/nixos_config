@@ -5,19 +5,14 @@
     ./users/sarvesh/user.nix
   ];
 
-  fileSystems."/".options = [ "noatime" "commit=120" ];
-
   boot = {
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
-    initrd = {
-      kernelModules = [ "dm-cache" "dm-cache-smq" "dm-cache-mq" "dm-cache-cleaner" ];
-      luks.devices = {
-        "crypted-ssd".device = "/dev/disk/by-label/ssd";
-        "crypted-hdd".device = "/dev/disk/by-label/hdd";
-      };
+    initrd.luks.devices = {
+      "encrypted-swap1".device = "/dev/disk/by-label/SWAP1";
+      "encrypted-swap2".device = "/dev/disk/by-label/SWAP2";
     };
     kernel.sysctl = {
       "vm.dirty_ratio" = 10;
@@ -25,8 +20,17 @@
       "vm.vfs_cache_pressure" = 50;
     };
     kernelParams = [ "acpi_backlight=native" "nowatchdog" ];
-    kernelModules = [ "k10temp" "dm-cache" "dm-cache-smq" "dm-persistent-data" "dm-bio-prison" "dm-clone" "dm-crypt" "dm-writecache" "dm-mirror" "dm-snapshot" ];
+    kernelModules = [ "k10temp" ];
   };
+
+  fileSystems =
+    let
+      f2fs-opts = [ "compress_algorithm=zstd:6" "compress_chksum" "atgc" "gc_merge" "lazytime" ];
+    in
+    {
+      "/".options = f2fs-opts;
+      "/home".options = f2fs-opts;
+    };
 
   networking.hostName = "silver";
 
@@ -47,10 +51,6 @@
     tumbler.enable = true;
     thermald.enable = true;
     auto-cpufreq.enable = true;
-    lvm = {
-      boot.thin.enable = true;
-      dmeventd.enable = true;
-    };
     fstrim.enable = true;
     hdapsd.enable = true;
   };
@@ -64,18 +64,8 @@
     opengl = {
       driSupport = true;
       driSupport32Bit = true;
-      extraPackages = with pkgs; [
-        rocm-opencl-icd
-        rocm-opencl-runtime
-        amdvlk
-      ];
-      extraPackages32 = with pkgs; [
-        driversi686Linux.amdvlk
-      ];
     };
   };
-
-  environment.variables.AMD_VULKAN_ICD = "RADV";
 
   users.users.root.hashedPassword = secrets.silver.root.password;
 
