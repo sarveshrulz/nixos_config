@@ -17,15 +17,11 @@
         };
         shellAliases = {
           bpytop = "${pkgs.bpytop}/bin/bpytop";
-          edit-conf = "vim ~/.dotfiles";
+          edit-conf = "codium ~/.dotfiles";
           update-flake = "pushd ~/.dotfiles && nix flake update; popd";
           update-system = "pushd ~/.dotfiles && git add . && sudo nixos-rebuild -j 8 switch --flake '.?submodules=1#'; popd";
         };
         initExtra = "${pkgs.pfetch}/bin/pfetch";
-      };
-      helix = {
-        enable = true;
-        settings.theme = "base16_transparent";
       };
     };
     home.stateVersion = "22.11";

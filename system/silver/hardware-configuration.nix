@@ -8,33 +8,34 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
+  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "sd_mod" "rtsx_pci_sdmmc" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/712b7dbd-839b-44db-a361-7f118028dd2e";
+    { device = "/dev/disk/by-uuid/5635ded9-9610-4514-82fc-e2caa1409c65";
       fsType = "f2fs";
-    };
-
-  boot.initrd.luks.devices."encrypted-nixos".device = "/dev/disk/by-uuid/4ddfdc56-418e-4ec1-b3d7-f46088573278";
-
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/928C-56C4";
-      fsType = "vfat";
     };
 
   fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/2d08df5d-fa69-498f-8eba-98cd6d1aec60";
+    { device = "/dev/disk/by-uuid/857156f4-1215-4755-8392-ed9917aec68a";
       fsType = "f2fs";
     };
 
-  boot.initrd.luks.devices."encrypted-home".device = "/dev/disk/by-uuid/01bd004c-75f2-4323-ba40-319ff38a7160";
+  fileSystems."/home/sarvesh/.cache/librewolf" =
+    { device = "tmpfs";
+      fsType = "tmpfs";
+    };
+
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/B944-0D3D";
+      fsType = "vfat";
+    };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/71ac5679-4b70-42f1-aead-b756335971fa"; }
-      { device = "/dev/disk/by-uuid/cafa9c13-b4a1-4a89-a8af-313b85999553"; }
+    [ { device = "/dev/disk/by-uuid/1463a815-8fd9-4cca-af85-e9031350dc58"; }
+      { device = "/dev/disk/by-uuid/df5b8c31-601f-4f79-8c0a-4af8fc9e42e2"; }
     ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking

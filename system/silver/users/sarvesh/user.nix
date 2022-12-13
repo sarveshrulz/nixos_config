@@ -11,6 +11,7 @@
         rofi-wayland
         xfce.thunar
         wl-clipboard
+        nixpkgs-fmt
       ];
       file = {
         ".ssh/id_rsa".text = secrets.silver.sarvesh.sshKeys.private;
@@ -30,6 +31,13 @@
           tscale = "oversample";
           ao = "pipewire";
         };
+      };
+      vscode = {
+        enable = true;
+        package = pkgs.vscodium;
+        extensions = with pkgs.vscode-extensions; [
+          jnoortheen.nix-ide
+        ];
       };
       zsh = {
         initExtra = ''
@@ -128,7 +136,7 @@
             background-color: #0a0a0a;
             border-radius: 0;
             transition: none;
-            padding: 4px 8px;
+            padding: 0 8px;
           }
           #custom-power, #clock.time, #workspaces button.active {
             background-color: #b0b0b0;

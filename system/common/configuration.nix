@@ -11,13 +11,15 @@
   programs = {
     zsh.enable = true;
     git.enable = true;
+    neovim = {
+      enable = true;
+      vimAlias = true;
+    };
   };
 
   zramSwap.enable = true;
 
   environment.systemPackages = with pkgs; [
-    rnix-lsp
-    (writeScriptBin "vim" ''exec ${helix}/bin/hx "$@"'')
     (writeScriptBin "sudo" ''exec doas "$@"'')
     (writeScriptBin "sudoedit" ''exec ${doasedit-git}/doasedit "$@"'')
   ];

@@ -10,10 +10,6 @@
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
-    initrd.luks.devices = {
-      "encrypted-swap1".device = "/dev/disk/by-label/SWAP1";
-      "encrypted-swap2".device = "/dev/disk/by-label/SWAP2";
-    };
     kernel.sysctl = {
       "vm.dirty_ratio" = 10;
       "vm.dirty_background_ratio" = 5;
