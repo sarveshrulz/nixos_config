@@ -1,11 +1,6 @@
 { pkgs, secrets, ... }: {
   home-manager.users.sarvesh = {
     programs = {
-      git = {
-        enable = true;
-        userName = "sarveshrulz";
-        userEmail = "sarveshkardekar@gmail.com";
-      };
       gh.enable = true;
       zsh = {
         enable = true;
@@ -16,8 +11,7 @@
           theme = "bira";
         };
         shellAliases = {
-          bpytop = "${pkgs.bpytop}/bin/bpytop";
-          edit-conf = "codium ~/.dotfiles";
+          edit-conf = "code ~/.dotfiles";
           update-flake = "pushd ~/.dotfiles && nix flake update; popd";
           update-system = "pushd ~/.dotfiles && git add . && sudo nixos-rebuild -j 8 switch --flake '.?submodules=1#'; popd";
         };

@@ -5,13 +5,13 @@
     ./hardware-configuration.nix
   ];
 
-  networking.hostName = "silver-oracle";
+  networking.hostName = "carbon-oracle";
 
   services.openssh.enable = true;
 
   users.users.root = {
-    openssh.authorizedKeys.keys = [ secrets.silver-oracle.sarvesh.sshKeys.public ];
-    hashedPassword = secrets.silver-oracle.root.password;
+    openssh.authorizedKeys.keys = [ secrets.carbon-oracle.sarvesh.sshKeys.public ];
+    hashedPassword = secrets.carbon-oracle.root.password;
   };
 
   virtualisation = {

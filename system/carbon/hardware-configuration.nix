@@ -5,38 +5,35 @@
 
 {
   imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
+    [
+      (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "sd_mod" "rtsx_pci_sdmmc" ];
+  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "rtsx_pci_sdmmc" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/5635ded9-9610-4514-82fc-e2caa1409c65";
+    {
+      device = "/dev/disk/by-uuid/5ce953a6-20dd-4045-afd7-b12b889c6f11";
       fsType = "f2fs";
     };
 
   fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/857156f4-1215-4755-8392-ed9917aec68a";
+    {
+      device = "/dev/disk/by-uuid/58c25162-0937-48f1-a276-8731e11c156c";
       fsType = "f2fs";
     };
 
-  fileSystems."/home/sarvesh/.cache/librewolf" =
-    { device = "tmpfs";
-      fsType = "tmpfs";
-    };
-
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/B944-0D3D";
+    {
+      device = "/dev/disk/by-uuid/C74B-4E27";
       fsType = "vfat";
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/1463a815-8fd9-4cca-af85-e9031350dc58"; }
-      { device = "/dev/disk/by-uuid/df5b8c31-601f-4f79-8c0a-4af8fc9e42e2"; }
-    ];
+    [{ device = "/dev/disk/by-uuid/35ae5aea-1d2a-4873-bbd4-53e5483bcb68"; }];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
@@ -46,5 +43,6 @@
   # networking.interfaces.wlp2s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

@@ -1,4 +1,4 @@
-{ pkgs, lib, secrets, ... }: {
+{ config, pkgs, secrets, ... }: {
   imports = [
     ../common/configuration.nix
     ./hardware-configuration.nix
@@ -10,13 +10,8 @@
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
-    kernel.sysctl = {
-      "vm.dirty_ratio" = 10;
-      "vm.dirty_background_ratio" = 5;
-      "vm.vfs_cache_pressure" = 50;
-    };
     kernelParams = [ "acpi_backlight=native" "nowatchdog" ];
-    kernelModules = [ "k10temp" ];
+    kernelPackages = pkgs.linuxPackages_xanmod_latest;
   };
 
   fileSystems =
@@ -28,16 +23,16 @@
       "/home".options = f2fs-opts;
     };
 
-  networking.hostName = "silver";
+  networking.hostName = "carbon";
 
   programs = {
     kdeconnect.enable = true;
     hyprland.enable = true;
+    java.enable = true;
   };
 
   services = {
-    ananicy.enable = true;
-    irqbalance.enable = true;
+    openssh.enable = true;
     pipewire = {
       enable = true;
       alsa.enable = true;
@@ -46,9 +41,15 @@
     gvfs.enable = true;
     tumbler.enable = true;
     thermald.enable = true;
-    auto-cpufreq.enable = true;
     fstrim.enable = true;
-    hdapsd.enable = true;
+    mysql = {
+      enable = true;
+      package = pkgs.mariadb;
+    };
+    tlp = {
+      enable = true;
+      settings.USB_EXCLUDE_BTUSB = 1;
+    };
   };
 
   hardware = {
@@ -58,27 +59,29 @@
       settings.General.Enable = "Source,Sink,Media,Socket";
     };
     opengl = {
-      driSupport = true;
       driSupport32Bit = true;
+      extraPackages = with pkgs; [
+        rocm-opencl-icd
+        rocm-opencl-runtime
+        amdvlk
+      ];
+      extraPackages32 = with pkgs; [
+        driversi686Linux.amdvlk
+      ];
     };
   };
 
-  users.users.root.hashedPassword = secrets.silver.root.password;
+  users.users.root.hashedPassword = secrets.carbon.root.password;
 
   security = {
     rtkit.enable = true;
     pam.services.swaylock = { };
   };
 
-  fonts.fonts = with pkgs; [
-    noto-fonts
-    noto-fonts-cjk
-    noto-fonts-emoji
-    font-awesome
-    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+  fonts.fonts = [
+    config.nur.repos.oluceps.san-francisco
+    pkgs.font-awesome
   ];
-
-  virtualisation.waydroid.enable = true;
 
   nix.settings = {
     substituters = [ "https://hyprland.cachix.org" ];

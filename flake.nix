@@ -15,32 +15,31 @@
       url = "github:hyprwm/contrib";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    doasedit-git = {
-      url = "git+https://codeberg.org/TotallyLeGIT/doasedit";
-      flake = false;
-    };
+    nur.url = github:nix-community/NUR;
   };
 
-  outputs = { self, nixpkgs, home-manager, hyprland, hyprwm-contrib, doasedit-git }:
+  outputs = { self, nixpkgs, home-manager, hyprland, hyprwm-contrib, nur }:
     let
       secrets = import ./secrets/secrets.nix;
     in
     {
-      nixosConfigurations.silver =
+      nixosConfigurations.carbon =
         let
           system = "x86_64-linux";
         in
         nixpkgs.lib.nixosSystem {
           inherit system;
           modules = [
+            nur.nixosModules.nur
             hyprland.nixosModules.default
             home-manager.nixosModules.home-manager
-            ./system/silver/configuration.nix
+            ./system/carbon/configuration.nix
           ];
           specialArgs =
             let
               pkgs = import nixpkgs {
                 inherit system;
+                config.allowUnfree = true;
                 overlays = [
                   (self: super: {
                     hyprwm-contrib-packages = hyprwm-contrib.packages.${system};
@@ -51,20 +50,16 @@
             {
               inherit pkgs;
               inherit secrets;
-              inherit doasedit-git;
             };
         };
 
-      nixosConfigurations.silver-oracle = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.carbon-oracle = nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
         modules = [
           home-manager.nixosModules.home-manager
-          ./system/silver-oracle/configuration.nix
+          ./system/carbon-oracle/configuration.nix
         ];
-        specialArgs = {
-          inherit secrets;
-          inherit doasedit-git;
-        };
+        specialArgs = { inherit secrets; };
       };
     };
 }

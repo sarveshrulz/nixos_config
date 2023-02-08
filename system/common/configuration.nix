@@ -1,10 +1,5 @@
 { pkgs, secrets, doasedit-git, ... }: {
-  boot = {
-    kernelPackages = pkgs.linuxPackages_zen;
-    cleanTmpDir = true;
-    consoleLogLevel = 0;
-    kernelParams = [ "quiet" "udev.log_level=3" ];
-  };
+  boot.cleanTmpDir = true;
 
   networking.networkmanager.enable = true;
 
@@ -19,30 +14,12 @@
 
   zramSwap.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    (writeScriptBin "sudo" ''exec doas "$@"'')
-    (writeScriptBin "sudoedit" ''exec ${doasedit-git}/doasedit "$@"'')
-  ];
-
-  security = {
-    apparmor.enable = true;
-    sudo.enable = false;
-    doas = {
-      enable = true;
-      extraRules = [{ groups = [ "wheel" ]; persist = true; keepEnv = true; }];
-    };
-  };
-
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  console.keyMap = "us";
-
   time.timeZone = "Asia/Kolkata";
 
   users.mutableUsers = false;
 
   system = {
-    stateVersion = "22.11";
+    stateVersion = "23.05";
     autoUpgrade.enable = true;
   };
 
@@ -54,7 +31,7 @@
     gc = {
       automatic = true;
       dates = "weekly";
-      options = "--delete-older-than 30d";
+      options = "--delete-older-than 7d";
     };
   };
 }
