@@ -5,25 +5,23 @@
     ./hardware-configuration.nix
   ];
 
-  networking.hostName = "carbon-oracle";
+  boot.kernelPackages = pkgs.linuxPackages_zen;
 
-  services.openssh.enable = true;
+  networking = {
+    hostName = "carbon-oracle";
+    firewall.allowedTCPPorts = [ 3389 ];
+  };
+
+  services = {
+    xserver.desktopManager.xfce.enable = true;
+    xrdp = {
+      enable = true;
+      defaultWindowManager = "startxfce4";
+    };
+  };
 
   users.users.root = {
     openssh.authorizedKeys.keys = [ secrets.carbon-oracle.sarvesh.sshKeys.public ];
     hashedPassword = secrets.carbon-oracle.root.password;
-  };
-
-  virtualisation = {
-    oci-containers = {
-      backend = "podman";
-      containers = {
-        #####
-      };
-    };
-    podman = {
-      enable = true;
-      defaultNetwork.dnsname.enable = true;
-    };
   };
 }

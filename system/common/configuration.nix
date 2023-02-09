@@ -12,6 +12,15 @@
     };
   };
 
+  services = {
+    openssh.enable = true;
+    pipewire = {
+      enable = true;
+      alsa.enable = true;
+      pulse.enable = true;
+    };
+  };
+
   zramSwap.enable = true;
 
   time.timeZone = "Asia/Kolkata";

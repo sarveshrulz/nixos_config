@@ -32,12 +32,6 @@
   };
 
   services = {
-    openssh.enable = true;
-    pipewire = {
-      enable = true;
-      alsa.enable = true;
-      pulse.enable = true;
-    };
     gvfs.enable = true;
     tumbler.enable = true;
     thermald.enable = true;
@@ -73,10 +67,7 @@
 
   users.users.root.hashedPassword = secrets.carbon.root.password;
 
-  security = {
-    rtkit.enable = true;
-    pam.services.swaylock = { };
-  };
+  security.pam.services.swaylock = { };
 
   fonts.fonts = [
     config.nur.repos.oluceps.san-francisco
