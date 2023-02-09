@@ -14,9 +14,11 @@
         wl-clipboard
         nixpkgs-fmt
         tdesktop
-        vscode
+        vscode-fhs
         direnv
         nodejs
+        freerdp
+        sshpass
       ];
       file = {
         ".ssh/id_rsa".text = secrets.carbon.sarvesh.sshKeys.private;
