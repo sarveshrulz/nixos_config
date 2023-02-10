@@ -12,10 +12,7 @@
         rofi-wayland
         xfce.thunar
         wl-clipboard
-        nixpkgs-fmt
         tdesktop
-        vscode-fhs
-        direnv
         nodejs
         freerdp
         sshpass

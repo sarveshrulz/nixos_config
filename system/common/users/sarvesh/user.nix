@@ -21,7 +21,21 @@
 
     home = {
       stateVersion = "23.05";
-      packages = [ pkgs.capitaine-cursors ];
+      packages = with pkgs;
+        let
+          code = pkgs.vscode;
+        in
+        [
+          direnv
+          nixpkgs-fmt
+          (buildFHSUserEnv {
+            name = "code";
+            targetPkgs = pkgs: ([ code ]);
+            runScript = ''${code}/bin/code'';
+            extraInstallCommands = ''ln -s "${code}/share" "$out/"'';
+          })
+          capitaine-cursors
+        ];
     };
 
     gtk =
