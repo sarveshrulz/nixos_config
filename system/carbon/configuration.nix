@@ -36,6 +36,7 @@
     tumbler.enable = true;
     thermald.enable = true;
     fstrim.enable = true;
+    tomcat.enable = true;
     mysql = {
       enable = true;
       package = pkgs.mariadb;

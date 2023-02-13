@@ -15,6 +15,7 @@
         tdesktop
         nodejs
         freerdp
+        vscode-fhs
         sshpass
       ];
       file = {
