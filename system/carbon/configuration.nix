@@ -53,17 +53,6 @@
       enable = true;
       settings.General.Enable = "Source,Sink,Media,Socket";
     };
-    opengl = {
-      driSupport32Bit = true;
-      extraPackages = with pkgs; [
-        rocm-opencl-icd
-        rocm-opencl-runtime
-        amdvlk
-      ];
-      extraPackages32 = with pkgs; [
-        driversi686Linux.amdvlk
-      ];
-    };
   };
 
   users.users.root.hashedPassword = secrets.carbon.root.password;
