@@ -20,7 +20,7 @@
     };
 
     home = {
-      stateVersion = "23.05";
+      stateVersion = "22.11";
       packages = with pkgs; [
         direnv
         nixpkgs-fmt

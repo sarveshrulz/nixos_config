@@ -2,13 +2,9 @@
   description = "NixOS system configuration";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
     home-manager = {
       url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprwm-contrib = {
@@ -18,7 +14,7 @@
     nur.url = github:nix-community/NUR;
   };
 
-  outputs = { self, nixpkgs, home-manager, hyprland, hyprwm-contrib, nur }:
+  outputs = { self, nixpkgs, home-manager, hyprwm-contrib, nur }:
     let
       secrets = import ./secrets/secrets.nix;
     in
@@ -31,7 +27,6 @@
           inherit system;
           modules = [
             nur.nixosModules.nur
-            hyprland.nixosModules.default
             home-manager.nixosModules.home-manager
             ./system/carbon/configuration.nix
           ];

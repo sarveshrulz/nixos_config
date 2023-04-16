@@ -7,16 +7,12 @@
   home-manager.users.sarvesh = {
     home = {
       packages = with pkgs; [
-        firefox-wayland
+        ungoogled-chromium
         onlyoffice-bin
         rofi-wayland
         xfce.thunar
         wl-clipboard
-        tdesktop
-        nodejs
-        freerdp
         vscode-fhs
-        sshpass
       ];
       file = {
         ".ssh/id_rsa".text = secrets.carbon.sarvesh.sshKeys.private;
@@ -25,18 +21,7 @@
     };
 
     programs = {
-      mpv = {
-        enable = true;
-        config = {
-          profile = "gpu-hq";
-          scale = "ewa_lanczossharp";
-          cscale = "ewa_lanczossharp";
-          video-sync = "display-resample";
-          interpolation = true;
-          tscale = "oversample";
-          ao = "pipewire";
-        };
-      };
+      mpv.enable = true;
       zsh = {
         initExtra = ''
           if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" -eq 1 ]; then
@@ -119,16 +104,23 @@
     };
   };
 
-  fileSystems."/home/sarvesh/.cache/mozilla" = {
-    device = "tmpfs";
-    fsType = "tmpfs";
-    noCheck = true;
-    options = [
-      "noatime"
-      "nodev"
-      "nosuid"
-      "size=128M"
-    ];
+  fileSystems = {
+    "/home/sarvesh/.cache/chromium" = {
+      device = "tmpfs";
+      fsType = "tmpfs";
+      noCheck = true;
+      options = [
+        "noatime"
+        "nodev"
+        "nosuid"
+        "size=128M"
+      ];
+    };
+    "/home/sarvesh/Hdd" = {
+      device = "/dev/disk/by-label/hdd";
+      fsType = "btrfs";
+      options = [ "compress=zstd:1" "space_cache=v2" "commit=120" ];
+    };
   };
 
   services.getty = {

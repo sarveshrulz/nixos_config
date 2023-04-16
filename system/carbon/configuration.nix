@@ -1,50 +1,59 @@
-{ config, pkgs, secrets, ... }: {
+{ config, pkgs, modulesPath, secrets, ... }:
+let
+  flake-compat = builtins.fetchTarball "https://github.com/edolstra/flake-compat/archive/master.tar.gz";
+  hyprland = (import flake-compat {
+    src = builtins.fetchTarball "https://github.com/hyprwm/Hyprland/archive/master.tar.gz";
+  }).defaultNix;
+in
+{
   imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
     ../common/configuration.nix
-    ./hardware-configuration.nix
     ./users/sarvesh/user.nix
+    hyprland.nixosModules.default
   ];
 
   boot = {
     loader = {
+      efi = {
+        canTouchEfiVariables = true;
+        efiSysMountPoint = "/boot/efi";
+      };
       systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
     };
+    initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
+    kernelModules = [ "kvm-amd" ];
     kernelParams = [ "acpi_backlight=native" "nowatchdog" ];
-    kernelPackages = pkgs.linuxPackages_xanmod_latest;
+    kernelPackages = pkgs.linuxPackages_zen;
   };
 
-  fileSystems =
-    let
-      f2fs-opts = [ "compress_algorithm=zstd:6" "compress_chksum" "atgc" "gc_merge" "lazytime" ];
-    in
-    {
-      "/".options = f2fs-opts;
-      "/home".options = f2fs-opts;
+  fileSystems = {
+    "/" = {
+      device = "/dev/disk/by-label/nixos";
+      fsType = "btrfs";
+      options = [ "compress=zstd:1" "space_cache=v2" "commit=120" ];
     };
+    "/boot/efi" = {
+      device = "/dev/disk/by-label/efi";
+      fsType = "vfat";
+    };
+  };
+
+  swapDevices = [
+    { device = "/dev/disk/by-label/swap1"; }
+    { device = "/dev/disk/by-label/swap2"; }
+  ];
 
   networking.hostName = "carbon";
 
-  programs = {
-    kdeconnect.enable = true;
-    hyprland.enable = true;
-    java.enable = true;
-  };
+  programs.hyprland.enable = true;
 
   services = {
     gvfs.enable = true;
     tumbler.enable = true;
     thermald.enable = true;
     fstrim.enable = true;
-    tomcat.enable = true;
-    mysql = {
-      enable = true;
-      package = pkgs.mariadb;
-    };
-    tlp = {
-      enable = true;
-      settings.USB_EXCLUDE_BTUSB = 1;
-    };
+    auto-cpufreq.enable = true;
   };
 
   hardware = {
@@ -53,6 +62,7 @@
       enable = true;
       settings.General.Enable = "Source,Sink,Media,Socket";
     };
+    cpu.amd.updateMicrocode = config.hardware.enableRedistributableFirmware;
   };
 
   users.users.root.hashedPassword = secrets.carbon.root.password;

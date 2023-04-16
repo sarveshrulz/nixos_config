@@ -19,6 +19,10 @@
       alsa.enable = true;
       pulse.enable = true;
     };
+    ananicy = {
+      enable = true;
+      package = pkgs.ananicy-cpp;
+    };
   };
 
   zramSwap.enable = true;
@@ -30,7 +34,7 @@
   documentation.nixos.enable = false;
 
   system = {
-    stateVersion = "23.05";
+    stateVersion = "22.11";
     autoUpgrade.enable = true;
   };
 
