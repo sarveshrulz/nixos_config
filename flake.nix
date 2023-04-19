@@ -7,6 +7,7 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hyprland.url = "https://github.com/hyprwm/Hyprland/archive/tags/v0.24.1.tar.gz";
     hyprwm-contrib = {
       url = "github:hyprwm/contrib";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -14,7 +15,7 @@
     nur.url = github:nix-community/NUR;
   };
 
-  outputs = { self, nixpkgs, home-manager, hyprwm-contrib, nur }:
+  outputs = { self, nixpkgs, home-manager, hyprland, hyprwm-contrib, nur }:
     let
       secrets = import ./secrets/secrets.nix;
     in
@@ -28,6 +29,7 @@
           modules = [
             nur.nixosModules.nur
             home-manager.nixosModules.home-manager
+            hyprland.nixosModules.default
             ./system/carbon/configuration.nix
           ];
           specialArgs =

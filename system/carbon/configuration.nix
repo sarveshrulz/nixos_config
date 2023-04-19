@@ -1,16 +1,8 @@
-{ config, pkgs, modulesPath, secrets, ... }:
-let
-  flake-compat = builtins.fetchTarball "https://github.com/edolstra/flake-compat/archive/master.tar.gz";
-  hyprland = (import flake-compat {
-    src = builtins.fetchTarball "https://github.com/hyprwm/Hyprland/archive/master.tar.gz";
-  }).defaultNix;
-in
-{
+{ config, pkgs, modulesPath, secrets, ... }: {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
     ../common/configuration.nix
     ./users/sarvesh/user.nix
-    hyprland.nixosModules.default
   ];
 
   boot = {
@@ -34,7 +26,7 @@ in
       options = [ "compress=zstd:1" "space_cache=v2" "commit=120" ];
     };
     "/boot/efi" = {
-      device = "/dev/disk/by-label/efi";
+      device = "/dev/disk/by-label/EFI";
       fsType = "vfat";
     };
   };
