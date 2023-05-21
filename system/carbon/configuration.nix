@@ -7,10 +7,7 @@
 
   boot = {
     loader = {
-      efi = {
-        canTouchEfiVariables = true;
-        efiSysMountPoint = "/boot/efi";
-      };
+      efi.canTouchEfiVariables = true;
       systemd-boot.enable = true;
     };
     initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
@@ -22,12 +19,15 @@
   fileSystems = {
     "/" = {
       device = "/dev/disk/by-label/nixos";
-      fsType = "btrfs";
-      options = [ "compress=zstd:1" "space_cache=v2" "commit=120" ];
+      fsType = "f2fs";
     };
-    "/boot/efi" = {
-      device = "/dev/disk/by-label/EFI";
+    "/boot" = {
+      device = "/dev/disk/by-label/BOOT";
       fsType = "vfat";
+    };
+    "/home" = {
+      device = "/dev/disk/by-label/home";
+      fsType = "xfs";
     };
   };
 
@@ -38,18 +38,20 @@
 
   networking.hostName = "carbon";
 
-  programs.hyprland.enable = true;
+  programs.dconf.enable = true;
 
   services = {
-    gvfs.enable = true;
-    tumbler.enable = true;
+    xserver = {
+      enable = true;
+      displayManager.sddm.enable = true;
+      desktopManager.plasma5.enable = true;
+    };
     thermald.enable = true;
     fstrim.enable = true;
     auto-cpufreq.enable = true;
   };
 
   hardware = {
-    acpilight.enable = true;
     bluetooth = {
       enable = true;
       settings.General.Enable = "Source,Sink,Media,Socket";
@@ -58,16 +60,4 @@
   };
 
   users.users.root.hashedPassword = secrets.carbon.root.password;
-
-  security.pam.services.swaylock = { };
-
-  fonts.fonts = [
-    config.nur.repos.oluceps.san-francisco
-    pkgs.font-awesome
-  ];
-
-  nix.settings = {
-    substituters = [ "https://hyprland.cachix.org" ];
-    trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
-  };
 }

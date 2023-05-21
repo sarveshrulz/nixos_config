@@ -1,4 +1,4 @@
-{ pkgs, secrets, doasedit-git, ... }: {
+{ pkgs, secrets, ... }: {
   boot.cleanTmpDir = true;
 
   networking.networkmanager.enable = true;
