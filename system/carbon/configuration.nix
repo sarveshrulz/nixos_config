@@ -27,7 +27,7 @@
     };
     "/home" = {
       device = "/dev/disk/by-label/home";
-      fsType = "xfs";
+      fsType = "ext4";
     };
   };
 
@@ -42,7 +42,6 @@
   };
 
   programs = {
-    dconf.enable = true;
     zsh.enable = true;
     git.enable = true;
     neovim = {
@@ -54,31 +53,19 @@
   services = {
     xserver = {
       enable = true;
+      desktopManager.deepin.enable = true;
       displayManager.sddm.enable = true;
-      desktopManager.plasma5.enable = true;
     };
     thermald.enable = true;
     fstrim.enable = true;
     auto-cpufreq.enable = true;
-    openssh.enable = true;
-    pipewire = {
-      enable = true;
-      alsa.enable = true;
-      pulse.enable = true;
-    };
     ananicy = {
       enable = true;
       package = pkgs.ananicy-cpp;
     };
   };
 
-  hardware = {
-    bluetooth = {
-      enable = true;
-      settings.General.Enable = "Source,Sink,Media,Socket";
-    };
-    cpu.amd.updateMicrocode = config.hardware.enableRedistributableFirmware;
-  };
+  hardware.cpu.amd.updateMicrocode = config.hardware.enableRedistributableFirmware;
 
   zramSwap.enable = true;
 
@@ -89,10 +76,8 @@
     users.root.hashedPassword = secrets.carbon.root.password;
   };
 
-  documentation.nixos.enable = false;
-
   system = {
-    stateVersion = "22.11";
+    stateVersion = "23.05";
     autoUpgrade.enable = true;
   };
 

@@ -2,11 +2,7 @@
   home-manager.users.sarvesh = {
     home = {
       packages = with pkgs; [
-        ungoogled-chromium
-        onlyoffice-bin
         vscode-fhs
-        python3
-        nodejs
         direnv
         nixpkgs-fmt
       ];
@@ -14,7 +10,7 @@
         ".ssh/id_rsa".text = secrets.carbon.sarvesh.sshKeys.private;
         ".ssh/id_rsa.pub".text = secrets.carbon.sarvesh.sshKeys.public;
       };
-      stateVersion = "22.11";
+      stateVersion = "23.05";
     };
 
     programs = {
@@ -35,8 +31,6 @@
         initExtra = "${pkgs.pfetch}/bin/pfetch";
       };
     };
-
-    services.mpris-proxy.enable = true;
   };
 
   networking.networkmanager.dns = "dnsmasq";
