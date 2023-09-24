@@ -42,5 +42,19 @@
               inherit secrets;
             };
         };
+
+      nixosConfigurations.carbon-oracle = nixpkgs.lib.nixosSystem {
+        system = "aarch64-linux";
+        modules =
+          let
+            pkgs = { nixpkgs.config.allowUnfree = true; };
+          in
+          [
+            pkgs
+            home-manager.nixosModules.home-manager
+            ./system/carbon-oracle/configuration.nix
+          ];
+        specialArgs = { inherit secrets; };
+      };
     };
 }
