@@ -1,4 +1,4 @@
-{ config, ... }: {
+{ config, pkgs, secrets, ... }: {
   home-manager.users.sarvesh = {
     programs = {
       gh.enable = true;

@@ -10,7 +10,7 @@
   networking.hostName = "carbon-oracle";
 
   users.users.root = {
-    openssh.authorizedKeys.keys = [ secrets.carbon-oracle.sarvesh.sshKeys.public ];
-    hashedPassword = secrets.carbon-oracle.root.password;
+    openssh.authorizedKeys.keys = [ secrets.carbon.sarvesh.sshKeys.public ];
+    hashedPassword = secrets.carbon.root.password;
   };
 }
