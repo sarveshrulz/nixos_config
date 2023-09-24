@@ -11,9 +11,9 @@
     };
     initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
     kernelModules = [ "kvm-amd" ];
-    kernelParams = [ "acpi_backlight=native" "nowatchdog" ];
-    kernelPackages = pkgs.linuxPackages_zen;
-    cleanTmpDir = true;
+    kernelParams = [ "acpi_backlight=native" "nowatchdog" "mitigations=off" ];
+    kernelPackages = pkgs.linuxPackages_lqx;
+    tmp.cleanOnBoot = true;
   };
 
   fileSystems = {
@@ -42,6 +42,7 @@
   };
 
   programs = {
+    hyprland.enable = true;
     zsh.enable = true;
     git.enable = true;
     neovim = {
@@ -51,30 +52,45 @@
   };
 
   services = {
-    xserver = {
-      enable = true;
-      desktopManager.deepin.enable = true;
-      displayManager.sddm.enable = true;
-    };
+    gvfs.enable = true;
+    tumbler.enable = true;
     thermald.enable = true;
     fstrim.enable = true;
     auto-cpufreq.enable = true;
+    pipewire = {
+      enable = true;
+      pulse.enable = true;
+    };
     ananicy = {
       enable = true;
       package = pkgs.ananicy-cpp;
     };
   };
 
-  hardware.cpu.amd.updateMicrocode = config.hardware.enableRedistributableFirmware;
+  hardware = {
+    acpilight.enable = true;
+    bluetooth = {
+      enable = true;
+      settings.General.Enable = "Source,Sink,Media,Socket";
+    };
+    cpu.amd.updateMicrocode = config.hardware.enableRedistributableFirmware;
+  };
 
   zramSwap.enable = true;
 
   time.timeZone = "Asia/Kolkata";
 
+  security = {
+    pam.services.swaylock = { };
+    rtkit.enable = true;
+  };
+
   users = {
     mutableUsers = false;
     users.root.hashedPassword = secrets.carbon.root.password;
   };
+
+  fonts.fonts = with pkgs; [ noto-fonts font-awesome ];
 
   system = {
     stateVersion = "23.05";

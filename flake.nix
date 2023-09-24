@@ -3,13 +3,14 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
+    unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager/release-23.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, home-manager}:
+  outputs = { self, nixpkgs, unstable, home-manager }:
     let
       secrets = import ./secrets/secrets.nix;
     in
@@ -28,7 +29,12 @@
             let
               pkgs = import nixpkgs {
                 inherit system;
-                config.allowUnfree = true;
+                config = {
+                  allowUnfree = true;
+                  packageOverrides = pkgs: with pkgs; {
+                    unstable = import unstable { inherit system; };
+                  };
+                };
               };
             in
             {
