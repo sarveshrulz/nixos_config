@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, secrets, ... }: {
   home = {
     username = "sarvesh";
     homeDirectory = "/home/sarvesh";
@@ -7,7 +7,7 @@
       podman
       podman-compose
       crun
-      # nixfmt-rfc-style
+      nixfmt-classic
       pfetch-rs
     ];
   };
@@ -60,7 +60,7 @@
           "ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0";
         network = [ "immich" ];
         environment = {
-          POSTGRES_PASSWORD = "postgres";
+          POSTGRES_PASSWORD = secrets.raspberrypi.postgres.password;
           POSTGRES_USER = "postgres";
           POSTGRES_DB = "immich";
           DB_STORAGE_TYPE = "HDD";

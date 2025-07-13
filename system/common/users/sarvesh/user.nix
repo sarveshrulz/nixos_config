@@ -13,7 +13,8 @@
         shellAliases = {
           edit-conf = "code ~/.dotfiles";
           update-flake = "pushd ~/.dotfiles && nix flake update; popd";
-          update-system = "pushd ~/.dotfiles && git add . && sudo nixos-rebuild -j 8 switch --flake '.?submodules=1#'; popd";
+          update-system =
+            "pushd ~/.dotfiles && git add . && sudo nixos-rebuild -j 8 switch --flake '.?submodules=1#'; popd";
         };
         initExtra = "${pkgs.pfetch}/bin/pfetch";
       };
