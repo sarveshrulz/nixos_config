@@ -22,6 +22,7 @@
     enable = true;
     networks."immich".autoStart = true;
     volumes."model-cache".autoStart = true;
+    volumes."tailscale-data".autoStart = true;
     containers = {
       "immich-server" = {
         autoStart = true;
@@ -68,6 +69,57 @@
         };
         volumes = [ "/storage/postgres:/var/lib/postgresql/data" ];
         extraConfig = { Service.Restart = "always"; };
+      };
+      "tailscale" = let
+        configFile = pkgs.writeText "config.json" ''
+          {
+            "TCP": {
+              "443": {
+                "HTTPS": true
+              }
+            },
+            "Web": {
+              "immich.tailc6065.ts.net:443": {
+                "Handlers": {
+                  "/": {
+                    "Proxy": "http://localhost:2283"
+                  }
+                }
+              }
+            },
+            "AllowFunnel": {
+              "immich.tailc6065.ts.net:443": true
+            }
+          }
+        '';
+      in {
+        autoStart = true;
+        image = "tailscale/tailscale:latest";
+        volumes = [
+          "tailscale-data:/var/lib/tailscale"
+          "${configFile}:/config/config.json:ro"
+          "/etc/localtime:/etc/localtime:ro"
+        ];
+        environment = {
+          TS_AUTHKEY = secrets.tailscale.auth.key;
+          TS_AUTH_ONCE = "true";
+          TS_STATE_DIR = "/var/lib/tailscale";
+          TS_SERVE_CONFIG = "/config/config.json";
+        };
+        extraPodmanArgs = [
+          "--cap-add=NET_ADMIN"
+          "--hostname=immich"
+          "--security-opt=label=disable"
+          "--network=host"
+        ];
+        devices = [ "/dev/net/tun:/dev/net/tun" ];
+        extraConfig = {
+          Service.Restart = "always";
+          Unit = {
+            Requires = "podman-immich-server.service";
+            After = "podman-immich-server.service";
+          };
+        };
       };
     };
   };
