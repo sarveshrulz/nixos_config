@@ -82,7 +82,7 @@
               "immich.tailc6065.ts.net:443": {
                 "Handlers": {
                   "/": {
-                    "Proxy": "http://localhost:2283"
+                    "Proxy": "http://127.0.0.1:2283"
                   }
                 }
               }
