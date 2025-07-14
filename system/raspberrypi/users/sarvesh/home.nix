@@ -32,7 +32,7 @@
           "/storage/library:/usr/src/app/upload"
           "/etc/localtime:/etc/localtime:ro"
         ];
-        ports = [ "2283:2283" ];
+        ports = [ "127.0.0.1:2283:2283" ];
         extraConfig = {
           Service.Restart = "always";
           Unit = {
