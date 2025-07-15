@@ -36,8 +36,17 @@
         extraConfig = {
           Service.Restart = "always";
           Unit = {
-            Requires = "podman-redis.service podman-database.service";
-            After = "podman-redis.service podman-database.service";
+            Requires =
+              "podman-redis.service:start-success podman-database.service:start-success";
+            After =
+              "podman-redis.service:start-success podman-database.service:start-success";
+          };
+          healthcheck = {
+            test = [ "CMD-SHELL" "curl -f http://127.0.0.1:2283 || exit 1" ];
+            interval = "10s";
+            timeout = "5s";
+            retries = 5;
+            startPeriod = "60s";
           };
         };
       };
@@ -46,14 +55,23 @@
         image = "ghcr.io/immich-app/immich-machine-learning:release";
         network = [ "immich" ];
         volumes = [ "model-cache:/cache" ];
-        extraConfig = { Service.Restart = "always"; };
+        extraConfig.Service.Restart = "always";
       };
       "redis" = {
         autoStart = true;
         image =
           "docker.io/valkey/valkey:8-bookworm@sha256:fec42f399876eb6faf9e008570597741c87ff7662a54185593e74b09ce83d177";
         network = [ "immich" ];
-        extraConfig = { Service.Restart = "always"; };
+        extraConfig = {
+          Service.Restart = "always";
+          HealthCheck = {
+            test = [ "CMD-SHELL" "redis-cli ping" ];
+            interval = "5s";
+            timeout = "3s";
+            retries = 5;
+            startPeriod = "10s";
+          };
+        };
       };
       "database" = {
         autoStart = true;
@@ -68,7 +86,16 @@
           POSTGRES_INITDB_ARGS = "--data-checksums";
         };
         volumes = [ "/storage/postgres:/var/lib/postgresql/data" ];
-        extraConfig = { Service.Restart = "always"; };
+        extraConfig = {
+          Service.Restart = "always";
+          HealthCheck = {
+            test = [ "CMD-SHELL" "pg_isready -U postgres -d immich" ];
+            interval = "5s";
+            timeout = "3s";
+            retries = 5;
+            startPeriod = "20s";
+          };
+        };
       };
       "tailscale" = let
         configFile = pkgs.writeText "config.json" ''
@@ -116,8 +143,8 @@
         extraConfig = {
           Service.Restart = "always";
           Unit = {
-            Requires = "podman-immich-server.service";
-            After = "podman-immich-server.service";
+            Requires = "podman-immich-server.service:start-success";
+            After = "podman-immich-server.service:start-success";
           };
         };
       };
